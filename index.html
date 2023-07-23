@@ -4,7 +4,7 @@
     <title>FOOOOO</title>
     <style>
         .container {
-            background-color: rgba(255, 255, 255, 0.5);
+            background-color: rgba(255, 255, 255, 0.1);
             border-style: solid;
             background-size: auto;
             background-repeat: no-repeat;
@@ -35,24 +35,24 @@
                 'menu extra extra extra'
                 'footer footer footer footer';
             gap: 50px;
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(255, 255, 255, 0.6);
             padding: 50px;
             margin: 50px;
             height: 75vh;
         }
         .header {
             grid-area: header;
-            background-color: red;
+            background-color: rgba(255, 0, 0, 0.6);
             height: 100px;
         }
         .extra {
             grid-area: extra;
-            background-color: purple;
+            background-color: rgba(128, 0, 128, 0.6);
             height: 53vh;
         }
         .footer {
             grid-area: footer;
-            background-color: orange;
+            background-color: rgba(255, 165, 0, 0.6);
             height: 100px;
         }
 
@@ -109,7 +109,7 @@
     </style>
 </head>
 
-<body background="Images/2022051021423500-045B57CF1A7936DCD924C36515C75E20.jpg">
+<body>
     <!-- <div class="container">
         <div id="secondContainer">
             <h1>Hello World</h1>
@@ -189,13 +189,24 @@
                 }
             </script>
         </div>
-        <div class="extra">
+        <div class="extra" onclick="setBodyBackgroundImage()">
         </div>
         <div class="footer">
             <p>footer</p>
         </div>
     </div>
     
+<script>
+
+    function setBodyBackgroundImage() {
+        var what = (Math.floor(Math.random() * 62)) + 1;
+        document.body.background = "Images/Paper-Mario-Art (" + what + ").jpg";
+    }
+
+    window.onload = setBodyBackgroundImage();
+</script>
+
 </body>
 
 </html>
+
