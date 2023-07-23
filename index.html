@@ -22,21 +22,130 @@
             background-repeat: no-repeat;
             background-size: cover;
             height: 98vh;
+            padding: 1vw;
             overflow: hidden;
+        }
+
+        
+        .grid-container {
+            display: grid;
+            grid-template-areas:
+                'header header header header'
+                'menu extra extra extra'
+                'menu extra extra extra'
+                'footer footer footer footer';
+            gap: 50px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 50px;
+            margin: 50px;
+            height: 75vh;
+        }
+        .header {
+            grid-area: header;
+            background-color: red;
+            height: 100px;
+        }
+        .extra {
+            grid-area: extra;
+            background-color: purple;
+            height: 53vh;
+        }
+        .footer {
+            grid-area: footer;
+            background-color: orange;
+            height: 100px;
+        }
+
+        .menu {
+            grid-area: menu;
+            background-color: blue;
+            height: 49vh;
+
+            display: grid;
+            grid-template-areas:
+                'row1 row1'
+                'row2 row2'
+                'row3 row3';
+            gap: 2vh;
+            padding: 2vh;
+            
+        }
+
+        .row1 {
+            height: 14vh;
+            background-color: cyan;
+            border-style: solid;
+            
+        }
+        .row1:hover {
+                background-color: dodgerblue;
+            }
+        .row2 {
+            height: 14vh;
+            background-color: cyan;
+            border-style: solid;
+        }
+        .row2:hover {
+                background-color: dodgerblue;
+            }
+        .row3 {
+            height: 14vh;
+            background-color: cyan;
+            border-style: solid;
+        }
+        .row3:hover {
+                background-color: dodgerblue;
+            }
+
+        .center {
+            margin-top:3.5vh;
+            text-align:center;
+            font-size:6vh;
         }
     </style>
 </head>
 
 <body background="Images/2022051021423500-045B57CF1A7936DCD924C36515C75E20.jpg">
-    
-    <div class="container">
+    <!-- <div class="container">
         <div id="secondContainer">
             <h1>Hello World</h1>
             <p>I'm hosted with GitHub Pages.</p>
             <p>Now this is some original text right here.</p>
             <button>Nothing happens when you press this</button>
         </div>
-    </div>    
+    </div>     -->
+    <div class="grid-container">
+        <div class="header">
+            <h1>Jac Hambers</h1>
+        </div>
+        <div class="menu">
+            <div class="row1">
+                <p class="center">P</p>
+            </div>
+            <div class="row1">
+                <p class="center">P</p>
+            </div>
+            <div class="row2">
+                <p class="center">P</p>
+            </div>
+            <div class="row2">
+                <p class="center">P</p>
+            </div>
+            <div class="row3">
+                <p class="center">P</p>
+            </div>
+            <div class="row3">
+                <p class="center">P</p>
+            </div>
+        </div>
+        <div class="extra">
+            <p>Yo</p>
+        </div>
+        <div class="footer">
+            <p>footer</p>
+        </div>
+    </div>
+    
 </body>
 
 </html>
