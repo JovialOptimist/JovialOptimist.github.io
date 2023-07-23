@@ -3,20 +3,40 @@
 <head>
     <title>FOOOOO</title>
     <style>
-        .background {
-            width: 96vw;
-            margin: 1vw;
-            display: inline;
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-style: solid;
+            background-size: auto;
+            background-repeat: no-repeat;
+            width: 70vw;
+            height: 90vh;
+            margin: auto;
+            margin-top: 5vh;
+            margin-bottom: 5vh;
+        }
+        #secondContainer {
+            opacity: 1;
+            padding: 5vw;
+        }
+        body {
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 98vh;
+            overflow: hidden;
         }
     </style>
 </head>
 
-<body>
-    <img class="background" src="Images\2022051021423500-045B57CF1A7936DCD924C36515C75E20.jpg">
-    <h1>Hello World</h1>
-    <p>I'm hosted with GitHub Pages.</p>
-    <p>Now this is some original text right here.</p>
-    <button>Nothing happens when you press this</button>
+<body background="Images/2022051021423500-045B57CF1A7936DCD924C36515C75E20.jpg">
     
+    <div class="container">
+        <div id="secondContainer">
+            <h1>Hello World</h1>
+            <p>I'm hosted with GitHub Pages.</p>
+            <p>Now this is some original text right here.</p>
+            <button>Nothing happens when you press this</button>
+        </div>
+    </div>    
 </body>
+
 </html>
