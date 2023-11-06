@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Example Title</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div id="masterContainer">
+        <br>
+        <div id="containerContainer">
+            <div class="boxElement">
+
+            </div>
+            <div class="boxElement">
+                
+            </div>
+            <div class="boxElement">
+                
+            </div>
+            <div class="boxElement">
+                
+            </div>
+            <div class="boxElement">
+                
+            </div>
+            <div class="boxElement">
+                
+            </div>
+        </div>
+    </div>    
+
+    <script>
+
+        function setBodyBackgroundImage() {
+            var what = (Math.floor(Math.random() * 150)) + 1;
+            var imageUrl = "url('Images/Paper-Mario-Picture-" + what + ".png')";
+            document.getElementById("masterContainer").style.backgroundImage = imageUrl;
+        }
+
+        window.onload = setBodyBackgroundImage; // Remove the parentheses from the function call
+
+    </script>
+</body>
+</html>

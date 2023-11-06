@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>QR Code Maker</title>
+        <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    </head>
+
+    <body>
+        <input id="input" />
+        <button id="pasteButton">Paste Clipboard</button>
+        <p id="output">HI</p>
+        <div id="qrcode"></div>
+        <br>
+        <button id="copyButton">Copy QR Code</button>
+        <button id="downloadButton">Download QR Code</button>
+
+        <script>
+            var input = document.getElementById("input");
+            var pasteButton = document.getElementById("pasteButton");
+            var output = document.getElementById("output");
+            var qrcodeContainer = document.getElementById("qrcode");
+            var copyButton = document.getElementById("copyButton");
+            var downloadButton = document.getElementById("downloadButton");
+            var qrcode = new QRCode(qrcodeContainer, {
+                width: 128,
+                height: 128
+            });
+
+            input.addEventListener("input", function() {
+                var inputValue = input.value;
+                output.textContent = inputValue;
+
+                // Generate QR code based on the input value
+                qrcode.makeCode(inputValue);
+            });
+
+            pasteButton.addEventListener("click", function() {
+                navigator.clipboard.readText().then(function(clipboardText) {
+                    input.value = clipboardText;
+                    input.dispatchEvent(new Event('input')); // Trigger input event manually
+                });
+            });
+
+            copyButton.addEventListener("click", function() {
+                var qrcodeImage = qrcodeContainer.querySelector("img");
+                if (qrcodeImage) {
+                    var canvas = document.createElement("canvas");
+                    var context = canvas.getContext("2d");
+                    canvas.width = qrcodeImage.width;
+                    canvas.height = qrcodeImage.height;
+                    context.drawImage(qrcodeImage, 0, 0);
+                    canvas.toBlob(function(blob) {
+                        navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+                        alert("QR Code image copied to clipboard!");
+                    });
+                }
+            });
+
+            downloadButton.addEventListener("click", function() {
+                var qrcodeImage = qrcodeContainer.querySelector("img");
+                if (qrcodeImage) {
+                    var link = document.createElement("a");
+                    link.href = qrcodeImage.src;
+                    link.download = "qrcode.png";
+                    link.click();
+                }
+            });
+        </script>
+    </body>
+</html>

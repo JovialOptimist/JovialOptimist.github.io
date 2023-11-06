@@ -1,0 +1,43 @@
+body {
+    overflow:hidden;
+    margin: 0px;
+    padding: 0;
+}
+
+html {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    color: blue;
+}
+
+p {
+    color: red;
+}
+
+#masterContainer {
+    width: 100vw;
+    height: 100vh;
+    background-size: auto 100%;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+}
+
+#containerContainer {
+    width: 120px;
+    height: 90vh;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+}
+
+.boxElement {
+    width: 100px;
+    height: 13.5vh;
+    background-color: green;
+    margin: 10px;
+    margin-bottom: 0px;
+}

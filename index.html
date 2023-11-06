@@ -106,6 +106,16 @@
             text-align:center;
             font-size:20px;
         }
+
+        iframe {
+            height:max-content;
+            width:max-content;
+        }
+
+        table {
+            height:max-content;
+            width:max-content;
+        }
     </style>
 </head>
 
@@ -118,6 +128,7 @@
             <button>Nothing happens when you press this</button>
         </div>
     </div>     -->
+
     <div class="grid-container">
         <div class="header">
             <h1>Jac Hambers</h1>
@@ -190,6 +201,22 @@
             </script>
         </div>
         <div class="extra" onclick="setBodyBackgroundImage()">
+            <p><a href="qrcode.html">Qr code maker</a></p>
+            
+            <table style="height: 50vh">
+                <tr>
+                    <td>
+                        <iframe src="qrcode.html"></iframe>
+                    </td>
+                    <td>
+                        <iframe src="qrcode.html"></iframe>
+                    </td>
+                    <td>
+                        <iframe src="qrcode.html"></iframe>
+                    </td>
+                </tr>
+            </table>
+            
         </div>
         <div class="footer">
             <p>footer</p>
