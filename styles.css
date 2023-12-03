@@ -28,7 +28,7 @@ p {
 
 #containerContainer {
     width: 120px;
-    height: 90vh;
+    height: 80vh;
     background-color: transparent;
     display: flex;
     flex-direction: column;

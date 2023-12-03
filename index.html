@@ -1,239 +1,169 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>FOOOOO</title>
-    <style>
-        .container {
-            background-color: rgba(255, 255, 255, 0.1);
-            border-style: solid;
-            background-size: auto;
-            background-repeat: no-repeat;
-            width: 70vw;
-            height: 85vh;
-            margin: auto;
-            margin-top: 5vh;
-            margin-bottom: 5vh;
-        }
-        #secondContainer {
-            opacity: 1;
-            padding: 5vw;
-        }
+    <head>
+        <title>FOOOOO</title>
+        <style>
         body {
             background-repeat: no-repeat;
             background-size: cover;
             height: 98vh;
-            padding: 1vw;
-            overflow: hidden;
+            padding: 10px;
+            font-family:'Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif';
+            background-image: linear-gradient(dodgerBlue, hotpink)
         }
 
         
-        .grid-container {
-            display: grid;
-            grid-template-areas:
-                'header header header header'
-                'menu extra extra extra'
-                'menu extra extra extra'
-                'footer footer footer footer';
-            gap: 50px;
-            background-color: rgba(255, 255, 255, 0.6);
-            padding: 50px;
-            margin: 50px;
-            height: 75vh;
-        }
+        
         .header {
-            grid-area: header;
-            background-color: rgba(255, 0, 0, 0.6);
-            height: 100px;
-        }
-        .extra {
-            grid-area: extra;
-            background-color: rgba(128, 0, 128, 0.6);
-            height: 53vh;
-        }
-        .footer {
-            grid-area: footer;
-            background-color: rgba(255, 165, 0, 0.6);
-            height: 100px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-style: double;
+            border-width: 2px;
+            border-color: black;
+            height: 150px;
+            padding: 10px;
+            margin-top: 30px;
         }
 
-        .menu {
-            grid-area: menu;
-            background-color: rgba(0,0,255, 0.5);
-            height: 49vh;
+        #paperMarioImage
+        {
+            max-height:90%; 
+            max-width:90%;
+            margin: 0px auto;
+        }
 
-            display: grid;
-            grid-template-areas:
-                'row1 row1'
-                'row2 row2'
-                'row3 row3';
-            gap: 2vh;
-            padding: 2vh;
+        
+
+
+        #navbar
+        {
+            /* width: 98%;
+            height: 50px; */
+            background-color: white;
+            border-style: double;
+            border-width: 2px;
+            border-color: black;
+            margin: 5px auto;
+            margin-top: 15px;
+            display: flex;
+            padding: 5px;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        #navbar > button
+        {
+            display:flex;
+            margin:5px;
+            margin-right: 5px;
+            width: 999px;
+            justify-content: center;
+        }
+        #linkedInButton
+        {
             
         }
 
-        .row1 {
-            height: 14vh;
-            background-color: cyan;
-            border-style: solid;
-            
-        }
-        .row1:hover {
-                background-color: dodgerblue;
-            }
-        .row2 {
-            height: 14vh;
-            background-color: cyan;
-            border-style: solid;
-        }
-        .row2:hover {
-                background-color: dodgerblue;
-            }
-        .row3 {
-            height: 14vh;
-            background-color: cyan;
-            border-style: solid;
-        }
-        .row3:hover {
-                background-color: dodgerblue;
-            }
-
-        .center {
-            margin-top:3vh;
-            text-align:center;
-            font-size:50px;
-        }
-        .alsoCenter {
-            text-align:center;
-            font-size:20px;
+        #main
+        {
+            width: 700px;
+            max-width: 700px;
+            margin: auto;
         }
 
-        iframe {
-            height:max-content;
-            width:max-content;
+
+        .grid-container {
+            margin-top: 30px;
+            gap: 30px;
+            display:flex;
         }
 
-        table {
-            height:max-content;
-            width:max-content;
+        .grid-container > div
+        {
+            border-style: solid;
+            border-width: 2px;
+            border-color: black;
+            padding: 5px;
+            background-color: rgba(255, 255, 255, 0.2);
         }
+
+        .bigElement
+        {
+            width: 390px;
+        }
+
+        .smallElement
+        {
+            width: 290px;
+        }
+
     </style>
-</head>
+    </head>
 
-<body>
-    <!-- <div class="container">
-        <div id="secondContainer">
-            <h1>Hello World</h1>
-            <p>I'm hosted with GitHub Pages.</p>
-            <p>Now this is some original text right here.</p>
-            <button>Nothing happens when you press this</button>
+    <body>
+        <div id="main">
+            <div class="header">
+                <h1>Welcome to Jac's Website!</h1>
+                <p>Howdy! My name's Jac, and I'm a 2nd-year student studying
+                    computer science at the University of Washinton. I enjoy
+                    programming, making digital art, and contact juggling. </p>
+            </div>
+
+            <div id="navbar">
+                <button>Home</button>
+                <button>Biography</button>
+                <button>My Work</button>
+                <button>Contact Info</button>
+                <button id="linkedInButton">LinkedIn</button>
+            </div>
+
+            <div class="grid-container">
+                <div class="smallElement">
+                    <h3>A QR Code Maker (using David Shim's QR Generator)</h3>
+                    <iframe src="qrcode.html"
+                        style="min-height: 230px; min-width: 300px;padding: 0px;"
+                        frameBorder="0"></iframe>
+                </div>
+                <div class="bigElement">
+                    <h3>A random picture from my favorite game:</h3>
+                    <img id="paperMarioImage">
+                </div>
+            </div>
+
+            <div class="grid-container">
+                <div class="bigElement">
+                    <h3>Something else</h3>
+                    <p>Hey!</p>
+                </div>
+                <div class="smallElement">
+                    <h3>Something else</h3>
+                    <p>Hey!</p>
+                </div>
+            </div>
+
         </div>
-    </div>     -->
 
-    <div class="grid-container">
-        <div class="header">
-            <h1>Jac Hambers</h1>
-        </div>
-        <div class="menu">
-            <!--First button-->
-            <div class="row1" onclick="firstButton()">
-                <p class="center">🌐</p>
-                <p class="alsoCenter">ChatGPT</p>
-            </div>
-            <script>
-                function firstButton() {
-                    window.open('https://chat.openai.com');
-                }
-            </script>
+        <script>
+            function setImage() {
+                var what = (Math.floor(Math.random() * 62)) + 1;
+                document.getElementById("paperMarioImage").src = "Images/Paper-Mario-Picture-" + what + ".png";
+            }
 
-            <!--Second button-->
-            <div class="row1" onclick="secondButton()">
-                <p class="center">🏫</p>
-                <p class="alsoCenter">School</p>
-            </div>
-            <script>
-                function secondButton() {
-                    window.open('https://canvas.uw.edu/');
-                }
-            </script>
+            window.onload = setImage();
+            window.onload = rotateBackground;
 
-            <!--Third button-->
-            <div class="row2" onclick="thirdButton()">
-                <p class="center">🎵</p>
-                <p class="alsoCenter">Khinsider</p>
-            </div>
-            <script>
-                function thirdButton() {
-                    window.open('https://downloads.khinsider.com/');
-                }
-            </script>
+            let x = 0;
+            function rotateBackground()
+            {
+                const currentRotation = x;
+                const newRotation = (parseFloat(x) + 1) % 360; // Rotate by 45 degrees each time
 
-            <!--Fourth button-->
-            <div class="row2" onclick="fourthButton()">
-                <p class="center">📫</p>
-                <p class="alsoCenter">Mail</p>
-            </div>
-            <script>
-                function fourthButton() {
-                    window.open('https://outlook.office.com/mail/');
-                }
-            </script>
+                document.body.style.setProperty('background-image', `linear-gradient(${newRotation}deg, dodgerBlue, hotpink)`);
+                x = newRotation;
+                setTimeout(rotateBackground, 500); // Rotate every second
+            }
 
-            <!--Fifth button-->
-            <div class="row3" onclick="fifthButton()">
-                <p class="center">▶️</p>
-                <p class="alsoCenter">YouTube</p>
-            </div>
-            <script>
-                function fifthButton() {
-                    window.open('https://www.youtube.com/');
-                }
-            </script>
-
-            <!--Sixth button-->
-            <div class="row3" onclick="sixthButton()">
-                <p class="center">📘</p>
-                <p class="alsoCenter">Wikipedia</p>
-            </div>
-            <script>
-                function sixthButton() {
-                    window.open('https://en.wikipedia.org/wiki/Main_Page');
-                }
-            </script>
-        </div>
-        <div class="extra" onclick="setBodyBackgroundImage()">
-            <p><a href="qrcode.html">Qr code maker</a></p>
             
-            <table style="height: 50vh">
-                <tr>
-                    <td>
-                        <iframe src="qrcode.html"></iframe>
-                    </td>
-                    <td>
-                        <iframe src="qrcode.html"></iframe>
-                    </td>
-                    <td>
-                        <iframe src="qrcode.html"></iframe>
-                    </td>
-                </tr>
-            </table>
-            
-        </div>
-        <div class="footer">
-            <p>footer</p>
-        </div>
-    </div>
-    
-<script>
 
-    function setBodyBackgroundImage() {
-        var what = (Math.floor(Math.random() * 62)) + 1;
-        document.body.background = "Images/Paper-Mario-Picture-" + what + ".png";
-    }
+        </script>
 
-    window.onload = setBodyBackgroundImage();
-</script>
-
-</body>
+    </body>
 
 </html>
-

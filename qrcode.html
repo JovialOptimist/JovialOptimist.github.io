@@ -3,12 +3,22 @@
     <head>
         <title>QR Code Maker</title>
         <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+        <style>
+            #input
+            {
+                
+            }
+            #qrcode:hover
+            {
+                cursor:pointer;
+            }
+        </style>
     </head>
 
     <body>
-        <input id="input" />
-        <button id="pasteButton">Paste Clipboard</button>
-        <p id="output">HI</p>
+        <input id="input" spellcheck="false"/>
+        <br>
+        <br>
         <div id="qrcode"></div>
         <br>
         <button id="copyButton">Copy QR Code</button>
@@ -16,8 +26,6 @@
 
         <script>
             var input = document.getElementById("input");
-            var pasteButton = document.getElementById("pasteButton");
-            var output = document.getElementById("output");
             var qrcodeContainer = document.getElementById("qrcode");
             var copyButton = document.getElementById("copyButton");
             var downloadButton = document.getElementById("downloadButton");
@@ -28,17 +36,7 @@
 
             input.addEventListener("input", function() {
                 var inputValue = input.value;
-                output.textContent = inputValue;
-
-                // Generate QR code based on the input value
                 qrcode.makeCode(inputValue);
-            });
-
-            pasteButton.addEventListener("click", function() {
-                navigator.clipboard.readText().then(function(clipboardText) {
-                    input.value = clipboardText;
-                    input.dispatchEvent(new Event('input')); // Trigger input event manually
-                });
             });
 
             copyButton.addEventListener("click", function() {
@@ -51,9 +49,13 @@
                     context.drawImage(qrcodeImage, 0, 0);
                     canvas.toBlob(function(blob) {
                         navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
-                        alert("QR Code image copied to clipboard!");
+                        copyButton.innerText = "Copied!";
                     });
                 }
+            });
+
+            qrcodeContainer.addEventListener("click", function() {
+                copyButton.click();
             });
 
             downloadButton.addEventListener("click", function() {
@@ -63,8 +65,15 @@
                     link.href = qrcodeImage.src;
                     link.download = "qrcode.png";
                     link.click();
+                    downloadButton.innerText = "Downloaded!";
                 }
             });
+        
+            onload = function()
+            {
+                var source = "https://github.com/davidshimjs/qrcodejs"
+                qrcode.makeCode(source);
+            };
         </script>
     </body>
 </html>
