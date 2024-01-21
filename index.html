@@ -9,13 +9,14 @@
             height: 98vh;
             padding: 10px;
             font-family:'Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif';
-            background-image: linear-gradient(dodgerBlue, hotpink)
+            background-image: linear-gradient(dodgerBlue, hotpink);
+            overflow: hidden;
         }        
         
         .header {
             background-color: rgba(255, 255, 255, 0.2);
             border-style: double;
-            border-width: 2px;
+            border-width: 1.5px;
             border-color: black;
             height: 150px;
             padding: 10px;
@@ -35,7 +36,7 @@
             height: 50px; */
             background-color: white;
             border-style: double;
-            border-width: 2px;
+            border-width: 1.5px;
             border-color: black;
             margin: 5px auto;
             margin-top: 15px;
@@ -72,9 +73,9 @@
         .grid-container > div
         {
             border-style: solid;
-            border-width: 2px;
+            border-width: 1.5px;
             border-color: black;
-            padding: 5px;
+            padding: 10px;
             background-color: rgba(255, 255, 255, 0.2);
         }
 
@@ -86,6 +87,11 @@
         .smallElement
         {
             width: 290px;
+        }
+
+        iframe
+        {
+            cursor: 'none';
         }
 
     </style>
@@ -110,21 +116,23 @@
 
             <div class="grid-container">
                 <div class="smallElement">
-                    <h3>A QR Code Maker (using David Shim's QR Generator)</h3>
+                    <h3>QR Code Maker (using David Shim's QR Generator)</h3>
                     <iframe src="qrcode.html"
                         style="min-height: 230px; min-width: 300px;padding: 0px;"
                         frameBorder="0"></iframe>
                 </div>
                 <div class="bigElement">
-                    <h3>A random picture from my favorite game:</h3>
+                    <h3>My favorite game:</h3>
                     <img id="paperMarioImage">
                 </div>
             </div>
 
             <div class="grid-container">
                 <div class="bigElement">
-                    <h3>Something else</h3>
-                    <p>Hey!</p>
+                    <h3>Inflation Calculator</h3>
+                    <iframe src="inflation.html"
+                        style="min-height: 200px; min-width: 390px;padding: 0px;"
+                        frameBorder="0"></iframe>
                 </div>
                 <div class="smallElement">
                     <h3>Something else</h3>
@@ -154,8 +162,55 @@
                 setTimeout(rotateBackground, 500); // Rotate every second
             }
 
-            
+            // function setShadowCursor(cursorImageUrl, cursorWidth, cursorHeight, shadowOffsetX, shadowOffsetY, shadowBlur) {
+            //     // Create a new div element for the custom cursor and its shadow
+            //     const cursorContainer = document.createElement('div');
+            //     const customCursor = document.createElement('div');
 
+            //     // Set the cursor's style
+            //     customCursor.style.width = `${cursorWidth}px`;
+            //     customCursor.style.height = `${cursorHeight}px`;
+            //     customCursor.style.backgroundImage = `url('${cursorImageUrl}')`;
+            //     customCursor.style.backgroundSize = 'cover';
+            //     customCursor.style.position = 'absolute';
+            //     customCursor.style.pointerEvents = 'none';
+
+            //     // Set the container's style
+            //     cursorContainer.style.position = 'absolute';
+            //     cursorContainer.style.pointerEvents = 'none';
+            //     cursorContainer.style.width = '100 vmax';
+
+
+            //     // Append the custom cursor and its shadow to the container
+            //     cursorContainer.appendChild(customCursor);
+            //     document.body.appendChild(cursorContainer);
+
+            //     // Update the cursor position and shadow based on mouse movements
+            //     document.addEventListener('mousemove', (event) => {
+            //         const mouseX = event.clientX;
+            //         const mouseY = event.clientY;
+
+            //         // Update the custom cursor position
+            //         customCursor.style.left = `$0px`;
+            //         customCursor.style.top = `$0px`;
+
+            //         // Update the shadow position
+            //         cursorContainer.style.left = `${mouseX}px`;
+            //         cursorContainer.style.top = `${mouseY}px`;
+
+            //         // Hide the default cursor
+            //         document.body.style.cursor = 'none';
+            //     });
+
+            //     // Hide the default cursor
+            //     document.body.style.cursor = 'none';
+            // }
+
+            // // Example usage:
+            // // Replace 'path/to/custom-cursor.png' with the actual path to your custom cursor image
+            // setShadowCursor('Images/Paper-Mario-Picture-14.png', 20, 20, 0, 0, 10);
+
+            
         </script>
 
     </body>
