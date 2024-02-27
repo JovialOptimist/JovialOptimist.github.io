@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Grade Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0 auto;
+            padding: 10px;
+            background-color: rgb(27, 27, 27);
+            color: rgb(240, 240, 240);
+        }
+        .container {
+            margin: 0 auto;
+            border: 5px solid rgb(40,40,40);
+            max-width: 430px;
+            padding: 30px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: inline-block;
+            width: 350px;
+        }
+        input[type="number"] {
+            width: 40px;
+            background-color: rgb(50,50,50);
+            color: rgb(240,240,240);
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #28852c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 0 auto;
+            display: inline;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result
+        {
+            font-size: 20px;
+            text-align: center;
+            margin: 0 auto;
+            font-weight: bold;
+        }
+        label
+        {
+            color: rgb(150,150,150);
+        }
+        input
+        {
+            padding: 5px;
+        }
+        button
+        {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Final Grade Calculator</h2>
+        <p>
+            This webpage calculate your final grade for CSS 343 with Professor Zander. 
+            View the source code <a href="https://github.com/JovialOptimist/JovialOptimist.github.io">here</a>.
+            Zeros will be automatically ignored.
+        </p>
+        <h3>Base Programs</h3>
+        <div class="input-group">
+            <label for="program1"> - Program 1 (/30)</label>
+            <input type="number" id="program1" min="0" max="30" value="0">
+        </div>
+        <div class="input-group">
+            <label for="program2"> - Program 2 (/30)</label>
+            <input type="number" id="program2" min="0" max="30" value="0">
+        </div>
+        <div class="input-group">
+            <label for="program3"> - Program 3 (/30)</label>
+            <input type="number" id="program3" min="0" max="30" value="0">
+        </div>
+        <div class="input-group">
+            <label for="program4Design"> - Program 4 Design (/30)</label>
+            <input type="number" id="program4Design" min="0" max="30" value="0">
+        </div>
+        <div class="input-group">
+            <label for="program4Program"> - Program 4 Implementation (/50)</label>
+            <input type="number" id="program4Program" min="0" max="50" value="0">
+        </div>
+
+        <h3>Program Additions</h3>
+        <div class="input-group">
+            <label for="program2p2"> - Program 2 Part 2 (/5)</label>
+            <input type="number" id="program2p2" min="0" max="5" value="0">
+        </div>
+        <div class="input-group">
+            <label for="garage"> - In-Class UML Garage Exercise (/5)</label>
+            <input type="number" id="garage" min="0" max="5" value="0">
+        </div>
+        <div class="input-group">
+            <label for="feedback"> - Program 4 Group Feedback (/5)</label>
+            <input type="number" id="feedback" min="0" max="5" value="0">
+        </div>
+
+        <h3>Exams</h3>
+        <div class="input-group">
+            <label for="midterm"> - Midterm Exam (/100%)</label>
+            <input type="number" id="midterm" min="0" max="100" value="0">
+        </div>
+        <div class="input-group">
+            <label for="final"> - Final Exam (/100%)</label>
+            <input type="number" id="final" min="0" max="100" value="0">
+        </div>
+        <div class="input-group">
+            <button onclick="calculateGrade()" style="display:inline">Calculate</button>
+            <div id="result" style="display:inline; margin:15px;"></div>
+        </div>
+        
+    </div>
+
+    <script>       
+        function calculateGrade() {
+            const program1 = parseInt(document.getElementById('program1').value);
+            const program2 = parseInt(document.getElementById('program2').value);
+            const program2p2 = parseInt(document.getElementById('program2p2').value);
+            const garage = parseInt(document.getElementById('garage').value);
+            const program3 = parseInt(document.getElementById('program3').value);
+            const program4Design = parseInt(document.getElementById('program4Design').value);
+            const feedback = parseInt(document.getElementById("feedback").value);
+            const program4Program = parseInt(document.getElementById('program4Program').value);
+            const midterm = parseInt(document.getElementById('midterm').value);
+            const final = parseInt(document.getElementById('final').value);
+
+            const programWeight = 0.35;
+            const midtermWeight = 0.3;
+            const finalWeight = 0.35;
+
+            let actualProgramPoints = 0;
+            let possibleProgramPoints = 0;
+
+            if (program1 != 0) 
+            {
+                possibleProgramPoints += 30;
+                actualProgramPoints += program1;
+            }
+            if (program2 != 0)
+            {
+                possibleProgramPoints += 30;
+                actualProgramPoints += program2;
+            }
+            if (program2p2 != 0)
+            {
+                possibleProgramPoints += 5;
+                actualProgramPoints += program2p2;
+            }
+            if (garage != 0)
+            {
+                possibleProgramPoints += 5;
+                actualProgramPoints += garage;
+            }
+            if (program3 != 0)
+            {
+                possibleProgramPoints += 30;
+                actualProgramPoints += program3;
+            }
+            if (program4Design != 0)
+            {
+                possibleProgramPoints += 35;
+                actualProgramPoints += 5;
+                actualProgramPoints += program4Design;
+            }
+            if (feedback != 0)
+            {
+                possibleProgramPoints += 5;
+                actualProgramPoints += feedback;
+            }
+            if (program4Program != 0)
+            {
+                possibleProgramPoints += 50;
+                actualProgramPoints += program4Program;
+            }
+            if (possibleProgramPoints == 0) possibleProgramPoints = 1;
+            const programPercentage = actualProgramPoints / possibleProgramPoints;
+            const midtermPercentage = midterm / 100;
+            const finalPercentage = final / 100;
+
+            let totalPossiblePercentage = 0;
+            let actualPercentage = 0;
+            if (programPercentage != 0)
+            {
+                totalPossiblePercentage += programWeight;
+                actualPercentage += programPercentage * programWeight;
+            }
+            if (midtermPercentage != 0)
+            {
+                totalPossiblePercentage += midtermWeight;
+                actualPercentage += midtermPercentage * midtermWeight;
+            }
+            if (finalPercentage != 0)
+            {
+                totalPossiblePercentage += finalWeight;
+                actualPercentage += finalPercentage * finalWeight;
+            }
+
+            let classGradePercentage = (actualPercentage / totalPossiblePercentage) * 100;            
+
+            document.getElementById('result').innerHTML = `${classGradePercentage.toFixed(2)}%`;
+        }
+    </script>
+</body>
+</html>
