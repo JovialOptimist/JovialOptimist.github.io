@@ -10,7 +10,7 @@
             padding: 10px;
             font-family:'Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif';
             background-image: linear-gradient(dodgerBlue, hotpink);
-            overflow: hidden;
+            overflow: auto;
         }        
         
         .header {
@@ -155,11 +155,11 @@
             function rotateBackground()
             {
                 const currentRotation = x;
-                const newRotation = (parseFloat(x) + 1) % 360; // Rotate by 45 degrees each time
+                const newRotation = (parseFloat(x) + 1) % 360;
 
                 document.body.style.setProperty('background-image', `linear-gradient(${newRotation}deg, dodgerBlue, hotpink)`);
                 x = newRotation;
-                setTimeout(rotateBackground, 500); // Rotate every second
+                setTimeout(rotateBackground, 500);
             }
 
             // function setShadowCursor(cursorImageUrl, cursorWidth, cursorHeight, shadowOffsetX, shadowOffsetY, shadowBlur) {
