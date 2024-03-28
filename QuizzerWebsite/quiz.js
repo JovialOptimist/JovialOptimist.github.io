@@ -199,10 +199,6 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
-document.getElementById("helpButton").addEventListener('click', function() {
-    
-});
-
 // Load quiz questions when the page loads
 loadQuizQuestions();
 
