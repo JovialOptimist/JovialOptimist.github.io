@@ -1,0 +1,794 @@
+[
+  {
+    "QuestionPrompt": "All of the following controls are important to specify when defining a data classification scheme, except:",
+    "CorrectAnswer": "Personnel clearance procedures",
+    "Answer1": "Marking, labeling, and handling procedures",
+    "Answer2": "Physical security protections",
+    "Answer3": "Backup and recovery procedures",
+    "Answer4": "Personnel clearance procedures",
+    "AnswerExplanation": "The clearance of personnel should be conducted independently of the classification of the data that may be accessed."
+  },
+  {
+    "QuestionPrompt": "Which of the following firewall types keeps track of each ongoing dialog between internal and external systems?",
+    "CorrectAnswer": "Stateful",
+    "Answer1": "Packet filtering",
+    "Answer2": "Circuit-level proxy",
+    "Answer3": "Stateful",
+    "Answer4": "Application-level proxy",
+    "AnswerExplanation": "Stateful firewalls use state tables to keep track of each step of communication between systems. This provides a higher level of protection than packet filtering, because it makes access decisions based on the steps that have already been completed in the dialog."
+  },
+  {
+    "QuestionPrompt": "Which of the following is NOT a recommended procedure to enact as part of an employee termination process?",
+    "CorrectAnswer": "Confiscate all devices in the employee’s possession that contain company data.",
+    "Answer1": "Immediately disable all of the employee’s accounts and passwords.",
+    "Answer2": "Ensure the employee surrenders any of the company’s badges and keys in their possession.",
+    "Answer3": "Confiscate all devices in the employee’s possession that contain company data.",
+    "Answer4": "Ensure the employee leaves immediately upon termination, escorted by a supervisor.",
+    "AnswerExplanation": "While the other procedures listed are reasonable, proper, and within the company’s purview, it simply may not be possible—or even reasonable—to collect from the employee all devices which are known to contain company data. Particularly in a bring your own device (BYOD) environment, it is almost certain that the employee’s personal mobile device contains corporate data, and such devices most likely will not be surrendered willingly. It may be possible for the company to remotely wipe some mobile devices, but only if the employee consented in advance to such measures as part of a signed employment agreement."
+  },
+  {
+    "QuestionPrompt": "Nancy is a new network administrator and has been faced with decision of implementing either direct access backup systems or sequential access backup storage devices. Which of the following does not properly describe these types of technologies?",
+    "CorrectAnswer": "Any point on a Sequential Access Storage Device may be promptly reached, whereas every point in between the current position and the desired position of a Direct Access Storage Device must be traversed in order to reach the desired position",
+    "Answer1": "Any point on a Direct Access Storage Device may be promptly reached, whereas every point in between the current position and the desired position of a Sequential Access Storage Device must be traversed in order to reach the desired position",
+    "Answer2": "Any point on a Sequential Access Storage Device may be promptly reached, whereas every point in between the current position and the desired position of a Direct Access Storage Device must be traversed in order to reach the desired position",
+    "Answer3": "Some tape drives have minimal amounts of Direct Access intelligence built in",
+    "Answer4": "Tape drives are Sequential Access Storage Devices",
+    "AnswerExplanation": "The key distinction between Direct Access and Sequential Access storage devices is that any point on a Direct Access Storage Device may be promptly reached, whereas every point in between the current position and the desired position of a Sequential Access Storage Device must be traversed in order to reach the desired position. Tape drives are Sequential Access Storage Devices. Some tape drives have minimal amounts of Direct Access intelligence built in. These include multitrack tape devices that store at specific points on the tape and cache in the tape drive information about where major sections of data on the tape begin, allowing the tape drive to more quickly reach a track and a point on the track from which to begin the now much shorter traversal of data from that indexed point to the desired point. While this makes such tape drives noticeably faster than their purely sequential peers, the difference in performance between Sequential and Direct Access Storage Devices is orders of magnitude."
+  },
+  {
+    "QuestionPrompt": "There are different types of biometric systems in the industry today. Some make authentication decisions based on behavior and some make authentication decisions based on physical attributes. Which of the following is the best description of their differences?",
+    "CorrectAnswer": "A system that uses physical attributes provides more accuracy than one that uses behavior attributes.",
+    "Answer1": "A system that uses physical attributes provides more accuracy than one that uses behavior attributes.",
+    "Answer2": "A system that uses behavior attributes provides more accuracy than one that uses physical attributes.",
+    "Answer3": "A fingerprint system is an example of a physical attribute and an iris system is an example of a behavior system.",
+    "Answer4": "A voice print system is an example of a behavior and signature dynamics is an example of a physical attribute.",
+    "AnswerExplanation": "A biometric system can make authentication decisions based on an individual’s behavior, as in signature dynamics and voice prints, but these can change over time and possibly be forged. Biometric systems that base authentication decisions on physical attributes (iris, retina, fingerprint) provide more accuracy, because they do not change as often and are harder to impersonate. "
+  },
+  {
+    "QuestionPrompt": "MSP, PGP, PEM, and S/MIME are examples of which of the following?",
+    "CorrectAnswer": "E-mail standards",
+    "Answer1": "Digital signing algorithms",
+    "Answer2": "E-mail standards",
+    "Answer3": "Asymmetric cryptography algorithms",
+    "Answer4": "Hashing standards",
+    "AnswerExplanation": "These are examples of different e-mail standards: MSP (Message Security Protocol) PGP (Pretty Good Privacy) PEM: (Privacy Enhanced Mail) S/MIME (Secure Multipurpose Internet Mail Extensions)"
+  },
+  {
+    "QuestionPrompt": "Tom is setting up computers at a trade show for his company's booth. The computers will give customers the opportunity to access a new product but will also take them onto a live network. Which control would be the best fit to offer the necessary protection from public users gaining privileged access? ",
+    "CorrectAnswer": "Constrained user interface.",
+    "Answer1": "Constrained user interface.",
+    "Answer2": "Role-based.",
+    "Answer3": "Discretionary-based.",
+    "Answer4": "Network segregation.",
+    "AnswerExplanation": "Constrained user interfaces would be the perfect choice for this trade show scenario. The interface can be physically constrained, as in a kiosk system, or logically constrained through the use of properly configured profiles, menus, and shells."
+  },
+  {
+    "QuestionPrompt": "Who has the primary responsibility of determining the classification level for information?",
+    "CorrectAnswer": "User",
+    "Answer1": "Senior management",
+    "Answer2": "Owner",
+    "Answer3": "User",
+    "Answer4": "Functional manager",
+    "AnswerExplanation": "A company can have one specific data owner or different data owners who have been delegated the responsibility of protecting specific sets of data. One of the responsibilities that goes into protecting this information is properly classifying it."
+  },
+  {
+    "QuestionPrompt": "One mode that triple-DES can work in uses three DES operations with an encrypt/decrypt/encrypt sequence and three separate keys. What is this called?",
+    "CorrectAnswer": "DES-EDE",
+    "Answer1": "Double DES",
+    "Answer2": "DES-EE",
+    "Answer3": "DES-EDE",
+    "Answer4": "DES-EDE",
+    "AnswerExplanation": "Triple-DES is an extension of DES which offers much stronger protection. It can be used a number of modes including DES-EDE3, which utilizes three keys and an encrypt/decrypt/encrypt sequence."
+  },
+  {
+    "QuestionPrompt": "Which of the following items does not provide physical protection?",
+    "CorrectAnswer": "Single sign-on system",
+    "Answer1": "Smart card",
+    "Answer2": "Token",
+    "Answer3": "Biometric device",
+    "Answer4": "Single sign-on system",
+    "AnswerExplanation": "Each of the other answers contain technologies or devices that can be used for identification and authorization purposes for access control into a facility or sensitive area. Single signon technologies are used to logically control users’ access to network resources, which does not fall under the physical security umbrella."
+  },
+  {
+    "QuestionPrompt": "Which types of data are considered protected privacy data by the General Data Protection Regulation (GDPR)?",
+    "CorrectAnswer": "All of the above",
+    "Answer1": "Name and address",
+    "Answer2": "Health and biometric data",
+    "Answer3": "Political opinions",
+    "Answer4": "All of the above",
+    "AnswerExplanation": "The GDPR defines personal data as “…any information that relates to an identified or identifiable living individual. Different pieces of information, which collected together can lead to the identification of a particular person, also constitute personal data.” The protection of personal data under the GDPR not only encompasses the U.S. equivalent protections of personally identifiable information (PII) under the Privacy Act and protected health information (PHI) under the Health Insurance Portability and Accountability Act (HIPAA), but also extends to such information as political opinions and web cookie IDs, which is information that is not considered private in the United States or elsewhere outside the EU."
+  },
+  {
+    "QuestionPrompt": "Which of the following has/have an incorrect definition?\ni. Foreign key: An attribute of one table that is related to the cell of another table\nii. Cell: An intersection of a row and column\niii. Schema: Defines the structure of the database\niv. Data dictionary: Central repository of data elements and their relationships",
+    "CorrectAnswer": "i",
+    "Answer1": "i",
+    "Answer2": "i, ii, ii",
+    "Answer3": "i, ii, iv",
+    "Answer4": "i, ii, iii, iv",
+    "AnswerExplanation": "A foreign key is an attribute of one table that is related to the primary key of another table."
+  },
+  {
+    "QuestionPrompt": "Corruption/modification is one of the biggest threats to an operations environment. Which of the following is the typical culprit in this type of threat?",
+    "CorrectAnswer": "Employees",
+    "Answer1": "Employees",
+    "Answer2": "Viruses",
+    "Answer3": "Bad code",
+    "Answer4": "Poor maintenance procedures",
+    "AnswerExplanation": "Employees are the number one threat to organizations and operations environments. Obviously, this is not to say that all employees are bad, but because they have access to the systems and the data, as well as the knowledge of internal processes, employees as a whole instantly become the biggest threat."
+  },
+  {
+    "QuestionPrompt": "Paul is a new network administrator. He has found that the current network needs an intelligent unit to balance traffic and provide fault-tolerance. Which of the following technologies should Paul implement?",
+    "CorrectAnswer": "Clustering",
+    "Answer1": "Grid computing",
+    "Answer2": "Server farming",
+    "Answer3": "Federated servers",
+    "Answer4": "Clustering",
+    "AnswerExplanation": "Clustering is a fault-tolerant server technology that is similar to redundant servers, except each server takes part in processing services that are requested. Clusters work as an intelligent unit to balance traffic, and users who access the cluster do not know they may be accessing different systems at different times. To the users, all servers within the cluster are seen as one unit."
+  },
+  {
+    "QuestionPrompt": "What is the most important reason war dialing is still a concern for modern security assessments?",
+    "CorrectAnswer": "Many organizations still employ modems for backup communications in a way that is not well secured.",
+    "Answer1": "Free tools exist that make it easy for an attacker to scan huge blocks of phone numbers.",
+    "Answer2": "Some tools are relatively sophisticated and can fingerprint the systems that answer, enabling further automation.",
+    "Answer3": "Many organizations still employ modems for backup communications in a way that is not well secured.",
+    "Answer4": "Modern, advanced private branch exchanges (PBXs) can make an attacker’s job even easier through telephony diagnostic tools.",
+    "AnswerExplanation": "The primary reason modern security assessments still must evaluate exposure to war dialing is that many organizations still employ modems for backup communications yet don’t secure them well because of the common misunderstanding that the vulnerability of an exposed modem is no longer a worry. Although the modern war dialing tools available do contribute to this concern, they are ineffective against a properly secured modem."
+  },
+  {
+    "QuestionPrompt": "The concept of data hiding is used for what purpose?",
+    "CorrectAnswer": "To permit access to objects only in the requestor’s layer",
+    "Answer1": "To prevent a requesting service from accessing an object when it asks",
+    "Answer2": "To obscure the object label from the requestor, so it doesn’t know how to ask for it",
+    "Answer3": "To permit access to objects only in the requestor’s layer",
+    "Answer4": "All of the choices",
+    "AnswerExplanation": "Data hiding restricts a requestor from accessing objects outside its security layer by obscuring the fact that they exist as all."
+  },
+  {
+    "QuestionPrompt": "What is true about a physical access control transponder?",
+    "CorrectAnswer": "It is a card that can be read without sliding it through a card reader.",
+    "Answer1": "It is a card that can be read without sliding it through a card reader.",
+    "Answer2": "It is a passive proximity device.",
+    "Answer3": "It is a card that a user swipes through a card reader to gain access to a facility.",
+    "Answer4": "It exchanges tokens with an authentication server.",
+    "AnswerExplanation": "A transponder is a type of physical access control device that does not require the user to slide a card through a reader. The reader and card communicate directly. The card and reader has a receiver, transmitter, and battery. The reader sends signals to the card to request information. The card sends the reader an access code."
+  },
+  {
+    "QuestionPrompt": "When work product satisfies real-world requirements and concepts, this is known as:",
+    "CorrectAnswer": "Validation",
+    "Answer1": "Validation",
+    "Answer2": "Verification",
+    "Answer3": "Concurrence",
+    "Answer4": "Accuracy",
+    "AnswerExplanation": "Validation ensures that the final product meets a real-world requirement and is providing the necessary function to the end user."
+  },
+  {
+    "QuestionPrompt": "What type of attack would alter a configuration file after the system looked to see if it had that specific file?",
+    "CorrectAnswer": "TOC/TOU",
+    "Answer1": "Covert channel",
+    "Answer2": "Backdoor",
+    "Answer3": "Fraggle",
+    "Answer4": "TOC/TOU",
+    "AnswerExplanation": "Time-of-check versus time-of-use (TOC/TOU) attacks take advantage of timing differences between when a system checks for files and when it actually executes the files. It is an asynchronous attack."
+  },
+  {
+    "QuestionPrompt": "Which of the following identifies a row within a relational database and is used for indexing?",
+    "CorrectAnswer": "Primary key",
+    "Answer1": "Foreign key",
+    "Answer2": "Primary key",
+    "Answer3": "Cell",
+    "Answer4": "Tuple",
+    "AnswerExplanation": "The primary key is an identifier of a row and is used for indexing in relational databases. Each row must have a unique primary key to properly represent the row as one entity. When a user makes a request to view a record, the database tracks this record by its unique primary key."
+  },
+  {
+    "QuestionPrompt": "Systems that are built on the OSI framework are considered open systems. What does this mean?",
+    "CorrectAnswer": "They are built with international protocols and standards so they can easily communicate with other systems.",
+    "Answer1": "They do not have authentication mechanisms configured by default.",
+    "Answer2": "They have interoperability issues.",
+    "Answer3": "They are built with international protocols and standards so they can easily communicate with other systems.",
+    "Answer4": "They are built with international protocols and standards so they can choose what types of systems they will communicate with.",
+    "AnswerExplanation": "An open system is a system that has been developed based on standardized protocols and interfaces. Following these standards allows the systems to interoperate more effectively with other systems that follow the same standards."
+  },
+  {
+    "QuestionPrompt": "Which of the following is not a denial-of-service attack?",
+    "CorrectAnswer": "Dictionary",
+    "Answer1": "Teardrop",
+    "Answer2": "Dictionary",
+    "Answer3": "Smurf",
+    "Answer4": "TCP SYN flood",
+    "AnswerExplanation": "Dictionary attacks are password-related attacks that can be categorized as brute-force attacks as well. The other types are all geared to bring down a service or attack a network’s availability."
+  },
+  {
+    "QuestionPrompt": "What is the term used to describe the systematic evaluation of the exchange points between a graphical data system and the system’s user?",
+    "CorrectAnswer": "Interface testing",
+    "Answer1": "Black box testing",
+    "Answer2": "Administrative testing",
+    "Answer3": "Stress testing",
+    "Answer4": "Interface testing",
+    "AnswerExplanation": "Interface testing is the systematic evaluation of the data exchange points between a user and a software program’s graphical user interface (GUI)."
+  },
+  {
+    "QuestionPrompt": "A program that receives too much data so that it cannot execute instructions properly has been exploited by a ____________ attack.",
+    "CorrectAnswer": "Buffer overflow.",
+    "Answer1": "Buffer overflow.",
+    "Answer2": "TOC/TOU.",
+    "Answer3": "Covert channel.",
+    "Answer4": "Data validation.",
+    "AnswerExplanation": "Buffer overflows are common tactics used by hackers to get systems to execute their malicious code. They identify an application or operating system that is not performing proper bounds checking and input a large amount of data that will write over current memory segments. The data usually contains malicious code that will then be executed by the system."
+  },
+  {
+    "QuestionPrompt": "Paul has been asked to evaluate implementing soft tokens across the enterprise. What exactly are soft tokens?",
+    "CorrectAnswer": "One-time password generators that reside in software",
+    "Answer1": "One-time password generators that reside in software",
+    "Answer2": "Synchronous cognitive passwords generated in software",
+    "Answer3": "Components that are required in SESAME implementations that provide the single-sign on component",
+    "Answer4": "The authenticator portion of Kerberos",
+    "AnswerExplanation": "One-time passwords can be generated in software, instead of requiring a piece of hardware as in a token device. These are referred to as soft tokens and require that the authentication service and application contain the same base secrets, which are used to generate the one-time passwords."
+  },
+  {
+    "QuestionPrompt": "Part of operational recovery is designing backup facility configurations to work in an acceptable manner so that business can continue. Which of the following is a setup that allows services to be distributed over two or more in-house centers?",
+    "CorrectAnswer": "Multi-processing center",
+    "Answer1": "Hot site",
+    "Answer2": "Multi-processing center",
+    "Answer3": "Mobile site",
+    "Answer4": "Reciprocal agreements",
+    "AnswerExplanation": "A multi-processing center allows a company to have backup over multiple facilities where services have been distributed."
+  },
+  {
+    "QuestionPrompt": "Referring to the TCP/IP model, which of the following are application layer protocols?",
+    "CorrectAnswer": "DNS, DHCP, and SNMP",
+    "Answer1": "IEEE 802.3 Ethernet and PPP",
+    "Answer2": "DNS, DHCP, and SNMP",
+    "Answer3": "TCP and UDP",
+    "Answer4": "IPv4 and IPv6",
+    "AnswerExplanation": "DNS, DHCP, and SNMP are application layer protocols. 802.3 Ethernet and PPP are data link layer protocols, TCP and UDP are transport layer protocols, and IPv4 and IPv6 are Internet layer protocols."
+  },
+  {
+    "QuestionPrompt": "Which of the following is something that should be required of an off-site backup facility that stores backed-up media for companies?",
+    "CorrectAnswer": "The facility should protect against unauthorized access and entry.",
+    "Answer1": "The facility should be within 10 to 15 minutes of the original facility to ensure easy access.",
+    "Answer2": "The facility should contain all necessary PCs, servers, and raised flooring.",
+    "Answer3": "The facility should be protected by an armed guard.",
+    "Answer4": "The facility should protect against unauthorized access and entry.",
+    "AnswerExplanation": "This question is addressing a facility that is used to store backed-up data; it is not talking about an off-site facility used for disaster recovery purposes. The facility should not be 10 to minutes away because if there was some type of disaster, the company’s main facility and this facility could both be destroyed and the company would lose all of their information. The facility should have the same security standards as the company’s security, including protecting against unauthorized access."
+  },
+  {
+    "QuestionPrompt": "Two companies need to exchange data between the company databases. Both organizations use different database management systems that do not support direct communications or replication. One company will need to export the data from its database and provide it to the other in a way that is consumable by the other company. These companies should ensure that their database management software supports which of the following?",
+    "CorrectAnswer": "Extensible Markup Language",
+    "Answer1": "Generalized Markup Language",
+    "Answer2": "Standard Generalized Markup Language",
+    "Answer3": "Extensible Markup Language",
+    "Answer4": "Transferable Markup Language",
+    "AnswerExplanation": "Extensible Markup Language (XML). XML is a set of rules for encoding documents in machine-readable form. XML is the standard that provides the metadata structures to allow this expression of data. Organizations need to be able to communicate their information, and since XML is a global standard, as long as they both follow the XML rules, they can exchange data back and forth."
+  },
+  {
+    "QuestionPrompt": "Packet routing takes place at which OSI layer?",
+    "CorrectAnswer": "Layer 3 (network)",
+    "Answer1": "Layer 3 (network)",
+    "Answer2": "Layer 2 (data link)",
+    "Answer3": "Layer 4 (transport)",
+    "Answer4": "Layer 1 (physical)",
+    "AnswerExplanation": "Packet routing takes place at the network layer. Layer 2 is the data link layer, where stations on a local area network communicate, but cannot communicate with other networks. Layer 4 is the transport layer, which can provide end-to-end connectivity based on packets being routed. And layer 1 is the physical layer upon which all other layers depend."
+  },
+  {
+    "QuestionPrompt": "Which of the following roles is responsible for classifying data?",
+    "CorrectAnswer": "Data owner",
+    "Answer1": "User",
+    "Answer2": "Data owner",
+    "Answer3": "Data custodian",
+    "Answer4": "System owner",
+    "AnswerExplanation": "The data’s owner, either through acquisition or creation—and with supervision, is the best entity able to assign classification. The other roles must be relied upon to provide the designated level of protection."
+  },
+  {
+    "QuestionPrompt": "Which of the following statements is true with respect to full volume encryption?",
+    "CorrectAnswer": "The decryption key may reside in memory long past its last use, and be accessible and recoverable.",
+    "Answer1": "The decryption key must reside in memory, but is not accessible.",
+    "Answer2": "The decryption key may be accessible in memory during the time it is being used.",
+    "Answer3": "The decryption key must reside in memory, but is only accessible and recoverable while it is being used.",
+    "Answer4": "The decryption key may reside in memory long past its last use, and be accessible and recoverable.",
+    "AnswerExplanation": "Until power has been removed from primary memory for a sufficient amount of time, encryption/decryption keys for any process may remain recoverable directly from memory, where they must necessarily reside during processing. Additionally, the memory pages that contain the keys may continue to be present after their use if they are not subsequently reused."
+  },
+  {
+    "QuestionPrompt": "Why is it important to preserve the integrity of system logs, and what is the best way to achieve this goal?",
+    "CorrectAnswer": "Attackers will attempt to hide their actions by altering the logs of their activities. The best way to preserve the integrity of the logs and prevent alteration is to log all critical system activities to a remote log aggregator in real time.",
+    "Answer1": "File system instabilities and other software flaws can result in missing or inaccurate audit trails of critical events if the integrity of system logs is not preserved. The best way to preserve integrity is to employ watchdog processes to ensure that the services producing the logs never fail to do so.",
+    "Answer2": "Attackers will attempt to hide their actions by altering the logs of their activities. The best way to preserve the integrity of the logs and prevent alteration is to log all critical system activities to a remote log aggregator in real time.",
+    "Answer3": "File system instabilities and other software flaws can result in missing or inaccurate audit trails of critical events if the integrity of system logs is not preserved. The best way to preserve integrity is to export the logs to a remote system on an hourly basis.",
+    "Answer4": "Attackers will attempt to hide their actions by altering the logs of their activities. The best way to preserve the integrity of the logs and prevent alteration is to create cryptographic hashes of them as they are produced and recorded on the local system.",
+    "AnswerExplanation": "The main threat to any audit trail is an attacker’s attempts to eradicate the evidence of their activities contained in the system logs. The surest way to prevent such tampering and preserve the integrity of the logs is to log events remotely in real time to a hardened system that an attacker is unlikely to control."
+  },
+  {
+    "QuestionPrompt": "A virtual private network is a tunneling protocol plus__________.",
+    "CorrectAnswer": "Encryption",
+    "Answer1": "Encryption",
+    "Answer2": "Digital signature",
+    "Answer3": "DSL connection",
+    "Answer4": "Bus topology",
+    "AnswerExplanation": "A tunneling protocol alone does not make a VPN. This is a common misunderstanding. A VPN must include both a tunneling protocol and encryption."
+  },
+  {
+    "QuestionPrompt": "Which of the following is not a reason why data should be classified?",
+    "CorrectAnswer": "Classification is required to develop secure systems.",
+    "Answer1": "Classification forces valuation, which can be used to determine risk.",
+    "Answer2": "Classification is required to determine appropriate access controls.",
+    "Answer3": "Classification can be used to optimize security budget.",
+    "Answer4": "Classification is required to develop secure systems.",
+    "AnswerExplanation": "Data classification is not a requirement of secure systems. Systems can be made secure without any regard to the sensitivity of the data they will handle. However, system investment can be optimized if the data classification, representing its underlying value, is known. Systems handling lowsensitivity information, for instance, can require fewer or less-rigorous security controls than ones that handle top secret information. Knowledge of data classification, therefore, can optimize security budgets on development projects, putting money where it is most needed."
+  },
+  {
+    "QuestionPrompt": "Which model introduced five levels with which the development of an organization’s software process is evaluated?",
+    "CorrectAnswer": "Capability Maturity Model Integration",
+    "Answer1": "Total Quality Model (TQM)",
+    "Answer2": "IDEAL Model",
+    "Answer3": "Capability Maturity Model Integration",
+    "Answer4": "Spiral Model",
+    "AnswerExplanation": "The Capability Maturity Model Integration (CMMI) features five maturity levels that serve as a foundation for conducting continuous process improvement and as an ordinal scale for measuring the maturity of the organization involved in the software processes."
+  },
+  {
+    "QuestionPrompt": "If there are automated tools for risk analysis, why does it take so much time to complete?",
+    "CorrectAnswer": "A lot of data has to be gathered to be inputted into the automated tool.",
+    "Answer1": "A lot of data has to be gathered to be inputted into the automated tool.",
+    "Answer2": "Management has to approve it and then a team has to be built.",
+    "Answer3": "Risk analysis cannot be automated because of the nature of the assessment.",
+    "Answer4": "Many people have to agree on the same data.",
+    "AnswerExplanation": "An analysis usually takes a long time to complete because of all the data that must be properly gathered. There are usually a lot of different sources for this type of data and properly extracting it is extremely time consuming. In most situations, it involves setting up meetings with specific personnel and going through a question and answer process."
+  },
+  {
+    "QuestionPrompt": "Which of the following is not a physical access control?",
+    "CorrectAnswer": "Host-based IDS.",
+    "Answer1": "Turnstiles.",
+    "Answer2": "Fencing.",
+    "Answer3": "Host-based IDS.",
+    "Answer4": "Exterior lighting.",
+    "AnswerExplanation": "Host-based intrusion detection systems (IDS) are considered technical or logical controls because they exist within computer systems and monitor activities. The other controls all exist to provide some type of physical protection."
+  },
+  {
+    "QuestionPrompt": "Administrative controls include all but which of the following?",
+    "CorrectAnswer": "Audit trails.",
+    "Answer1": "Mandatory vacations.",
+    "Answer2": "Audit trails.",
+    "Answer3": "Background checks.",
+    "Answer4": "Separation of duties.",
+    "AnswerExplanation": "Audit trails are controls that exist within devices and are thereby considered technical or logical controls. Administrative controls are management-driven actions that usually reveal themselves in the form of policies, directives, advisories, and procedures. Security policies, awareness training, and incident response planning are all examples of administrative controls."
+  },
+  {
+    "QuestionPrompt": "What is “egress monitoring”?",
+    "CorrectAnswer": "Inspecting outbound connections to determine if they are the result of appropriate behavior",
+    "Answer1": "Inspecting outbound connections to determine if they are the result of appropriate behavior",
+    "Answer2": "Inspecting inbound connections to determine if they are the result of appropriate behavior",
+    "Answer3": "Inspecting employees for incoming contraband as they enter the workplace",
+    "Answer4": "Inspecting employees for outgoing contraband as they leave the workplace",
+    "AnswerExplanation": "“Egress” means outgoing, and in this context of monitoring it applies to network connections that should be monitored to ensure that no critical data is flowing out to destinations in ways that should be deemed suspicious. It is most commonly associated with data loss detection and/or prevention, but can also indicate outbound command and control sessions established by adversaries to maintain the persistence of their control over compromised systems."
+  },
+  {
+    "QuestionPrompt": "In biometrics, what is the difference between an iris scan and a retinal scan?",
+    "CorrectAnswer": "A retinal scan uses a laser to inspect the pattern of capillaries inside the eyeball, whereas an iris scan uses a camera to capture the pattern of colors in the ring surrounding the eye’s pupil.",
+    "Answer1": "There is no practical difference. Both are interchangeable technologies for a biometric recording of the eyeball.",
+    "Answer2": "They are very similar in that both use a laser beam to scan aspects of the eyeball, but they scan different parts of the eye.",
+    "Answer3": "A retinal scan uses a laser to inspect the pattern of capillaries inside the eyeball, whereas an iris scan uses a camera to capture the pattern of colors in the ring surrounding the eye’s pupil.",
+    "Answer4": "An iris scan uses a laser to inspect the pattern of capillaries inside the eyeball, whereas a retinal scan uses a camera to capture the pattern of colors in the ring surrounding the eye’s pupil.",
+    "AnswerExplanation": "The retina is the back of the inside of the eyeball, and the pattern of the small blood vessels (capillaries) visible there is unique to the individual. It can only be recorded with the precision of a laser beam projected through the pupil and lens of the eye. The iris is the muscular ring around the pupil of the eye, and the color pattern it possesses is also unique to the individual. This can be recorded with a high-resolution camera, and so is less intrusive."
+  },
+  {
+    "QuestionPrompt": "Which would require the lowest level of protection?",
+    "CorrectAnswer": "User training documentation",
+    "Answer1": "System logs",
+    "Answer2": "Backup copies of system logs",
+    "Answer3": "Hard copies of sensitive company information",
+    "Answer4": "User training documentation",
+    "AnswerExplanation": "Training documentation would receive the lowest priority in this list. System logs and the backups of these logs keep valuable data about the activities that take place on these devices. Administrators can use these logs to troubleshoot problems or, more importantly, identify security breaches. Hard copies of sensitive information should be kept under tight control as well."
+  },
+  {
+    "QuestionPrompt": "What does the term “data at rest” refer to, and how is it best protected?",
+    "CorrectAnswer": "Data that is not being actively used, and is encrypted while static",
+    "Answer1": "Data that is not being actively used, though is encrypted during use",
+    "Answer2": "Data that may be in use, but is decrypted on disk so that it is accessible",
+    "Answer3": "Data that may be used later, and so is stored decrypted for when it is needed",
+    "Answer4": "Data that is not being actively used, and is encrypted while static",
+    "AnswerExplanation": "“At rest” means that the data is not actively in use. Such data is best protected via encrypted storage, only to be decrypted during its use."
+  },
+  {
+    "QuestionPrompt": "Switches marry the technologies of _____ and ______.",
+    "CorrectAnswer": "Hubs and bridges",
+    "Answer1": "Hubs and bridges",
+    "Answer2": "Bridges and routers",
+    "Answer3": "Network adapters and hubs",
+    "Answer4": "Bridges and network adapters",
+    "AnswerExplanation": "Switches combine the technologies of hubs and bridges. They act as hubs by enhancing performance and act as bridges by distributing traffic to different networks."
+  },
+  {
+    "QuestionPrompt": "When crafting a technical security report for management, how long should the executive summary be, and what should it contain?",
+    "CorrectAnswer": "No more than a page or two, highlighting only what senior leaders need to understand about the contents, which could run to hundreds of pages",
+    "Answer1": "No more than a page or two, highlighting only what senior leaders need to understand about the contents, which could run to hundreds of pages",
+    "Answer2": "No more than five pages, highlighting only what senior leaders need to understand about the contents, which could run to hundreds of pages",
+    "Answer3": "No more than a page or two, highlighting the most important technical details",
+    "Answer4": "No more than five pages, highlighting the most important technical details",
+    "AnswerExplanation": "Senior-level management is unlikely to be willing to read more than a page or two of a technical report, and do not need technical details. The report can be lengthy, but the contents need to be concisely summarized."
+  },
+  {
+    "QuestionPrompt": "Which of the following refers to the assessment of a system by someone with no advance knowledge of how it was designed or implemented?",
+    "CorrectAnswer": "Black box testing",
+    "Answer1": "White box testing",
+    "Answer2": "Gray box testing",
+    "Answer3": "Black box testing",
+    "Answer4": "Blue box testing",
+    "AnswerExplanation": "Black box testing refers to the assessment of a system by someone with no a priori knowledge of how it was designed or constructed. White box testing refers to the assessment of a system by someone who has access to any and all details of its inner workings, including the source code of relevant software. Gray box testing refers to a system assessment where the tester has some, but incomplete, knowledge of how the system works. There is no such thing as “blue box” testing."
+  },
+  {
+    "QuestionPrompt": "Disaster recovery drills and tests should be performed at least:",
+    "CorrectAnswer": "Once a year",
+    "Answer1": "Once a quarter",
+    "Answer2": "Once a year",
+    "Answer3": "Twice a year",
+    "Answer4": "Every two years",
+    "AnswerExplanation": "Tests and disaster recovery drills should be performed at least once a year. The company should have no confidence in an untested plan. Since systems and processes can change, frequent testing will aid in ensuring a plan will succeed."
+  },
+  {
+    "QuestionPrompt": "Alice needs to hire a third party to conduct a test of her company’s security posture. If she needs an exhaustive enumeration of her company’s vulnerabilities for prioritization of mitigation, which of the following services should she select?",
+    "CorrectAnswer": "Vulnerability assessment",
+    "Answer1": "Vulnerability assessment",
+    "Answer2": "Penetration test",
+    "Answer3": "Regulatory audit",
+    "Answer4": "DSS audit",
+    "AnswerExplanation": "Vulnerability assessments seek to exhaustively enumerate all possible vulnerabilities for prioritization of mitigation. Penetration tests are not intended to exhaustively enumerate vulnerabilities, but rather to demonstrate the viability of exploitation by an adversary. Audits against regulations are designed to determine the level of an organization’s compliance. Likewise, a PCI DSS audit, which is contractual and not regulatory, is expected to ensure that a Qualified Security Assessor (QSA) deems a payment card processor is compliant with the Data Security Standard (DSS)."
+  },
+  {
+    "QuestionPrompt": "Alice is responsible for ensuring that enterprise data is backed up and recoverable. Which of the following is the most critical duty that Alice must perform?",
+    "CorrectAnswer": "Testing recovery procedures with data backups",
+    "Answer1": "Backing up user data files on a daily basis",
+    "Answer2": "Ensuring that the enterprise databases have replicated",
+    "Answer3": "Testing recovery procedures with data backups",
+    "Answer4": "Backing up mailbox data to satisfy e-discovery requirements",
+    "AnswerExplanation": "It doesn’t matter what data gets backed up, or how frequently, if the restoration procedures are not demonstrably viable."
+  },
+  {
+    "QuestionPrompt": "During a post-mortem incident evaluation, it is discovered that coercion was used by an attacker to infiltrate the company and obtain confidential information. This tactic would best be characterized as:",
+    "CorrectAnswer": "Active",
+    "Answer1": "Eavesdropping",
+    "Answer2": "Passive",
+    "Answer3": "Active",
+    "Answer4": "Sniffing",
+    "AnswerExplanation": "Using coercion is an active type of attack in which the intruder uses aggressive tactics to achieve the intended goal. Using coercion is an example of social engineering, which is an active attack."
+  },
+  {
+    "QuestionPrompt": "The network topology in which all computers are connected together in a nonuniform formation is called what?",
+    "CorrectAnswer": "Mesh",
+    "Answer1": "Mesh",
+    "Answer2": "Ring",
+    "Answer3": "Star",
+    "Answer4": "Bus",
+    "AnswerExplanation": "A mesh topology is one that does not provide the network structure of the other three mentioned topologies (bus, star, ring). In a partial mesh topology, all computers are connected in some way (the Internet is a good example). In a full mesh, each computer is connected to each and every other computer. A full mesh topology provides full redundancy, but requires a lot of cabling."
+  },
+  {
+    "QuestionPrompt": "IPSec uses ______ for key management.",
+    "CorrectAnswer": "IKE",
+    "Answer1": "IKE",
+    "Answer2": "MPLS",
+    "Answer3": "PPP",
+    "Answer4": "NAT",
+    "AnswerExplanation": "Internet Key Exchange (IKE) is used within IPSec to negotiate and authenticate keys."
+  },
+  {
+    "QuestionPrompt": "Which of the following best describes a centralized repository of information about data such as meaning, relationships to other data, origin, usage, and format?",
+    "CorrectAnswer": "Data dictionary",
+    "Answer1": "Meta-data",
+    "Answer2": "Data dictionary",
+    "Answer3": "Cross data",
+    "Answer4": "DBMS",
+    "AnswerExplanation": "A data dictionary, or a metadata repository, is a centralized repository of information about data, such as its meaning, relationships to other data, origin, usage, and format. It is a tool used to centrally manage parts of a database by controlling the metadata within the database."
+  },
+  {
+    "QuestionPrompt": "How does the Diameter protocol provide more security than RADIUS?",
+    "CorrectAnswer": "Diameter has been developed to work directly with TLS and IPSec.",
+    "Answer1": "For interoperability issues, the both provide the same level of security.",
+    "Answer2": "Diameter has been developed to work directly with TLS and IPSec.",
+    "Answer3": "Diameter works within the S/MIME standard.",
+    "Answer4": "RADIUS only encrypts the username.",
+    "AnswerExplanation": "Diameter provides end-to-end security through the use of IPSec or TLS, which is not available in RADIUS."
+  },
+  {
+    "QuestionPrompt": "Your company’s CIO has stressed the need for an immediate incident response plan to be created. What is the best reason for this mandate?",
+    "CorrectAnswer": "To improve the likelihood that the company could effectively react to a disruption",
+    "Answer1": "To improve the company’s reputation with stockholders",
+    "Answer2": "To improve the executive team’s compliance with due diligence regulations",
+    "Answer3": "To improve employee morale and retention",
+    "Answer4": "To improve the likelihood that the company could effectively react to a disruption",
+    "AnswerExplanation": "Incident response plans are created to ensure that when an attack, virus, or some other type of disruption is experienced, the company can effectively and efficiently react and mitigate any potential damages. All the other answers may come true as a result of an incident response plan, but are not the core reason for developing this type of plan."
+  },
+  {
+    "QuestionPrompt": "Which of the following NIST document is used specifically for risk management?",
+    "CorrectAnswer": "SP 800-30",
+    "Answer1": "SP 800-53",
+    "Answer2": "SP 800-63",
+    "Answer3": "SP 800-30",
+    "Answer4": "SP 800-90",
+    "AnswerExplanation": "NIST Special Publication 800-30 is the Risk Management Guide for Information Technology Systems."
+  },
+  {
+    "QuestionPrompt": "Which of the following roles has the responsibility for implementing and maintaining firewalls?",
+    "CorrectAnswer": "Security administrator",
+    "Answer1": "Security supervisor",
+    "Answer2": "System owner",
+    "Answer3": "Data custodian",
+    "Answer4": "Security administrator",
+    "AnswerExplanation": "Implementing and maintaining all security controls, whether network, software, or endpoint based, is the explicit role of the security administrator."
+  },
+  {
+    "QuestionPrompt": "What is the best way to avoid introducing vulnerabilities such as injection, broken authentication, cross-site scripting (XSS), and insecure de-serialization?",
+    "CorrectAnswer": "Implement secure coding practices.",
+    "Answer1": "Employ only secure integrated development environments (IDEs).",
+    "Answer2": "Avoid using open source libraries or frameworks.",
+    "Answer3": "Implement secure coding practices.",
+    "Answer4": "Perform rigorous quality assurance tests.",
+    "AnswerExplanation": "Only a comprehensive approach of secure coding practices can avoid introducing the vulnerabilities listed in the question, which otherwise can be introduced regardless of the IDE employed and regardless of whether the libraries and frameworks used are open source or proprietary, and commonly go undiscovered despite thorough quality assurance testing alone."
+  },
+  {
+    "QuestionPrompt": "Who does the security auditor report to?",
+    "CorrectAnswer": "Senior management",
+    "Answer1": "Data owners",
+    "Answer2": "Data custodians",
+    "Answer3": "External audit organization",
+    "Answer4": "Senior management",
+    "AnswerExplanation": "The security auditor is responsible for reporting to senior management about the effectiveness of security controls and their compliance with security policy objectives."
+  },
+  {
+    "QuestionPrompt": "Sensitive data is classified based upon all of the following factors, except:",
+    "CorrectAnswer": "Amount of data",
+    "Answer1": "Security policy",
+    "Answer2": "Amount of data",
+    "Answer3": "Age of data",
+    "Answer4": "Content of data",
+    "AnswerExplanation": "The amount of data should have no bearing on whether or not it is deemed sensitive. The age of data is significant as it relates to the declassification process. The content of the data and the details of the security policy also dictate how data is classified."
+  },
+  {
+    "QuestionPrompt": "Some organizations over-issue privileged access to ensure that users can have access to devices in emergency situations or unconventional scenarios. This practice violates what standard security principle?",
+    "CorrectAnswer": "Least privilege",
+    "Answer1": "Separation of duties",
+    "Answer2": "Job rotation",
+    "Answer3": "Least privilege",
+    "Answer4": "Due diligence",
+    "AnswerExplanation": "Least privilege is a common security principle that dictates that all users should have the lowest access level necessary to do their job. Every user should be configured with the least possible permission to ensure high security throughout the organization."
+  },
+  {
+    "QuestionPrompt": "Which best describes the IP protocol?",
+    "CorrectAnswer": "Connectionless protocol that deals with addressing and routing of packets",
+    "Answer1": "Connectionless protocol that deals with dialog establishment, maintenance, and destruction",
+    "Answer2": "Connectionless protocol that deals with addressing and routing of packets",
+    "Answer3": "Connection-oriented protocol that deals with addressing and routing of packets",
+    "Answer4": "Connection-oriented protocol that deals with sequencing, error detection, and flow control",
+    "AnswerExplanation": "The IP protocol is connectionless and works at the network layer. It adds source and destination addresses to a packet as it goes through its data encapsulation process. IP can also make routing decisions based on the destination address."
+  },
+  {
+    "QuestionPrompt": "A digital identity is made up of attributes, entitlements, and traits. Which of the following has the incorrect mapping when considering these identity characteristics?",
+    "CorrectAnswer": "None of the above",
+    "Answer1": "Attributes = department, role in company, shift time, clearance type",
+    "Answer2": "Entitlements = resources available to user, authoritative rights in the company",
+    "Answer3": "Traits = biometric information, height, sex",
+    "Answer4": "None of the above",
+    "AnswerExplanation": "A user's identity can be a collection of her attributes (department, role in company, shift time, clearance, and others), her entitlements (resources available to her, authoritative rights in the company, and so on) and her traits (biometric information, height, sex, and so forth). So if a user requests access to a database that contains sensitive employee information, an IdM (Identity Management) solution could need to pull together the necessary identity information and her supplied credentials before she is authorized access. If the user is a senior manager (attribute), with a Secret clearance (attribute), and has access to the database (entitlement)-she is granted the permissions Read and Write to certain records in the database Monday through Friday, 8 A.M. to 5 P.M. (attribute)."
+  },
+  {
+    "QuestionPrompt": "Which of the following statements is correct regarding the designated retention period for data?",
+    "CorrectAnswer": "Requirements may vary, so consult an attorney.",
+    "Answer1": "Business documents (e.g., meeting minutes) must be retained for 7 years.",
+    "Answer2": "Invoices must be retained for 5 years",
+    "Answer3": "Requirements may vary, so consult an attorney.",
+    "Answer4": "There are no designated standards, only best practice.",
+    "AnswerExplanation": "Laws regarding records retention exist and must be adhered to, but vary by jurisdiction. Consequently, legal counsel should be consulted to ensure compliance."
+  },
+  {
+    "QuestionPrompt": "The ___________is responsible for getting the alternate site into a working and functioning environment, and the ________is responsible for starting the recovery of the original site.",
+    "CorrectAnswer": "Restoration team, salvage team",
+    "Answer1": "Restoration team, salvage team",
+    "Answer2": "Salvage team, restoration team",
+    "Answer3": "Recovery team, restoration team",
+    "Answer4": "Recovery team, salvage team",
+    "AnswerExplanation": "The restoration team should be responsible for getting the alternate site into a working and functioning environment, and the salvage team should be responsible for starting the recovery of the original site."
+  },
+  {
+    "QuestionPrompt": "Which of the following is not a form of identification?",
+    "CorrectAnswer": "Token device.",
+    "Answer1": "Token device.",
+    "Answer2": "Fingerprint.",
+    "Answer3": "User ID.",
+    "Answer4": "Badge systems.",
+    "AnswerExplanation": "Token devices are authenticating devices that are used in combination with an identification component, such as a user name. Fingerprints and user IDs are examples of identification components. Token devices commonly generate one-time passwords, which is one way to authenticate individuals."
+  },
+  {
+    "QuestionPrompt": "The operating system performs all except which of the following tasks?",
+    "CorrectAnswer": "User access to database views",
+    "Answer1": "Memory allocation",
+    "Answer2": "Input and output tasks",
+    "Answer3": "Resource allocation",
+    "Answer4": "User access to database views",
+    "AnswerExplanation": "The operating system has a long list of responsibilities, but implementing database views is not one of them. This is the responsibility of the database management software."
+  },
+  {
+    "QuestionPrompt": "A critical company asset would most likely have which of the following MTD (maximum tolerable downtime) values?",
+    "CorrectAnswer": "Minutes to hours",
+    "Answer1": "Minutes to hours",
+    "Answer2": "Days",
+    "Answer3": "Weeks",
+    "Answer4": "Months",
+    "AnswerExplanation": "According to NIST guidelines, a critical company asset would have a maximum tolerable downtime of a few minutes to hours."
+  },
+  {
+    "QuestionPrompt": "Hiding messages within the text of this question would be considered what type of encryption method?",
+    "CorrectAnswer": "Concealment cipher",
+    "Answer1": "Steganography",
+    "Answer2": "Running key cipher",
+    "Answer3": "Concealment cipher",
+    "Answer4": "Frequency analysis",
+    "AnswerExplanation": "Concealment ciphers disguise messages within the text or body of a message, such as using every other word in a sentence to form a different message. Steganography hides messages within the slack bits of pictures, music files, etc."
+  },
+  {
+    "QuestionPrompt": "What is a pretext?",
+    "CorrectAnswer": "A false scenario presented to an employee by an attacker with the intent to socially engineer the employee into violating security controls on the attacker’s behalf",
+    "Answer1": "A false scenario presented to an employee by management with the intent to socially engineer the employee into better performance of their duties",
+    "Answer2": "Textual information designed to facilitate future instant messaging",
+    "Answer3": "A false scenario presented to an employee by an attacker with the intent to socially engineer the employee into violating security controls on the attacker’s behalf",
+    "Answer4": "The banner information presented via a text-based protocol prior to the body of the message ",
+    "AnswerExplanation": "Pretexting is a social engineering technique designed to leverage an employee’s trust relationships and usual work flows in order to convince them to do something that is both unusual and detrimental."
+  },
+  {
+    "QuestionPrompt": "Isochronous processes rely on ________.",
+    "CorrectAnswer": "Time constraints",
+    "Answer1": "Time constraints",
+    "Answer2": "Content variables",
+    "Answer3": "Error checking",
+    "Answer4": "Malformed packets",
+    "AnswerExplanation": "Isochronous processes must deliver data within set time constraints. Applications are typically video related where audio and video must match perfectly. VoIP is another example."
+  },
+  {
+    "QuestionPrompt": "Alice needs to hire a third party to conduct a test of her company’s security posture. If she needs an independent comparison against statutory requirements, which of the following services should she select?",
+    "CorrectAnswer": "Regulatory audit",
+    "Answer1": "Vulnerability assessment",
+    "Answer2": "Penetration test",
+    "Answer3": "Regulatory audit",
+    "Answer4": "DSS audit",
+    "AnswerExplanation": "Audits against regulations are designed to determine the level of an organization’s compliance. A PCI DSS audit is contractual, not regulatory, and is expected to ensure that a Qualified Security Assessor (QSA) deems a payment card processor is compliant with the Data Security Standard (DSS). Vulnerability assessments seek to exhaustively enumerate all possible vulnerabilities for prioritization of mitigation. Penetration tests are intended to demonstrate the viability of exploitation by an adversary."
+  },
+  {
+    "QuestionPrompt": "When purchasing a biometric system, one of the considerations that should be reviewed is the processing speed. Which of the following best describes what it is meant by processing?",
+    "CorrectAnswer": "When an individual provides identification and authentication information and the amount of time it takes to either be accepted or rejected",
+    "Answer1": "How long it takes to set up individual user accounts",
+    "Answer2": "The amount of time it takes to convert biometric data into a template on a smart card",
+    "Answer3": "When an individual provides identification and authentication information and the amount of time it takes to either be accepted or rejected",
+    "Answer4": "The amount of time and resources that are necessary to maintain a biometric system",
+    "AnswerExplanation": "When reviewing biometric devices for purchase, one component to take into consideration is the length of time it takes to actually authenticate users. From the time a user inserts data until she receives an accept or reject response should take between 5-10 seconds."
+  },
+  {
+    "QuestionPrompt": "What is the difference between a pharming attack and a phishing attack?",
+    "CorrectAnswer": "Pharming involves DNS poisoning and phishing involves social engineering.",
+    "Answer1": "Pharming involves DNS poisoning and phishing involves social engineering.",
+    "Answer2": "Phishing involves DNS poisoning and pharming involves social engineering.",
+    "Answer3": "Pharming involves DNSSEC and phishing involves TOC\\TOU.",
+    "Answer4": "Pharming involves DNSSEC and phishing involves social engineering.",
+    "AnswerExplanation": "Phishing is a type of social engineering with the goal of obtaining personal information, credentials, credit card number, or financial data. The attackers lure, or fish, for sensitive data through various different methods. A similar type of attack is called pharming, which redirects a victim to a seemingly legitimate, yet fake, web site. In this type of attack, the attacker carries out something called DNS poisoning, in which a DNS server resolves a host name into an incorrect IP address."
+  },
+  {
+    "QuestionPrompt": "Business continuity management means taking the necessary steps to increase a company's ______ to service disruption.",
+    "CorrectAnswer": "Resilience",
+    "Answer1": "Resilience",
+    "Answer2": "Perceived reaction",
+    "Answer3": "Attitude",
+    "Answer4": "Means",
+    "AnswerExplanation": "Business continuity management is the steps deployed to ensure that a company would be able to sustain a service disruption while minimizing the effect of the disruption on critical business functions."
+  },
+  {
+    "QuestionPrompt": "What is the Network Time Protocol (NTP), and why is it important in security assessments?",
+    "CorrectAnswer": "It is a client/server protocol for system time synchronization, and it is important to ensure that system logs have timestamps that are consistent across all critical systems.",
+    "Answer1": "It is a peer-to-peer protocol for system time synchronization, and it is important to ensure that peer systems’ time-based authentication functions properly.",
+    "Answer2": "It is a client/server protocol for system time synchronization, and it is important to ensure that peer systems’ time-based authentication functions properly.",
+    "Answer3": "It is a peer-to-peer protocol for system time synchronization, and it is important to ensure that system logs have timestamps that are consistent across all critical systems.",
+    "Answer4": "It is a client/server protocol for system time synchronization, and it is important to ensure that system logs have timestamps that are consistent across all critical systems.",
+    "AnswerExplanation": "NTP provides a hierarchical architecture for client/server time synchronization, which is critical to ensure that logging activities performed by multiple disparate systems provide records with consistent timestamps. This is especially important when investigating incidents involving activities across multiple systems."
+  },
+  {
+    "QuestionPrompt": "Which of the following is the best description of a “honeypot”?",
+    "CorrectAnswer": "It is a system developed to deceive an attacker into believing it is important.",
+    "Answer1": "It is a system that contains critical data that is attractive to an attacker.",
+    "Answer2": "It is a system developed to deceive an attacker into believing it is important.",
+    "Answer3": "It is a system that contains special tokens called “honeytokens.”",
+    "Answer4": "It is a system that “black holes” attacker activities in a way that they can’t spread.",
+    "AnswerExplanation": "A honeypot is a system that serves no legitimate production services and contains no legitimate production data, and so should never be interacted with by internal users in any way. It is also not a preventive device. It exists only so that any interaction with it can be monitored, with the knowledge that all such interactions are illegitimate and indicate the presence of an adversary."
+  },
+  {
+    "QuestionPrompt": "Which role is accountable for information security?",
+    "CorrectAnswer": "Senior management",
+    "Answer1": "Information security professionals",
+    "Answer2": "Senior management",
+    "Answer3": "Security management",
+    "Answer4": "Security auditors",
+    "AnswerExplanation": "Senior management is ultimately accountable for all organizational risk. As security is an organizational risk, senior management is ultimately accountable for information security."
+  },
+  {
+    "QuestionPrompt": "McKenna performs the following data tasks: 1) Assigns data classification levels to meet her business unit’s specific needs. 2) Determines which users can access data. 3) Verifies security controls are in place and working correctly. Which of the following roles is McKenna performing?",
+    "CorrectAnswer": "Data owner",
+    "Answer1": "Data custodian",
+    "Answer2": "Data user",
+    "Answer3": "Data owner",
+    "Answer4": "Process owner",
+    "AnswerExplanation": "Data owners decide how data sets will be classified and protected, and ensure that the agreed-upon mechanisms are in place and working correctly. Data owners are typically department heads."
+  },
+  {
+    "QuestionPrompt": "Alice, Bob, and many of their colleagues have spent months constructing a business continuity plan (BCP) for their enterprise. What is the first test of their findings that should be conducted?",
+    "CorrectAnswer": "Checklist test",
+    "Answer1": "Checklist test",
+    "Answer2": "Structured walk-through test",
+    "Answer3": "Simulation test",
+    "Answer4": "Parallel test",
+    "AnswerExplanation": "A checklist test, or “desk check test,” is done to ensure that nothing has been left out of the plan. A structured walk-through is a drill performed by representatives of each functional area to ensure that the recovery can actually be performed correctly. A simulation test seeks to emulate the performance of recovery steps in real time. A parallel test involves the actual operation of the alternate processing facilities in parallel with the primary site remaining online and functional."
+  },
+  {
+    "QuestionPrompt": "Which of the following protocols is considered connection oriented?",
+    "CorrectAnswer": "TCP",
+    "Answer1": "IP",
+    "Answer2": "ICMP",
+    "Answer3": "UDP",
+    "Answer4": "TCP",
+    "AnswerExplanation": "Transmission Control Protocol (TCP) is the only connection-oriented protocol listed. A connection-oriented protocol provides reliable connectivity and data transmission, while a connectionless protocol provides unreliable connections and does not promise or ensure data transmission."
+  },
+  {
+    "QuestionPrompt": "Alice needs to hire a third party to conduct a test of her company’s security posture. If she needs to determine whether and how an attacker could truly penetrate her company’s defenses, which of the following services should she select?",
+    "CorrectAnswer": "Penetration test",
+    "Answer1": "Vulnerability assessment",
+    "Answer2": "Penetration test",
+    "Answer3": "Regulatory audit",
+    "Answer4": "DSS audit",
+    "AnswerExplanation": "Penetration tests (pen-tests) are intended to demonstrate the viability of exploitation by an adversary. Unlike vulnerability assessments, pen tests are not intended to exhaustively enumerate all possible vulnerabilities for prioritization of mitigation. Audits against regulations are designed to determine the level of an organization’s compliance. Likewise, a PCI DSS audit, which is contractual and not regulatory, is expected to ensure that a Qualified Security Assessor (QSA) deems a payment card processor is compliant with the Data Security Standard (DSS)."
+  },
+  {
+    "QuestionPrompt": "Bob is a hacker who intends to use social engineering strategies to infiltrate a former employer. After doing thorough research, he begins calling the customer service line to find the weakest representatives to attack. He calls over and over again trying to talk to many different representatives. What phase of this social engineering attack is Bob involved in?",
+    "CorrectAnswer": "Target selection",
+    "Answer1": "Dumpster diving",
+    "Answer2": "Target selection",
+    "Answer3": "Intelligence gathering",
+    "Answer4": "Attack mode",
+    "AnswerExplanation": "Bob has already completed the intelligence gathering phase and is now executing the target selection phase. By surfing through all the different customer service representatives, he is deciding which one will provide the easiest avenue for his exploit."
+  },
+  {
+    "QuestionPrompt": "Business continuity and disaster recovery fall under which category of security control?",
+    "CorrectAnswer": "Compensating",
+    "Answer1": "Preventive",
+    "Answer2": "Detective",
+    "Answer3": "Corrective",
+    "Answer4": "Compensating",
+    "AnswerExplanation": "Business continuity and disaster recovery do not contribute directly to organizational security, but they can serve to compensate for security disasters by reducing the time it takes to respond to a security incident that interrupts business productivity."
+  },
+  {
+    "QuestionPrompt": "Which method is the most certain way of ensuring that data cannot be recovered?",
+    "CorrectAnswer": "Destruction",
+    "Answer1": "Deletion",
+    "Answer2": "Destruction",
+    "Answer3": "Degaussing",
+    "Answer4": "Declassifying",
+    "AnswerExplanation": "Destruction of the physical medium is the surest way of ensuring that data cannot be recovered, regardless of the way it is stored."
+  },
+  {
+    "QuestionPrompt": "What is the difference between disaster recovery and business continuity?",
+    "CorrectAnswer": "Disaster recovery deals with the actions that need to take place right after a disaster, and business continuity deals with the actions that need to take place to keep operations running over a longer period of time.",
+    "Answer1": "Disaster recovery deals with the actions that need to take place right after a disaster, and business continuity deals with the actions that need to take place to keep operations running over a longer period of time.",
+    "Answer2": "Business continuity deals with the actions that need to take place right after a disaster, and disaster recovery deals with the actions that need to take place to keep operations running over a longer period of time.",
+    "Answer3": "They are one and the same",
+    "Answer4": "Disaster recovery deals with operations, and business continuity deals with mitigating risks.",
+    "AnswerExplanation": "Disaster recovery has the goal of minimizing the effects of a disaster and taking the necessary steps to ensure that the resources, personnel, and business processes are able to resume operation in a timely matter. This is different from business continuity planning, which deals with providing methods and procedures for dealing with longer-term outages and disasters and keeping the company in business."
+  },
+  {
+    "QuestionPrompt": "The responsibility of the classification of data within an organization rests with whom?",
+    "CorrectAnswer": "Senior management",
+    "Answer1": "Data custodians",
+    "Answer2": "Senior management",
+    "Answer3": "Data classifiers",
+    "Answer4": "Unit managers",
+    "AnswerExplanation": "The senior management of an organization is ultimately responsible for the classification and proper handling of data assets."
+  },
+  {
+    "QuestionPrompt": "California 1386, Sarbanes-Oxley, and HIPAA are examples of what kinds of security policy directives?",
+    "CorrectAnswer": "Regulatory",
+    "Answer1": "Regulatory",
+    "Answer2": "Administrative",
+    "Answer3": "Advisory",
+    "Answer4": "Informative",
+    "AnswerExplanation": "Directives and mandates typically coming from outside the company from the government, legal, or industry authorities are called regulatory policy objectives. Administrative is not one of the three types of policies. Advisory policies address requirements for certain types of behaviors or activities among the workforce. Informative policies address educational awareness."
+  }
+]
