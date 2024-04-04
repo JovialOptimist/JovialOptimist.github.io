@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Jacweb</title>
+        <title>Jac's Website</title>
         <style>
         body {
             background-repeat: no-repeat;
             background-size: cover;
-            height: 98vh;
             padding: 10px;
             font-family:'Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif';
-            background-image: linear-gradient(dodgerBlue, hotpink);
+            background-image: linear-gradient(hotPink, dodgerBlue);
+            background-size: cover; /* Optional: adjust to cover the entire viewport */
+            background-attachment: fixed; /* This property fixes the background image */
             overflow: auto;
         }        
         
@@ -42,19 +43,26 @@
             margin-top: 15px;
             display: flex;
             padding: 5px;
+            padding-right: 0px;
             background-color: rgba(255, 255, 255, 0.2);
+            height: 60px;
         }
-        #navbar > button
+        #navbar > div
         {
             display:flex;
-            margin:5px;
+            margin:0px;
             margin-right: 5px;
             width: 999px;
             justify-content: center;
+            background-color: rgba(255, 255, 255, 0.5);
+            transition: 0.1s;
+
+            top: 50%;
         }
-        #linkedInButton
+        #navbar > div:hover
         {
-            
+            background-color: rgba(255, 255, 255, 1.0);
+            cursor: pointer;
         }
 
         #main
@@ -93,6 +101,11 @@
         {
             cursor: 'none';
         }
+        
+        #footer
+        {
+            margin-bottom: 30px;
+        }
 
     </style>
     </head>
@@ -107,11 +120,15 @@
             </div>
 
             <div id="navbar">
-                <button>Home</button>
-                <button>Biography</button>
-                <button>My Work</button>
-                <button>Contact Info</button>
-                <button id="linkedInButton"><a href="finalgradecalculator.html">CSS343 Final Grade Calculator</a></button>
+                <div onclick="window.location.href = 'index.html'">
+                    <p>Home</p>
+                </div>
+                <div onclick="window.location.href = 'quiz.html'">
+                    <p>CSS 310 Quiz</p>
+                </div>
+                <div onclick="window.location.href = 'finalgradecalculator.html'">
+                    <p>CSS 343 Grade Calculator</p>
+                </div>
             </div>
 
             <div class="grid-container">
@@ -136,9 +153,11 @@
                 </div>
                 <div class="smallElement">
                     <h3>Something else</h3>
-                    <p>Hey!</p>
+                    <p>Who knows what might show up here some day? It could be anything!</p>
                 </div>
             </div>
+
+            <div id="footer"></div>
 
         </div>
 
