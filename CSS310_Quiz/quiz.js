@@ -2,7 +2,7 @@ let questions = [];
 let questionIndex = 0;
 
 function loadQuizQuestions() {
-    fetch('questionsWithoutLetters.json')
+    fetch('CSS310_Quiz/questionsWithoutLetters.json')
         .then(response => response.json())
         .then(data => {
             questions = Array.isArray(data) ? data : [data];
