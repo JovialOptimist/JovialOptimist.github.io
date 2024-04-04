@@ -2,43 +2,40 @@
 <html>
     <head>
         <title>QR Code Maker</title>
+        <!--Full credit for QR code generation and display goes to David Shim. 
+            His repository is public on GitHub here: https://github.com/davidshimjs/qrcodejs
+            I'm using his javascript file, available here: https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js
+        -->
         <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
-        <style>
-            #input
-            {
-                
-            }
-            #qrcode:hover
-            {
-                cursor:pointer;
-            }
-        </style>
     </head>
 
     <body>
-        <input id="input" spellcheck="false"/>
+        <input id="input" spellcheck="false" autocapitalize="false" autofocus="false" autocomplete="off"/>
         <br>
         <br>
-        <div id="qrcode"></div>
+        <div id="qrcode" style="width:fit-content"></div>
         <br>
         <button id="copyButton">Copy QR Code</button>
         <button id="downloadButton">Download QR Code</button>
 
         <script>
+            // variables
             var input = document.getElementById("input");
-            var qrcodeContainer = document.getElementById("qrcode");
             var copyButton = document.getElementById("copyButton");
             var downloadButton = document.getElementById("downloadButton");
+            var qrcodeContainer = document.getElementById("qrcode");
             var qrcode = new QRCode(qrcodeContainer, {
                 width: 128,
                 height: 128
             });
 
+            // whenever the user types anything, update the qr code
             input.addEventListener("input", function() {
                 var inputValue = input.value;
                 qrcode.makeCode(inputValue);
             });
 
+            // if the user presses copy, copy the image to their clipboard
             copyButton.addEventListener("click", function() {
                 var qrcodeImage = qrcodeContainer.querySelector("img");
                 if (qrcodeImage) {
@@ -54,10 +51,7 @@
                 }
             });
 
-            qrcodeContainer.addEventListener("click", function() {
-                copyButton.click();
-            });
-
+            // if the user presses download, download a png of the qr code
             downloadButton.addEventListener("click", function() {
                 var qrcodeImage = qrcodeContainer.querySelector("img");
                 if (qrcodeImage) {
@@ -69,6 +63,8 @@
                 }
             });
         
+            // as soon as we load the page, display a qr code for 
+            // David Shim's QR code generator (which is what is powering this site)
             onload = function()
             {
                 var source = "https://github.com/davidshimjs/qrcodejs"
