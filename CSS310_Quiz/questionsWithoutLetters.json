@@ -73,11 +73,11 @@
   },
   {
     "QuestionPrompt": "One mode that triple-DES can work in uses three DES operations with an encrypt/decrypt/encrypt sequence and three separate keys. What is this called?",
-    "CorrectAnswer": "DES-EDE",
+    "CorrectAnswer": "DES-EDE3",
     "Answer1": "Double DES",
-    "Answer2": "DES-EE",
-    "Answer3": "DES-EDE",
-    "Answer4": "DES-EDE",
+    "Answer2": "DES-EE3",
+    "Answer3": "DES-EDE3",
+    "Answer4": "DES-EDE2",
     "AnswerExplanation": "Triple-DES is an extension of DES which offers much stronger protection. It can be used a number of modes including DES-EDE3, which utilizes three keys and an encrypt/decrypt/encrypt sequence."
   },
   {
