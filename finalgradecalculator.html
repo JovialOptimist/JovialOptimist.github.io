@@ -1,74 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Final Grade Calculator</title>
-    <link rel="stylesheet" href="CSS343_Calculator/styles.css">
-    <script src="CSS343_Calculator/script.js"></script>
-</head>
-<body>
-    <div class="container">
-        <h2>Final Grade Calculator</h2>
-        <p>
-            This webpage calculate your final grade for CSS 343 with Professor Zander. 
-            View the source code <a href="https://github.com/JovialOptimist/JovialOptimist.github.io">here</a>.
-            Zeros will be automatically ignored.
-        </p>
-        <h3>Base Programs</h3>
-        <div class="input-group">
-            <label for="program1"> - Program 1 (/30)</label>
-            <input type="number" id="program1" min="0" max="30" value="0">
-        </div>
-        <div class="input-group">
-            <label for="program2"> - Program 2 (/30)</label>
-            <input type="number" id="program2" min="0" max="30" value="0">
-        </div>
-        <div class="input-group">
-            <label for="program3"> - Program 3 (/30)</label>
-            <input type="number" id="program3" min="0" max="30" value="0">
-        </div>
-        <div class="input-group">
-            <label for="program4Design"> - Program 4 Design (/30)</label>
-            <input type="number" id="program4Design" min="0" max="30" value="0">
-        </div>
-        <div class="input-group">
-            <label for="program4Program"> - Program 4 Implementation (/50)</label>
-            <input type="number" id="program4Program" min="0" max="50" value="0">
+    <head>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-CG4B8Z121L"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-CG4B8Z121L');
+        </script>
+        <!-- End Google tag (gtag.js) -->
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Final Grade Calculator</title>
+        <link rel="stylesheet" href="CSS343_Calculator/styles.css">
+        <script src="CSS343_Calculator/script.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <h2>Final Grade Calculator</h2>
+            <p>
+                This webpage calculate your final grade for CSS 343 with Professor Zander. 
+                View the source code <a href="https://github.com/JovialOptimist/JovialOptimist.github.io">here</a>.
+                Zeros will be automatically ignored.
+            </p>
+            <h3>Base Programs</h3>
+            <div class="input-group">
+                <label for="program1"> - Program 1 (/30)</label>
+                <input type="number" id="program1" min="0" max="30" value="0">
+            </div>
+            <div class="input-group">
+                <label for="program2"> - Program 2 (/30)</label>
+                <input type="number" id="program2" min="0" max="30" value="0">
+            </div>
+            <div class="input-group">
+                <label for="program3"> - Program 3 (/30)</label>
+                <input type="number" id="program3" min="0" max="30" value="0">
+            </div>
+            <div class="input-group">
+                <label for="program4Design"> - Program 4 Design (/30)</label>
+                <input type="number" id="program4Design" min="0" max="30" value="0">
+            </div>
+            <div class="input-group">
+                <label for="program4Program"> - Program 4 Implementation (/50)</label>
+                <input type="number" id="program4Program" min="0" max="50" value="0">
+            </div>
+
+            <h3>Program Additions</h3>
+            <div class="input-group">
+                <label for="program2p2"> - Program 2 Part 2 (/5)</label>
+                <input type="number" id="program2p2" min="0" max="5" value="0">
+            </div>
+            <div class="input-group">
+                <label for="garage"> - In-Class UML Garage Exercise (/5)</label>
+                <input type="number" id="garage" min="0" max="5" value="0">
+            </div>
+            <div class="input-group">
+                <label for="feedback"> - Program 4 Group Feedback (/5)</label>
+                <input type="number" id="feedback" min="0" max="5" value="0">
+            </div>
+
+            <h3>Exams</h3>
+            <div class="input-group">
+                <label for="midterm"> - Midterm Exam (/100%)</label>
+                <input type="number" id="midterm" min="0" max="100" value="0">
+            </div>
+            <div class="input-group">
+                <label for="final"> - Final Exam (/100%)</label>
+                <input type="number" id="final" min="0" max="100" value="0">
+            </div>
+            <div class="input-group">
+                <button onclick="calculateGrade()" style="display:inline">Calculate</button>
+                <div id="result" style="display:inline; margin:15px;"></div>
+            </div>
+            
         </div>
 
-        <h3>Program Additions</h3>
-        <div class="input-group">
-            <label for="program2p2"> - Program 2 Part 2 (/5)</label>
-            <input type="number" id="program2p2" min="0" max="5" value="0">
-        </div>
-        <div class="input-group">
-            <label for="garage"> - In-Class UML Garage Exercise (/5)</label>
-            <input type="number" id="garage" min="0" max="5" value="0">
-        </div>
-        <div class="input-group">
-            <label for="feedback"> - Program 4 Group Feedback (/5)</label>
-            <input type="number" id="feedback" min="0" max="5" value="0">
-        </div>
-
-        <h3>Exams</h3>
-        <div class="input-group">
-            <label for="midterm"> - Midterm Exam (/100%)</label>
-            <input type="number" id="midterm" min="0" max="100" value="0">
-        </div>
-        <div class="input-group">
-            <label for="final"> - Final Exam (/100%)</label>
-            <input type="number" id="final" min="0" max="100" value="0">
-        </div>
-        <div class="input-group">
-            <button onclick="calculateGrade()" style="display:inline">Calculate</button>
-            <div id="result" style="display:inline; margin:15px;"></div>
-        </div>
-        
-    </div>
-
-    <script>       
-        
-    </script>
-</body>
+        <script>       
+            
+        </script>
+    </body>
 </html>
