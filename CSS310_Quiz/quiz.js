@@ -100,21 +100,8 @@ document.getElementById("submitButton").addEventListener('click', function() {
     if (selectedOption) {
         const selectedValue = selectedOption.textContent;
         console.log('Selected answer:', selectedValue);
-
-        // log an event for each time the user clicks the "Check Answer" button
-        gtag('event', 'click', {
-            'event_category': 'Answer Checked',
-            'event_label': 'Submit Button'
-        });
-
         if (selectedValue == questions[questionIndex].CorrectAnswer)
         {
-            // log an event for each time the user submits the correct answer
-            gtag('event', 'click', {
-                'event_category': 'Answer Result',
-                'event_label': 'Correct'
-            });
-            
             document.getElementById("correctAnswerParagraph").textContent = "Good job! The correct answer is '" + questions[questionIndex].CorrectAnswer + "'";
             document.getElementById("description").textContent = questions[questionIndex].AnswerExplanation;
             if (option1.textContent === questions[questionIndex].CorrectAnswer)
@@ -136,12 +123,6 @@ document.getElementById("submitButton").addEventListener('click', function() {
         }
         else
         {
-            // log an event for each time the user submits an incorrect answer
-            gtag('event', 'click', {
-                'event_category': 'Answer Result',
-                'event_label': 'Incorrect'
-            });
-
             document.getElementById("correctAnswerParagraph").textContent = "The correct answer is '" + questions[questionIndex].CorrectAnswer + "'";
             document.getElementById("description").textContent = questions[questionIndex].AnswerExplanation;
 
