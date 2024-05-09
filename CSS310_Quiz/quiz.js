@@ -1,3 +1,5 @@
+alert("Sorry I'm messing around with different color modes right now. The site should function appropriately, but I can promise I'll be done by 9:00pm PST May 8. - Jac")
+
 let questions = [];
 let questionIndex = 0;
 
@@ -25,15 +27,15 @@ function shuffle(array) {
 }
 
 function displayQuestion() {
-    // option1.style.color = foreground;
-    // option2.style.color = foreground;
-    // option3.style.color = foreground;
-    // option4.style.color = foreground;
+    option1.style.color = foreground;
+    option2.style.color = foreground;
+    option3.style.color = foreground;
+    option4.style.color = foreground;
     
-    // document.getElementById("option1").style.backgroundColor = backgroundStart;
-    // document.getElementById("option2").style.backgroundColor = backgroundStart;
-    // document.getElementById("option3").style.backgroundColor = backgroundStart;
-    // document.getElementById("option4").style.backgroundColor = backgroundStart;
+    document.getElementById("option1").style.backgroundColor = backgroundStart;
+    document.getElementById("option2").style.backgroundColor = backgroundStart;
+    document.getElementById("option3").style.backgroundColor = backgroundStart;
+    document.getElementById("option4").style.backgroundColor = backgroundStart;
 
     option1.addEventListener('mouseover', mouseoverHandler1);
     option1.addEventListener('mouseleave', mouseleaveHandler1);
