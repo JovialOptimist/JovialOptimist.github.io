@@ -1,4 +1,4 @@
-alert("Sorry I'm messing around with different color modes right now. The site should function appropriately, but I can promise I'll be done by 9:00pm PST May 8. - Jac")
+alert("Site should be back to normal. - Jac")
 
 let questions = [];
 let questionIndex = 0;
@@ -212,6 +212,7 @@ const modeToggle = document.getElementById('lightModeToggle');
 let isDarkModem = true;
 modeToggle.addEventListener('click', () => {
     updateCSSVariables(isDarkModem);
+    isDarkModem = !isDarkModem;
 });
 
 const option1 = document.getElementById("option1");
@@ -226,23 +227,7 @@ let op4Clicked = false;
 
 function updateCSSVariables(isDarkMode) {
     if (isDarkMode) {
-        document.documentElement.style.cssText = `
-            --BG: rgb(20, 20, 20);
-            --FG: rgb(255, 255, 255);
-            --light-FG: rgb(150,150,150);
-            --button-FG: rgb(200,200,200);
-            --button-BG: rgb(30,30,30);
-            --list-item-BG-unselected: rgb(40,40,40);
-            --list-item-BG-hover: rgb(60,60,60);
-            --list-item-BG-selected: rgb(80,80,80);
-            --spacer-FG: rgb(100,100,100);
-        `;
-        foreground = "rgb(255,255,255)";
-        backgroundStart = "rgb(40,40,40)";
-        backgroundHover = "rgb(60,60,60)";
-        backgroundSelect = "rgb(80,80,80)";
-    } else {
-        // Light mode values
+        // Change to light mode values
         document.documentElement.style.cssText = `
             --BG: white;
             --FG: black;
@@ -258,8 +243,24 @@ function updateCSSVariables(isDarkMode) {
         backgroundStart = "rgb(220,220,220)";
         backgroundHover = "rgb(240,240,240)";
         backgroundSelect = "rgb(255,255,255)";
+    } else {
+        // Change to dark mode values
+        document.documentElement.style.cssText = `
+            --BG: rgb(20, 20, 20);
+            --FG: rgb(255, 255, 255);
+            --light-FG: rgb(150,150,150);
+            --button-FG: rgb(200,200,200);
+            --button-BG: rgb(30,30,30);
+            --list-item-BG-unselected: rgb(40,40,40);
+            --list-item-BG-hover: rgb(60,60,60);
+            --list-item-BG-selected: rgb(80,80,80);
+            --spacer-FG: rgb(100,100,100);
+        `;
+        foreground = "rgb(255,255,255)";
+        backgroundStart = "rgb(40,40,40)";
+        backgroundHover = "rgb(60,60,60)";
+        backgroundSelect = "rgb(80,80,80)";
     }
-    isDarkModem = !isDarkModem;
 
     option1.style.backgroundColor = backgroundStart;
     option2.style.backgroundColor = backgroundStart;
