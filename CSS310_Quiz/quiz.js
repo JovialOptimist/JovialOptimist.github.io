@@ -1,5 +1,3 @@
-alert("Site should be back to normal. - Jac")
-
 let questions = [];
 let questionIndex = 0;
 
