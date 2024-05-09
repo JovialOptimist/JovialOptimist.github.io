@@ -266,10 +266,10 @@ function updateCSSVariables(isDarkMode) {
     option3.style.backgroundColor = backgroundStart;
     option4.style.backgroundColor = backgroundStart;
 
-    option1.style.foreground = foreground;
-    option2.style.foreground = foreground;
-    option3.style.foreground = foreground;
-    option4.style.foreground = foreground;
+    option1.style.color = foreground;
+    option2.style.color = foreground;
+    option3.style.color = foreground;
+    option4.style.color = foreground;
 
     op1Clicked = false;
     op2Clicked = false;
