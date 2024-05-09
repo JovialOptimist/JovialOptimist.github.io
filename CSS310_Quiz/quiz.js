@@ -25,15 +25,15 @@ function shuffle(array) {
 }
 
 function displayQuestion() {
-    option1.style.color = 'rgb(255, 255, 255)';
-    option2.style.color = 'rgb(255, 255, 255)';
-    option3.style.color = 'rgb(255, 255, 255)';
-    option4.style.color = 'rgb(255, 255, 255)';
+    // option1.style.color = foreground;
+    // option2.style.color = foreground;
+    // option3.style.color = foreground;
+    // option4.style.color = foreground;
     
-    document.getElementById("option1").style.backgroundColor = 'rgb(60,60,60)';
-    document.getElementById("option2").style.backgroundColor = 'rgb(60,60,60)';
-    document.getElementById("option3").style.backgroundColor = 'rgb(60,60,60)';
-    document.getElementById("option4").style.backgroundColor = 'rgb(60,60,60)';
+    // document.getElementById("option1").style.backgroundColor = backgroundStart;
+    // document.getElementById("option2").style.backgroundColor = backgroundStart;
+    // document.getElementById("option3").style.backgroundColor = backgroundStart;
+    // document.getElementById("option4").style.backgroundColor = backgroundStart;
 
     option1.addEventListener('mouseover', mouseoverHandler1);
     option1.addEventListener('mouseleave', mouseleaveHandler1);
@@ -90,12 +90,15 @@ document.getElementById("previousButton").addEventListener('click', function() {
 });
 
 document.getElementById("submitButton").addEventListener('click', function() {
-    
-    const selectedOption = document.querySelector('div[name="questionAnswer"][style*="background-color: rgb(100, 100, 100)"]');
-    option1.style.color = 'rgb(255, 255, 255)';
-    option2.style.color = 'rgb(255, 255, 255)';
-    option3.style.color = 'rgb(255, 255, 255)';
-    option4.style.color = 'rgb(255, 255, 255)';
+    option1.style.color = foreground;
+    option2.style.color = foreground;
+    option3.style.color = foreground;
+    option4.style.color = foreground;
+
+    if (op1Clicked) selectedOption = document.getElementById("option1");
+    else if (op2Clicked) selectedOption = document.getElementById("option2");
+    else if (op3Clicked) selectedOption = document.getElementById("option3");
+    else if (op4Clicked) selectedOption = document.getElementById("option4");
 
     if (selectedOption) {
         const selectedValue = selectedOption.textContent;
@@ -202,6 +205,80 @@ document.addEventListener('keydown', function(event) {
 // Load quiz questions when the page loads
 loadQuizQuestions();
 
+// the logic for dark vs light mode
+const modeToggle = document.getElementById('lightModeToggle');
+let isDarkModem = true;
+modeToggle.addEventListener('click', () => {
+    updateCSSVariables(isDarkModem);
+});
+
+const option1 = document.getElementById("option1");
+const option2 = document.getElementById("option2");
+const option3 = document.getElementById("option3");
+const option4 = document.getElementById("option4");
+
+let op1Clicked = false;
+let op2Clicked = false;
+let op3Clicked = false;
+let op4Clicked = false;
+
+function updateCSSVariables(isDarkMode) {
+    if (isDarkMode) {
+        document.documentElement.style.cssText = `
+            --BG: rgb(20, 20, 20);
+            --FG: rgb(255, 255, 255);
+            --light-FG: rgb(150,150,150);
+            --button-FG: rgb(200,200,200);
+            --button-BG: rgb(30,30,30);
+            --list-item-BG-unselected: rgb(40,40,40);
+            --list-item-BG-hover: rgb(60,60,60);
+            --list-item-BG-selected: rgb(80,80,80);
+            --spacer-FG: rgb(100,100,100);
+        `;
+        foreground = "rgb(255,255,255)";
+        backgroundStart = "rgb(40,40,40)";
+        backgroundHover = "rgb(60,60,60)";
+        backgroundSelect = "rgb(80,80,80)";
+    } else {
+        // Light mode values
+        document.documentElement.style.cssText = `
+            --BG: white;
+            --FG: black;
+            --light-FG: rgb(100,100,100);
+            --button-FG: rgb(50,50,50);
+            --button-BG: rgb(200,200,200);
+            --list-item-BG-unselected: rgb(220,220,220);
+            --list-item-BG-hover: rgb(240,240,240);
+            --list-item-BG-selected: rgb(200,200,200);
+            --spacer-FG: rgb(150,150,150);
+        `;
+        foreground = "rgb(0,0,0)";
+        backgroundStart = "rgb(220,220,220)";
+        backgroundHover = "rgb(240,240,240)";
+        backgroundSelect = "rgb(255,255,255)";
+    }
+    isDarkModem = !isDarkModem;
+
+    option1.style.backgroundColor = backgroundStart;
+    option2.style.backgroundColor = backgroundStart;
+    option3.style.backgroundColor = backgroundStart;
+    option4.style.backgroundColor = backgroundStart;
+
+    option1.style.foreground = foreground;
+    option2.style.foreground = foreground;
+    option3.style.foreground = foreground;
+    option4.style.foreground = foreground;
+
+    op1Clicked = false;
+    op2Clicked = false;
+    op3Clicked = false;
+    op4Clicked = false;
+    
+
+}
+
+updateCSSVariables();
+
 /*
  _   _                   _                _                   _               _ _             
 | | | |                 | |              (_)                 | |             | (_)            
@@ -213,66 +290,72 @@ loadQuizQuestions();
                  |___/                            |___/                                 |___/ 
 */
 
+/*
+
+Possible answers in the list
+ - Foreground is always full white
+ - Background starts at 40,40,40
+ - Hovering ups that to 60,60,60
+ - Selecting makes it 80,80,80
+
+
+*/
+
 // OPTION 1
-const option1 = document.getElementById("option1");
 const mouseoverHandler1 = function() {
-    option1.style.backgroundColor = 'rgb(85,85,85)';
+    option1.style.backgroundColor = backgroundHover;
     option1.style.transition = 'background-color 0.1s';
 };
 const mouseleaveHandler1 = function() {
-    option1.style.backgroundColor = 'rgb(60,60,60)';
+    option1.style.backgroundColor = backgroundStart;
     option1.style.transition = 'background-color 0.1s';
 };
 option1.addEventListener('mouseover', mouseoverHandler1);
 option1.addEventListener('mouseleave', mouseleaveHandler1);
 
 // OPTION 2
-const option2 = document.getElementById("option2");
 const mouseoverHandler2 = function() {
-    option2.style.backgroundColor = 'rgb(85,85,85)';
+    option2.style.backgroundColor = backgroundHover;
     option2.style.transition = 'background-color 0.1s';
 };
 const mouseleaveHandler2 = function() {
-    option2.style.backgroundColor = 'rgb(60,60,60)';
+    option2.style.backgroundColor = backgroundStart;
     option2.style.transition = 'background-color 0.1s';
 };
 option2.addEventListener('mouseover', mouseoverHandler2);
 option2.addEventListener('mouseleave', mouseleaveHandler2);
 
 // OPTION 3
-const option3 = document.getElementById("option3");
 const mouseoverHandler3 = function() {
-    option3.style.backgroundColor = 'rgb(85,85,85)';
+    option3.style.backgroundColor = backgroundHover;
     option3.style.transition = 'background-color 0.1s';
 };
 const mouseleaveHandler3 = function() {
-    option3.style.backgroundColor = 'rgb(60,60,60)';
+    option3.style.backgroundColor = backgroundStart;
     option3.style.transition = 'background-color 0.1s';
 };
 option3.addEventListener('mouseover', mouseoverHandler3);
 option3.addEventListener('mouseleave', mouseleaveHandler3);
 
 // OPTION 4
-const option4 = document.getElementById("option4");
 const mouseoverHandler4 = function() {
-    option4.style.backgroundColor = 'rgb(85,85,85)';
+    option4.style.backgroundColor = backgroundHover;
     option4.style.transition = 'background-color 0.1s';
 };
 const mouseleaveHandler4 = function() {
-    option4.style.backgroundColor = 'rgb(60,60,60)';
+    option4.style.backgroundColor = backgroundStart;
     option4.style.transition = 'background-color 0.1s';
 };
 option4.addEventListener('mouseover', mouseoverHandler4);
 option4.addEventListener('mouseleave', mouseleaveHandler4);
 
 // OPTION 1 CLICKED
-let op1Clicked = false;
 option1.addEventListener('click', function() {
     op1Clicked = !op1Clicked;
-    option1.style.backgroundColor = 'rgb(100,100,100)';
-    document.getElementById("option2").style.backgroundColor = 'rgb(60,60,60)';
-    document.getElementById("option3").style.backgroundColor = 'rgb(60,60,60)';
-    document.getElementById("option4").style.backgroundColor = 'rgb(60,60,60)';
+    option1.style.backgroundColor = backgroundSelect;
+    document.getElementById("option2").style.backgroundColor = backgroundStart;
+    document.getElementById("option3").style.backgroundColor = backgroundStart;
+    document.getElementById("option4").style.backgroundColor = backgroundStart;
 
     if (op1Clicked) {
         option1.removeEventListener('mouseover', mouseoverHandler1);
@@ -296,13 +379,12 @@ option1.addEventListener('click', function() {
 });
 
 // OPTION 2 CLICKED
-let op2Clicked = false;
 option2.addEventListener('click', function() {
     op2Clicked = !op2Clicked;
-    option2.style.backgroundColor = 'rgb(100,100,100)';
-    document.getElementById("option1").style.backgroundColor = 'rgb(60,60,60)';
-    document.getElementById("option3").style.backgroundColor = 'rgb(60,60,60)';
-    document.getElementById("option4").style.backgroundColor = 'rgb(60,60,60)';
+    option2.style.backgroundColor = backgroundSelect;
+    document.getElementById("option1").style.backgroundColor = backgroundStart;
+    document.getElementById("option3").style.backgroundColor = backgroundStart;
+    document.getElementById("option4").style.backgroundColor = backgroundStart;
 
     if (op2Clicked) {
         option2.removeEventListener('mouseover', mouseoverHandler2);
@@ -326,13 +408,12 @@ option2.addEventListener('click', function() {
 });
 
 // OPTION 3 CLICKED
-let op3Clicked = false;
 option3.addEventListener('click', function() {
     op3Clicked = !op3Clicked;
-    option3.style.backgroundColor = 'rgb(100,100,100)';
-    document.getElementById("option1").style.backgroundColor = 'rgb(60,60,60)';
-    document.getElementById("option2").style.backgroundColor = 'rgb(60,60,60)';
-    document.getElementById("option4").style.backgroundColor = 'rgb(60,60,60)';
+    option3.style.backgroundColor = backgroundSelect;
+    document.getElementById("option1").style.backgroundColor = backgroundStart;
+    document.getElementById("option2").style.backgroundColor = backgroundStart;
+    document.getElementById("option4").style.backgroundColor = backgroundStart;
 
     if (op3Clicked) {
         option3.removeEventListener('mouseover', mouseoverHandler3);
@@ -356,13 +437,12 @@ option3.addEventListener('click', function() {
 });
 
 // OPTION 4 CLICKED
-let op4Clicked = false;
 option4.addEventListener('click', function() {
     op4Clicked = !op4Clicked;
-    option4.style.backgroundColor = 'rgb(100,100,100)';
-    document.getElementById("option2").style.backgroundColor = 'rgb(60,60,60)';
-    document.getElementById("option3").style.backgroundColor = 'rgb(60,60,60)';
-    document.getElementById("option1").style.backgroundColor = 'rgb(60,60,60)';
+    option4.style.backgroundColor = backgroundSelect;
+    document.getElementById("option2").style.backgroundColor = backgroundStart;
+    document.getElementById("option3").style.backgroundColor = backgroundStart;
+    document.getElementById("option1").style.backgroundColor = backgroundStart;
 
     if (op4Clicked) {
         option4.removeEventListener('mouseover', mouseoverHandler4);
