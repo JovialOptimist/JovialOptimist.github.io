@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Surviving the Internet</title>
+  <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+        overflow: hidden;
+        background-color: #1e1e1e;
+        color: #fff;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        flex-direction: row;
+    }
+    #gameArea {
+        position: relative;
+        width: 60vw;
+        height: 80vh;
+        overflow: hidden;
+        border: 2px solid #fff;
+        display:block;
+    }
+    .ad, .treasure, .powerup {
+        position: absolute;
+        top: 0;
+        right: -100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.2s;
+        border: 2px solid white;
+        color: #fff;
+    }
+    .ad {
+        background-color: #ff4d4d;
+        border-radius: 5px;
+    }
+    .treasure {
+        color: black;
+        background-color: gold;
+        border-radius: 10px;
+    }
+    .powerup {
+        color: white;
+        background-color: hotpink;
+        border-radius: 10px;
+    }
+    #scoreContainer {
+        margin: 20px;
+        flex-direction: column;
+        display: flexbox;
+    }
+    #score {
+        font-size: 4vh;
+        display: inline-flex;
+    }
+    #addScore {
+        font-size: 2vh;
+        display: inline-flex;
+    }
+    #pauseText {
+        text-align: center;
+        font-size: 4vh;
+        font-weight: bold;
+        -webkit-text-stroke: 2px dodgerblue;
+        cursor: default;
+        text-shadow: 0px 0px 10px dodgerblue;
+        margin-top: 35vh;
+        margin-left: 5vw;
+        z-index: 5000;
+    }
+    #shopContainer {
+        width: 30vw;
+        height: 80vh;
+        border: 2px solid #fff;
+        flex-direction: row;
+    }
+    .upgrade {
+        background-color: rgb(35, 65, 92);
+        color: rgb(155, 210, 255);
+        border-radius: 5px;
+        border: 1px solid grey;
+        margin: 20px;
+        height: 90px;
+        transition: 0.2s;
+        padding: 5px;
+        cursor: pointer;
+        display: flex;
+    }
+    .upgradeDescription {
+        display: block;
+        padding: 5px;
+        min-width: 20vw;
+    }
+    .upgradeTicker {
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+        background-color: rgb(22, 43, 61);
+        vertical-align: center;
+    }
+    .upgradeTickerButton {
+        display: flex;
+        text-align: center;
+        align-self: center;
+        border: 1px solid transparent;
+    }
+    .upgradeTickerButton:hover {
+        background-color: rgb(29, 83, 120);
+        color: rgb(255, 255, 255);
+        border: 1px solid dodgerblue;
+    }
+    #levelText {
+        font-size: 2vh;
+        margin: 5px;
+    }
+    #howToPlay {
+        position: absolute;
+        display: inline;
+        margin: 0 auto;
+        width: 500px;
+        height: 300px;
+        z-index: 500;
+        background-color: rgb(35, 65, 92);
+        color: rgb(155, 210, 255);
+        border-radius: 5px;
+        border: 1px solid grey;
+        padding: 15px;
+        margin: 5px;
+    }
+    .closeButton {
+        background-color: rgb(22, 43, 61);
+        border-radius: 5px;
+        text-align: center;
+        align-items: center;
+        display: flex;
+        margin-left: 10px;
+        padding: 5px;
+        cursor: pointer;
+    }
+    #tint {
+        width: 100%;
+        height: 100%;
+        z-index: 500;
+        background-color: black;
+        opacity: 0.8;
+        position: absolute;
+        display: inline;
+        visibility: collapse;
+    }
+    #adContainer {
+        width: 800px;
+        height: 500px;
+        z-index: 501;
+        position: absolute;
+        display: inline;
+        background-image: url("images\\loading.gif");
+        background-repeat: no-repeat;
+        background-size:auto;
+        margin: 0 auto;
+        visibility: collapse;
+    }
+    #adIframe {
+        width: 100%;          /* Make the iframe take the full width of its parent */
+        height: 100%;         /* Make the iframe take the full height of its parent */
+        border: none;         /* Optional: remove iframe border */
+    }
+    #closeAdButton {
+        color: white;
+        padding: 0px;
+        margin: 0px;
+        display: inline;
+        width: 20px;
+        height: 20px;
+        right: 5px;
+        cursor: pointer;
+        font-size: 20px;
+        position: absolute;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+    <div id="tint">
+    </div>
+
+    <div id="adContainer">
+        
+        <iframe id="adIframe" allow="autoplay"></iframe>
+        <div id="closeAdButton" onclick="closeAd()">✖️</div>
+    </div>
+    
+
+    <div id="howToPlay">
+        <div style="display: flex; flex-direction: row;">
+            <h1>Surviving the Internet</h1>
+            <div class="closeButton" onclick="ui_closePopup()">Close</div>
+        </div>
+        
+        <br>
+        <p>You play with your mouse to collect money and dodge ads. If you hover over an ad, you have to restart from level 0. Clicking the yellow treasures earns you money which you can use to purchase upgrade(s) like more powerups!</p>
+        <br>
+        <p>Move your mouse outside of the play box to pause the game. In the shop, you can spend your money to increase your abilities, or even decrease your own power to give yourself a challenge.</p>
+    </div>
+
+    <div id="gameArea">
+        <div id="levelText">Level 1</div>
+        <div id="pauseText"></div>
+    </div>
+    
+    <div id="shopContainer">
+        <div id="scoreContainer">
+            <div id="score">0</div>
+            <div id="addScore"></div>
+        </div>
+    </div>
+
+    
+
+
+    <script>
+        //#region Variables
+        const gameArea = document.getElementById('gameArea');
+        const pauseColorFilter = document.getElementById('pauseColorFilter');
+        const scoreDisplay = document.getElementById('score');
+        const plusScoreDisplay = document.getElementById('addScore');
+        const pauseText = document.getElementById('pauseText');
+        const levelText = document.getElementById('levelText');
+        const increasePowerupFrequencyButton = document.getElementById("increasePowerUpFrequencyButton");
+        const decreasePowerUpFrequencyButton = document.getElementById("decreasePowerUpFrequencyButton");
+        const powerUpFrequencyLevel = document.getElementById("powerUpFrequencyLevel");
+        const popup = document.getElementById("howToPlay");
+        const adIframe = document.getElementById("adIframe");
+        const adContainer = document.getElementById("adContainer");
+        const tint = document.getElementById("tint");
+
+        gameArea.onmouseleave = () => { gametime_pauseGame(); }
+        gameArea.onmousedown = () => { gametime_resumeGame(); }
+        pauseText.onmousedown = () => { gametime_resumeGame(); }
+
+        pauseText.textContent = "Click to start game.";
+
+        var dreamSpeedrunMusic = new Audio('audio\\music\\dreamSpeedrun.mp3');
+        var explosionSoundEffect = new Audio("audio\\effects\\SFX bossexplosion.mp3");
+        var backgroundMusic = new Audio("audio\\music\\backgroundMusic.mp3");
+        backgroundMusic.loop = true;
+
+        let score = 0;
+        let maxScore = 0;
+        let gameOver = false;
+        let playing = false;
+        let powerUpActive = false;
+        let treasurePercentage = 0.3;
+        let powerUpPercentage = 0.05;
+        let adPercentage = 0.65;
+        let speed = 5;
+        let time = 750;
+
+        let minTreasureValue = 5;
+        let maxTreasureValue = 50;
+
+        let costUpgradeOne = 200;
+        let upgradeOneLevel = 1;
+        let upgradeOneMaxUnlockedLevel = 1;
+
+        let powerUpMinDimension = 100;
+        let powerUpMaxDimension = 200;
+
+        let treasureMinDimension = 75;
+        let treasureMaxDimension = 125;
+        
+        let adMinDimension = 200;
+        let adMaxDimension = 250;
+
+        const upgrades = [
+            {
+                name: "Increase treasure value",
+                description: "Increase the average value of treasure by 5",
+                cost: 50,
+                maxLevel: 10,
+                onUpgrade: (level) => {
+                    console.log(`Treasure value increased to level ${level}`);
+                    minTreasureValue += 5;
+                    maxTreasureValue += 5;
+                },
+                onDowngrade: (level) => {
+                    console.log(`Treasure value decreased to level ${level}`);
+                    minTreasureValue -= 5;
+                    maxTreasureValue -= 5;
+                },
+            },
+            {
+                name: "More Powerups",
+                description: "Make powerups more likely to spawn",
+                cost: 100,
+                maxLevel: 5,
+                onUpgrade: (level) => {
+                    console.log(`Powerup frequency increased to level ${level}`);
+                    powerUpPercentage += 0.01;
+                    adPercentage -= 0.01;
+                },
+                onDowngrade: (level) => {
+                    console.log(`Powerup frequency decreased to level ${level}`);
+                    powerUpPercentage -= 0.01;
+                    adPercentage += 0.01;
+                },
+            },
+            {
+                name: "Ad Blocker",
+                description: "Reduces the frequency of ads",
+                cost: 25,
+                maxLevel: 10,
+                onUpgrade: (level) => {
+                    console.log(`Ad frequency decreased to level ${level}`);
+                    adPercentage -= 0.05;
+                    treasurePercentage += 0.05;
+                },
+                onDowngrade: (level) => {
+                    console.log(`Ad frequency increased to level ${level}`);
+                    adPercentage += 0.05;
+                    treasurePercentage -= 0.05;
+                },
+            },
+        ];
+        
+        const imageList = [];
+        const adTypes = [];
+        const behaviorMap = {};
+
+        // #endregion variables
+
+        // Ads to add
+        //  + Raid Shadow Legends
+        //  + Candy Crush
+        //  + Clash Royale
+        //  + AFK Arena
+        //  - FNAF
+        //  + Gardenscapes
+        //  - Genshin Impact
+        //  - McDonalds
+        //  + Terrace Dining Pavillion
+        //  + Coca Cola
+        //  - Burger King
+        //  - Taco Bell
+        //  - Pizza Hut
+        //  - Toyota
+        //  - Ford
+        //  - Nissan
+        //  - Chevy
+        //  - Amazon hammer
+        //  - Amazon wrench
+        //  - Amazon nut
+        //  - Amazon comic
+        //  - Lego head
+        //  - Lego short piece
+        //  - Lego plate
+        //  - Lego Notre-dame set
+        //  - What kind of cat are you?
+        //  - What font family are you?
+        //  - What is your favorite color?
+        //  - What Pringle are you?
+        //  - Medical gummies
+        //  - What is your body shape quiz?
+        //  - Someone in a military chopper
+        //  - Someone getting blown up
+        //  - TABS
+        //  - Spin the wheel
+        //  - Hot babes near you
+        //  - Free crypto
+        //  - How to win casinos (they can't stop you)
+    
+        function addAds() {
+            addSimpleAdType("TRUMP", "images\\trump.png", "https://a.co/d/iXRuFAQ");
+            addSimpleAdType("ADBLOCKUPDATE", "images\\adblockupdate.jpg", "https://getadblock.com/en/");
+            addSimpleAdType("TERRACE", "images\\terrace.png", "https://rickysburgersbaytown.mylocalkfc.com/");
+            addSimpleAdType("CLASHROYALE", "images\\clashroyale.jpg", "https://supercell.com/en/games/clashroyale/");
+            addSimpleAdType("AFK", "images\\afk.png", "https://play.google.com/store/apps/details?id=com.lilithgame.hgame.gp&hl=en_US");
+            addSimpleAdType("FAKEVIDEO", "images\\Trollface.png", "https://www.microsoft.com/en-us/p/gardenscapes/9mt9t93g2cnt");
+            addSimpleAdType("COCACOLA", "images\\cocacola.png", "https://en.wikipedia.org/wiki/Coca-Cola");
+            addSimpleAdType("BALANCEPROBLEMS", "images\\balanceproblems.png", "https://en.wikipedia.org/wiki/Wii_Balance_Board");
+            addSimpleAdType("CANCER", "images\\cancer.png", "https://www.prevention.com/health/g42690515/18267732/");
+            addSimpleAdType("WOMEN", "images\\women.png", "https://www.consumerbags.com/gift-guide/coolest-gifts-for-her");
+
+
+
+            //addSimpleAdType("SPONGEBOB", "images\\spongebob.png", "https://www.buzzfeed.com/elizabeth_cotton/first-date-red-flags");
+            addSimpleAdType("RAID", "images\\raidshadowlegends.jpg", "https://www.youtube.com/embed/aHyJQDNdVFQ?si=tLiiEBZXfUMnpxzh");
+            //addSimpleAdType("RICKROLL", "images\\rickastley.png", "https://www.youtube.com/embed/dQw4w9WgXcQ?si=bqij3aK17nBOoNIT");
+            addSimpleAdType("CANDYCRUSH", "images\\candycrush.jpg", "https://www.youtube.com/embed/uLBACF0Ms8E?si=tKQibIc4U98qrHU3&amp;start=1674");
+        
+            addAdType("NUKE", "images\\nuke.png",
+                helper_createAdBehavior(() => {
+                    explosionSoundEffect.play();
+                    backgroundMusic.volume = 0.3;
+                    explosionSoundEffect.onended = () => {
+                        helper_fadeInMusic();
+                        explosionSoundEffect = new Audio("audio\\effects\\SFX bossexplosion.mp3");
+                    }
+                    helper_reset();
+                })
+            );
+        
+            addAdType("DOWNLOAD", "images\\download.png",
+                helper_createAdBehavior(() => {
+                    const platform = navigator.platform;
+                    if (platform.includes("Win")) helper_openURL("https://fakeupdate.net/win10ue/");
+                    else if (platform.includes("Mac")) helper_openURL("https://fakeupdate.net/apple/");
+                    else helper_openURL("https://fakeupdate.net/sarcastic/");
+                    adContainer.requestFullscreen();
+                    helper_reset();
+                })
+            );
+
+            // addAdType("FNAF", "images\\fnaf.jpg",
+            //     helper_createAdBehavior(() => {
+            //         triggerGreenScreenEffect();
+            //         helper_reset();
+            //     })
+            // );
+
+        }
+
+        
+
+        // Function to add a new ad type, image, and behavior
+        function addAdType(adName, imagePath, behaviorFunction) {
+            const adType = adName.toUpperCase();
+            imageList.push(imagePath);
+            adTypes.push(adType);
+            behaviorMap[adType] = behaviorFunction;
+        }
+
+        function addSimpleAdType(adName, imagePath, url) {
+            addAdType(adName, imagePath, 
+                helper_createAdBehavior(() => {
+                    helper_openURL(url);
+                    helper_reset();
+                })
+            );
+        }
+
+        addAds();
+
+        // raise backgroundMusic from 30% --> 100% over 600ms
+        function helper_fadeInMusic() {
+            let currentVolume = backgroundMusic.volume;
+            const volumeInterval = setInterval(() => {
+                if (currentVolume < 1) {
+                    currentVolume += 0.05;
+                    backgroundMusic.volume = currentVolume;
+                } else {
+                    clearInterval(volumeInterval);
+                }
+            }, 100);
+        }
+        
+        function helper_openURL(url) {
+            backgroundMusic.pause();
+            dreamSpeedrunMusic.pause();
+            gametime_pauseGame();
+            let powerUpWasActive = powerUpActive;
+
+            //window.open(url);
+            let revisedUrl = url;
+            if (url.includes("youtube")) {
+                revisedUrl = url + "&autoplay=1";
+            }
+            adIframe.src = revisedUrl;
+            
+            tint.style.visibility = "visible";
+            adContainer.style.visibility = "visible";
+            adIframe.style.visibility = "visible";
+
+            // Listen for the focus event to resume music
+            const documentFocus = () => {
+                if (powerUpWasActive) {
+                    dreamSpeedrunMusic.play();
+                }
+                else if (!gameOver && playing) {
+                    backgroundMusic.play();
+                }
+                window.removeEventListener("onfocus", documentFocus);
+            };
+            window.addEventListener("onfocus", documentFocus);
+        }
+        
+        function helper_createAdBehavior(action) {
+            return (element) => {
+                element.onmouseover = () => {
+                    if (!gameOver && playing) {
+                        action();
+                    }
+                };
+            };
+        }
+
+        document.body.addEventListener("keydown", keyPressed);
+
+        function keyPressed(event) {
+            if (event.key === "Escape") {
+                ui_closePopup();
+            }
+            
+        }
+
+        function closeAd() {
+            tint.style.visibility = "collapse";
+            adContainer.style.visibility = "collapse";
+            adIframe.style.visibility = "collapse";
+            adIframe.src = "https//www.example.com";
+        }
+
+        //#region UI
+
+        function ui_closePopup() {
+            popup.style.display = "none";
+            backgroundMusic.play();
+        }
+
+        //#endregion
+
+        //#region Elements
+        function elements_spawnElement() {
+            if (gameOver || !playing) return;
+
+            // Randomly choose a type
+            value = Math.random();
+            if (value < treasurePercentage) {
+                randomType = clickableTypes.TREASURE;
+            }
+            else if (value < treasurePercentage + powerUpPercentage && !powerUpActive) {
+                randomType = clickableTypes.POWERUP;
+            }
+            else {
+                randomType = clickableTypes.AD;
+            }
+
+            const element = document.createElement('div');
+
+            if (randomType == clickableTypes.POWERUP) {
+                const newClickable = new Clickable(
+                    helper_getRandom5BetweenInclusive(powerUpMinDimension, powerUpMaxDimension),  // Width
+                    helper_getRandom5BetweenInclusive(powerUpMinDimension, powerUpMaxDimension),  // Height
+                    Math.random() * 3 + 5,    // Random speed between 5 and 8
+                    randomType,               // Type: either TREASURE or AD for now
+                    maxTreasureValue * 2 // Random score value
+                );
+                
+                element.classList.add('powerup');
+                element.style.width = `${newClickable.width}px`;
+                element.style.height = `${newClickable.height}px`;
+                element.innerText = 'Powerup!';
+                element.style.top = `${Math.random() * (gameArea.offsetHeight - newClickable.height)}px`;
+
+                element.onclick = () => {
+                    if (!gameOver && playing) {
+                        score += newClickable.score;
+                        maxScore += newClickable.score;
+                        scoreDisplay.textContent = `${score}`;
+                        plusScoreDisplay.textContent = `+${newClickable.score}`;
+                        helper_fadeOut(plusScoreDisplay, 2);
+                        powerUpActive = true;
+                        elements_doRandomPowerUp();
+                        element.remove();
+                    }
+                };
+                // Add to game area and animate
+                gameArea.appendChild(element);
+                elements_animateElement(element, newClickable.speed);
+            }
+            else if (randomType == clickableTypes.TREASURE) {
+                // Create a new Clickable instance with random dimensions and speed
+                const newClickable = new Clickable(
+                    helper_getRandom5BetweenInclusive(treasureMinDimension, treasureMaxDimension),
+                    helper_getRandom5BetweenInclusive(treasureMinDimension, treasureMaxDimension),
+                    Math.random() * 2 + 3,    // Random speed between 3 and 5
+                    randomType,               // Type: either TREASURE or AD for now
+                    helper_getRandom5BetweenInclusive(minTreasureValue, maxTreasureValue) // Random score value
+                );
+
+                element.classList.add('treasure');
+                element.style.width = `${newClickable.width}px`;
+                element.style.height = `${newClickable.height}px`;
+                element.innerText = newClickable.score;
+                element.style.top = `${Math.random() * (gameArea.offsetHeight - newClickable.height)}px`;
+
+                element.onclick = () => {
+                    if (!gameOver && playing) {
+                        score += newClickable.score;
+                        maxScore += newClickable.score;
+                        scoreDisplay.textContent = `${score}`;
+                        plusScoreDisplay.textContent = `+${newClickable.score}`;
+                        helper_fadeOut(plusScoreDisplay, 2);
+                        element.remove();
+                    }
+                };
+                // Add to game area and animate
+                gameArea.appendChild(element);
+                elements_animateElement(element, newClickable.speed);
+            } 
+            else if (randomType == clickableTypes.AD) {
+                adFactory(element);
+                gameArea.appendChild(element);
+                elements_animateElement(element, Math.random() * 2 + 3);
+            }
+        }
+
+        function elements_doRandomPowerUp() {
+            ogTime = time;
+            ogTreasurePercentage = treasurePercentage;
+            ogAdPercentage = adPercentage;
+            ogPowerUpPercentage = powerUpPercentage;
+            powerUpPercentage = 0;
+            treasurePercentage = 0.8;
+            adPercentage = 0.2;
+
+            backgroundMusic.pause();
+            dreamSpeedrunMusic.play();
+
+            const onMusicEnd = () => {
+                time = ogTime;
+                powerUpActive = false;
+                dreamSpeedrunMusic.pause();
+                helper_fadeInMusic();
+
+                treasurePercentage = ogTreasurePercentage;
+                adPercentage = ogAdPercentage;
+                powerUpPercentage = ogPowerUpPercentage;
+
+                Console.log("treasure percentage decreased back to " + treasurePercentage);
+
+                dreamSpeedrunMusic = new Audio('audio\\music\\dreamSpeedrun.mp3');
+
+                dreamSpeedrunMusic.removeEventListener("ended", onMusicEnd);
+            }
+
+            dreamSpeedrunMusic.addEventListener("ended", onMusicEnd);
+            time = 100;
+        }
+
+        function elements_animateElement(element, speed) {
+            let position = -1 * Math.max(treasureMaxDimension, adMaxDimension); // Start from the left of the game area
+            element.style.left = `${position}px`; // Explicitly set the initial left position
+
+            const interval = setInterval(() => {
+                if (gameOver) clearInterval(interval);
+                if (!playing || gameOver) return;
+
+                position += speed; // Move the element to the right
+                element.style.left = `${position}px`;
+
+                // Remove the element if it goes beyond the right edge of the game area
+                if (position > gameArea.offsetWidth) {
+                    element.remove();
+                    clearInterval(interval);
+                }
+            }, 20);
+        }
+        //#endregion
+
+        //#region Game Time
+
+        function gametime_pauseGame() {
+            pauseText.textContent = "Game paused. Click to resume.";
+            playing = false;
+            pauseText.style.visibility = "visible";
+            gameArea.style.filter = "grayscale(75%)";
+        }
+
+        function gametime_resumeGame() {
+            if (!playing) {
+                playing = true;
+                pauseText.style.visibility = "collapse";
+                gameArea.style.filter = "grayscale(0%)";
+                backgroundMusic.play();
+            }
+            
+        }
+        
+        //#endregion
+
+        //#region Clickable
+        class Clickable {
+            constructor(width, height, speed, type, score) {
+                this.width = width;
+                this.height = height;
+                this.speed = speed;
+                this.type = type;
+                this.score = score;
+            }
+        }
+
+        // Enum-like structure for clickable types
+        const clickableTypes = Object.freeze({
+            TREASURE: 'TREASURE',
+            AD: 'AD',
+            POWERUP: 'POWERUP'
+        });
+
+        //#endregion
+
+        //#region Upgrade
+        class Upgrade {
+            constructor({ name, description, cost, maxLevel, onUpgrade, onDowngrade }) {
+                this.level = 0;
+                this.maxLevel = maxLevel || 10;
+                this.originalCost = cost || 100;
+                this.cost = this.originalCost;
+                this.name = name;
+                this.description = description;
+                this.onUpgrade = onUpgrade;
+                this.onDowngrade = onDowngrade;
+                this.achievedLevel = 0;
+
+                this.createElement();
+            }
+
+            createElement() {
+                // Create the upgrade container
+                this.container = document.createElement("div");
+                this.container.classList.add("upgrade");
+
+                // Add description
+                const descriptionContainer = document.createElement("div");
+                descriptionContainer.classList.add("upgradeDescription");
+                descriptionContainer.innerHTML = `
+                    <h2>${this.name}</h2>
+                    <p>${this.description}</p>
+                `;
+                this.container.appendChild(descriptionContainer);
+
+                // Add buttons
+                const tickerContainer = document.createElement("div");
+                tickerContainer.classList.add("upgradeTicker");
+
+                this.increaseButton = document.createElement("div");
+                this.increaseButton.classList.add("upgradeTickerButton");
+                this.increaseButton.textContent = `⬆️$${this.cost}⬆️`;
+                this.increaseButton.onclick = this.handleIncrease.bind(this);
+
+                this.levelDisplay = document.createElement("div");
+                this.levelDisplay.classList.add("upgradeTickerButton");
+                this.levelDisplay.textContent = `Level ${this.level}`;
+
+                this.decreaseButton = document.createElement("div");
+                this.decreaseButton.classList.add("upgradeTickerButton");
+                this.decreaseButton.textContent = "⬇️Free⬇️";
+                this.decreaseButton.onclick = this.handleDecrease.bind(this);
+
+                tickerContainer.append(this.increaseButton, this.levelDisplay, this.decreaseButton);
+                this.container.appendChild(tickerContainer);
+
+                // Add to shop container
+                document.getElementById("shopContainer").appendChild(this.container);
+            }
+
+            handleIncrease() {
+                if (powerUpActive) return;
+                if (this.level < this.achievedLevel) {
+                    this.level++;
+                    this.levelDisplay.textContent = `Level ${this.level}`;
+                    if (this.level < this.achievedLevel) {
+                        this.increaseButton.textContent = `⬆️Free⬆️`;
+                    } else if (this.level < this.maxLevel) {
+                        this.increaseButton.textContent = `⬆️$${this.cost}⬆️`;
+                    } else {
+                        this.increaseButton.textContent = `⬆️MAX⬆️`;
+                        this.levelDisplay.textContent = `Level MAX`;
+                    }
+                    if (this.onUpgrade) this.onUpgrade(this.level);
+                }
+                else if (score >= this.cost && this.level < this.maxLevel) {
+                    score -= this.cost;
+                    this.level++;
+                    this.achievedLevel = this.level;
+                    this.levelDisplay.textContent = `Level ${this.level}`;
+                    this.cost = this.originalCost * (this.level + 1);
+                    if (this.level < this.maxLevel) {
+                        this.increaseButton.textContent = `⬆️$${this.cost}⬆️`;
+                    }
+                    else {
+                        this.increaseButton.textContent = `⬆️MAX⬆️`;
+                        this.levelDisplay.textContent = `Level MAX`;
+                    }
+                    
+                    if (this.onUpgrade) this.onUpgrade(this.level);
+                }
+            }
+
+            handleDecrease() {
+                if (powerUpActive) return;
+                if (this.level > 0) {
+                    this.level--;
+                    this.levelDisplay.textContent = `Level ${this.level}`;
+                    this.increaseButton.textContent = `⬆️Free⬆️`;
+                    if (this.onDowngrade) this.onDowngrade(this.level);
+                }
+            }
+        }
+
+        function updateScoreDisplay() {
+            scoreDisplay.textContent = `${score}`;
+        }
+
+        setInterval(updateScoreDisplay, 100);
+        upgrades.forEach((upgradeConfig) => new Upgrade(upgradeConfig));
+
+        //#endregion
+
+        //#region Helpers
+
+        function helper_fadeOut(element, time) {
+            let opacity = 1;  // Start at full opacity
+            const interval = setInterval(() => {
+                opacity -= 0.01;  // Decrease opacity
+                if (opacity <= 0) {
+                    clearInterval(interval);  // Stop the interval
+                    opacity = 0;  // Ensure opacity doesn’t go below 0
+                }
+                element.style.opacity = opacity;
+            }, time / 100);
+        }
+
+        function helper_reset() {
+            document.querySelectorAll('.ad, .treasure, .powerup').forEach(el => {
+                console.log(el); // Check if elements are being selected
+                el.remove();
+            });
+            speed = 5;
+            time = 750;
+            if (powerUpActive) {
+                backgroundMusic.play();
+            }
+            powerUpActive = false;
+            dreamSpeedrunMusic.pause();
+            dreamSpeedrunMusic = new Audio('audio\\music\\dreamSpeedrun.mp3');
+        }
+
+        // Math.random() ==> float [0, 1)
+        function helper_getRandom5BetweenInclusive(min, max) {
+            return Math.round((Math.random() * (max - min) + min) / 5) * 5;
+        }
+
+        //#endregion
+
+        function adFactory(element) {
+            const index = Math.floor(Math.random() * Object.values(adTypes).length);
+            const randomImage = imageList[index];
+
+            // Create a new Clickable instance with random dimensions and speed
+            const newClickable = new Clickable(
+                helper_getRandom5BetweenInclusive(adMinDimension, adMaxDimension),
+                helper_getRandom5BetweenInclusive(adMinDimension, adMaxDimension),
+                Math.random() * 2 + 3, // Random speed between 3 and 5
+                clickableTypes.AD,
+                0
+            );
+
+            // Create the ad element
+            element.classList.add('ad');
+            element.style.width = `${newClickable.width}px`;
+            element.style.height = `${newClickable.height}px`;
+            element.style.top = `${Math.random() * (gameArea.offsetHeight - newClickable.height)}px`;
+
+            const imageElement = document.createElement('img');
+            imageElement.src = randomImage;
+            imageElement.style.width = '100%';
+            imageElement.style.height = '100%';
+            element.appendChild(imageElement);
+
+            // Select a random ad type and apply its behavior
+            const adType = Object.values(adTypes)[index];
+            if (behaviorMap[adType]) {
+                behaviorMap[adType](element);
+            }            
+        }
+
+        function gameLoop() {
+            if (!playing) {
+                setTimeout(gameLoop, time);  
+                return;
+            }
+            elements_spawnElement();
+            if (time > 500) time -= 5;
+            else if (time > 250) time -= 2.5;
+            if (speed < 15) speed += 0.05;
+
+            levelText.textContent = `Level ${Math.round(speed) - 4}`;
+
+            if (!gameOver) setTimeout(gameLoop, time);
+        }
+
+        gameLoop();
+        
+    </script>
+</body>
+</html>
