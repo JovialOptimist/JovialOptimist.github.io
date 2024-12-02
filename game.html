@@ -166,7 +166,7 @@
         z-index: 501;
         position: absolute;
         display: inline;
-        background-image: url("images\\loading.gif");
+        background-image: url("SurviveTheInternet\\images\\loading.gif");
         background-repeat: no-repeat;
         background-size:auto;
         margin: 0 auto;
@@ -253,9 +253,9 @@
 
         pauseText.textContent = "Click to start game.";
 
-        var dreamSpeedrunMusic = new Audio('audio\\music\\dreamSpeedrun.mp3');
-        var explosionSoundEffect = new Audio("audio\\effects\\SFX bossexplosion.mp3");
-        var backgroundMusic = new Audio("audio\\music\\backgroundMusic.mp3");
+        var dreamSpeedrunMusic = new Audio('SurviveTheInternet\\audio\\music\\dreamSpeedrun.mp3');
+        var explosionSoundEffect = new Audio("SurviveTheInternet\\audio\\effects\\SFX bossexplosion.mp3");
+        var backgroundMusic = new Audio("SurviveTheInternet\\audio\\music\\backgroundMusic.mp3");
         backgroundMusic.loop = true;
 
         let score = 0;
@@ -383,37 +383,37 @@
         //  - How to win casinos (they can't stop you)
     
         function addAds() {
-            addSimpleAdType("TRUMP", "images\\trump.png", "https://a.co/d/iXRuFAQ");
-            addSimpleAdType("ADBLOCKUPDATE", "images\\adblockupdate.jpg", "https://getadblock.com/en/");
-            addSimpleAdType("TERRACE", "images\\terrace.png", "https://rickysburgersbaytown.mylocalkfc.com/");
-            addSimpleAdType("CLASHROYALE", "images\\clashroyale.jpg", "https://supercell.com/en/games/clashroyale/");
-            addSimpleAdType("AFK", "images\\afk.png", "https://play.google.com/store/apps/details?id=com.lilithgame.hgame.gp&hl=en_US");
-            addSimpleAdType("FAKEVIDEO", "images\\Trollface.png", "https://www.microsoft.com/en-us/p/gardenscapes/9mt9t93g2cnt");
-            addSimpleAdType("COCACOLA", "images\\cocacola.png", "https://en.wikipedia.org/wiki/Coca-Cola");
-            addSimpleAdType("BALANCEPROBLEMS", "images\\balanceproblems.png", "https://en.wikipedia.org/wiki/Wii_Balance_Board");
-            addSimpleAdType("CANCER", "images\\cancer.png", "https://www.prevention.com/health/g42690515/18267732/");
-            addSimpleAdType("WOMEN", "images\\women.png", "https://www.consumerbags.com/gift-guide/coolest-gifts-for-her");
+            addSimpleAdType("TRUMP", "SurviveTheInternet\\images\\trump.png", "https://a.co/d/iXRuFAQ");
+            addSimpleAdType("ADBLOCKUPDATE", "SurviveTheInternet\\images\\adblockupdate.jpg", "https://getadblock.com/en/");
+            addSimpleAdType("TERRACE", "SurviveTheInternet\\images\\terrace.png", "https://rickysburgersbaytown.mylocalkfc.com/");
+            addSimpleAdType("CLASHROYALE", "SurviveTheInternet\\images\\clashroyale.jpg", "https://supercell.com/en/games/clashroyale/");
+            addSimpleAdType("AFK", "SurviveTheInternet\\images\\afk.png", "https://play.google.com/store/apps/details?id=com.lilithgame.hgame.gp&hl=en_US");
+            addSimpleAdType("FAKEVIDEO", "SurviveTheInternet\\images\\Trollface.png", "https://www.microsoft.com/en-us/p/gardenscapes/9mt9t93g2cnt");
+            addSimpleAdType("COCACOLA", "SurviveTheInternet\\images\\cocacola.png", "https://en.wikipedia.org/wiki/Coca-Cola");
+            addSimpleAdType("BALANCEPROBLEMS", "SurviveTheInternet\\images\\balanceproblems.png", "https://en.wikipedia.org/wiki/Wii_Balance_Board");
+            addSimpleAdType("CANCER", "SurviveTheInternet\\images\\cancer.png", "https://www.prevention.com/health/g42690515/18267732/");
+            addSimpleAdType("WOMEN", "SurviveTheInternet\\images\\women.png", "https://www.consumerbags.com/gift-guide/coolest-gifts-for-her");
 
 
 
-            //addSimpleAdType("SPONGEBOB", "images\\spongebob.png", "https://www.buzzfeed.com/elizabeth_cotton/first-date-red-flags");
-            addSimpleAdType("RAID", "images\\raidshadowlegends.jpg", "https://www.youtube.com/embed/aHyJQDNdVFQ?si=tLiiEBZXfUMnpxzh");
-            //addSimpleAdType("RICKROLL", "images\\rickastley.png", "https://www.youtube.com/embed/dQw4w9WgXcQ?si=bqij3aK17nBOoNIT");
-            addSimpleAdType("CANDYCRUSH", "images\\candycrush.jpg", "https://www.youtube.com/embed/uLBACF0Ms8E?si=tKQibIc4U98qrHU3&amp;start=1674");
+            //addSimpleAdType("SPONGEBOB", "SurviveTheInternet\\images\\spongebob.png", "https://www.buzzfeed.com/elizabeth_cotton/first-date-red-flags");
+            addSimpleAdType("RAID", "SurviveTheInternet\\images\\raidshadowlegends.jpg", "https://www.youtube.com/embed/aHyJQDNdVFQ?si=tLiiEBZXfUMnpxzh");
+            //addSimpleAdType("RICKROLL", "SurviveTheInternet\\images\\rickastley.png", "https://www.youtube.com/embed/dQw4w9WgXcQ?si=bqij3aK17nBOoNIT");
+            addSimpleAdType("CANDYCRUSH", "SurviveTheInternet\\images\\candycrush.jpg", "https://www.youtube.com/embed/uLBACF0Ms8E?si=tKQibIc4U98qrHU3&amp;start=1674");
         
-            addAdType("NUKE", "images\\nuke.png",
+            addAdType("NUKE", "SurviveTheInternet\\images\\nuke.png",
                 helper_createAdBehavior(() => {
                     explosionSoundEffect.play();
                     backgroundMusic.volume = 0.3;
                     explosionSoundEffect.onended = () => {
                         helper_fadeInMusic();
-                        explosionSoundEffect = new Audio("audio\\effects\\SFX bossexplosion.mp3");
+                        explosionSoundEffect = new Audio("SurviveTheInternet\\audio\\effects\\SFX bossexplosion.mp3");
                     }
                     helper_reset();
                 })
             );
         
-            addAdType("DOWNLOAD", "images\\download.png",
+            addAdType("DOWNLOAD", "SurviveTheInternet\\images\\download.png",
                 helper_createAdBehavior(() => {
                     const platform = navigator.platform;
                     if (platform.includes("Win")) helper_openURL("https://fakeupdate.net/win10ue/");
@@ -424,7 +424,7 @@
                 })
             );
 
-            // addAdType("FNAF", "images\\fnaf.jpg",
+            // addAdType("FNAF", "SurviveTheInternet\\images\\fnaf.jpg",
             //     helper_createAdBehavior(() => {
             //         triggerGreenScreenEffect();
             //         helper_reset();
@@ -642,7 +642,7 @@
 
                 Console.log("treasure percentage decreased back to " + treasurePercentage);
 
-                dreamSpeedrunMusic = new Audio('audio\\music\\dreamSpeedrun.mp3');
+                dreamSpeedrunMusic = new Audio('SurviveTheInternet\\audio\\music\\dreamSpeedrun.mp3');
 
                 dreamSpeedrunMusic.removeEventListener("ended", onMusicEnd);
             }
@@ -846,7 +846,7 @@
             }
             powerUpActive = false;
             dreamSpeedrunMusic.pause();
-            dreamSpeedrunMusic = new Audio('audio\\music\\dreamSpeedrun.mp3');
+            dreamSpeedrunMusic = new Audio('SurviveTheInternet\\audio\\music\\dreamSpeedrun.mp3');
         }
 
         // Math.random() ==> float [0, 1)
