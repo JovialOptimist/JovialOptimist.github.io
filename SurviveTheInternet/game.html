@@ -275,6 +275,7 @@
         let adPercentage = 0.65;
         let speed = 5;
         let time = 750;
+        let speedMultiplier = 1.0;
 
         let minTreasureValue = 5;
         let maxTreasureValue = 50;
@@ -339,6 +340,20 @@
                     console.log(`Powerup frequency decreased to level ${level}`);
                     powerUpPercentage -= 0.01;
                     adPercentage += 0.01;
+                },
+            },
+            {
+                name: "Increase Difficulty",
+                description: "Make powerups more likely to spawn",
+                cost: 0,
+                maxLevel: 20,
+                onUpgrade: (level) => {
+                    console.log(`Powerup frequency increased to level ${level}`);
+                    speedMultiplier += 0.05;
+                },
+                onDowngrade: (level) => {
+                    console.log(`Powerup frequency decreased to level ${level}`);
+                    speedMultiplier -= 0.05;
                 },
             }
         ];
@@ -746,7 +761,7 @@
                 if (gameOver) clearInterval(interval);
                 if (!playing || gameOver) return;
 
-                position += speed; // Move the element to the right
+                position += (speed * speedMultiplier); // Move the element to the right
                 element.style.left = `${position}px`;
 
                 // Remove the element if it goes beyond the right edge of the game area
@@ -804,7 +819,7 @@
             constructor({ name, description, cost, maxLevel, onUpgrade, onDowngrade }) {
                 this.level = 0;
                 this.maxLevel = maxLevel || 10;
-                this.originalCost = cost || 100;
+                this.originalCost = cost;
                 this.cost = this.originalCost;
                 this.name = name;
                 this.description = description;
