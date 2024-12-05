@@ -9,6 +9,7 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        user-select: none;
     }
     body {
         overflow: hidden;
@@ -42,6 +43,7 @@
         transition: transform 0.2s;
         border: 2px solid white;
         color: #fff;
+        user-select: none;
     }
     .ad {
         background-color: #ff4d4d;
@@ -125,6 +127,7 @@
     #levelText {
         font-size: 2vh;
         margin: 5px;
+        user-select: none;
     }
     #howToPlay {
         position: absolute;
@@ -166,7 +169,7 @@
         z-index: 501;
         position: absolute;
         display: inline;
-        background-image: url("SurviveTheInternet\\images\\loading.gif");
+        background-image: url("images\\loading.gif");
         background-repeat: no-repeat;
         background-size:auto;
         margin: 0 auto;
@@ -179,14 +182,15 @@
     }
     #closeAdButton {
         color: white;
+        background-color: rgba(0,0,0,0.8);
         padding: 0px;
         margin: 0px;
         display: inline;
-        width: 20px;
-        height: 20px;
-        right: 5px;
+        width: 80px;
+        height: 80px;
+        right: 0px;
         cursor: pointer;
-        font-size: 20px;
+        font-size: 56px;
         position: absolute;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
@@ -200,7 +204,7 @@
     <div id="adContainer">
         
         <iframe id="adIframe" allow="autoplay"></iframe>
-        <div id="closeAdButton" onclick="closeAd()">✖️</div>
+        <div id="closeAdButton" onclick="closeAd()">❌</div>
     </div>
     
 
@@ -214,6 +218,9 @@
         <p>You play with your mouse to collect money and dodge ads. If you hover over an ad, you have to restart from level 0. Clicking the yellow treasures earns you money which you can use to purchase upgrade(s) like more powerups!</p>
         <br>
         <p>Move your mouse outside of the play box to pause the game. In the shop, you can spend your money to increase your abilities, or even decrease your own power to give yourself a challenge.</p>
+        <br>
+        <p>Also, you'll need to turn off your ad-blocker to play the game. See <a target="_blank" rel="noopener noreferrer" href="https://www.wikihow.com/Disable-AdBlock">here</a> for how to do that.</p>
+    
     </div>
 
     <div id="gameArea">
@@ -253,9 +260,9 @@
 
         pauseText.textContent = "Click to start game.";
 
-        var dreamSpeedrunMusic = new Audio('SurviveTheInternet\\audio\\music\\dreamSpeedrun.mp3');
-        var explosionSoundEffect = new Audio("SurviveTheInternet\\audio\\effects\\SFX bossexplosion.mp3");
-        var backgroundMusic = new Audio("SurviveTheInternet\\audio\\music\\backgroundMusic.mp3");
+        var dreamSpeedrunMusic = new Audio('audio\\music\\dreamSpeedrun.mp3');
+        var explosionSoundEffect = new Audio("audio\\effects\\SFX bossexplosion.mp3");
+        var backgroundMusic = new Audio("audio\\music\\backgroundMusic.mp3");
         backgroundMusic.loop = true;
 
         let score = 0;
@@ -383,37 +390,104 @@
         //  - How to win casinos (they can't stop you)
     
         function addAds() {
-            addSimpleAdType("TRUMP", "SurviveTheInternet\\images\\trump.png", "https://a.co/d/iXRuFAQ");
-            addSimpleAdType("ADBLOCKUPDATE", "SurviveTheInternet\\images\\adblockupdate.jpg", "https://getadblock.com/en/");
-            addSimpleAdType("TERRACE", "SurviveTheInternet\\images\\terrace.png", "https://rickysburgersbaytown.mylocalkfc.com/");
-            addSimpleAdType("CLASHROYALE", "SurviveTheInternet\\images\\clashroyale.jpg", "https://supercell.com/en/games/clashroyale/");
-            addSimpleAdType("AFK", "SurviveTheInternet\\images\\afk.png", "https://play.google.com/store/apps/details?id=com.lilithgame.hgame.gp&hl=en_US");
-            addSimpleAdType("FAKEVIDEO", "SurviveTheInternet\\images\\Trollface.png", "https://www.microsoft.com/en-us/p/gardenscapes/9mt9t93g2cnt");
-            addSimpleAdType("COCACOLA", "SurviveTheInternet\\images\\cocacola.png", "https://en.wikipedia.org/wiki/Coca-Cola");
-            addSimpleAdType("BALANCEPROBLEMS", "SurviveTheInternet\\images\\balanceproblems.png", "https://en.wikipedia.org/wiki/Wii_Balance_Board");
-            addSimpleAdType("CANCER", "SurviveTheInternet\\images\\cancer.png", "https://www.prevention.com/health/g42690515/18267732/");
-            addSimpleAdType("WOMEN", "SurviveTheInternet\\images\\women.png", "https://www.consumerbags.com/gift-guide/coolest-gifts-for-her");
+            // add simple ads that open in the webpage
+            addSimpleAdType("TRUMP", "images\\trump.png", "https://a.co/d/iXRuFAQ", true);
+            addSimpleAdType("TERRACE", "images\\terrace.png", "https://rickysburgersbaytown.mylocalkfc.com/", true);
+            addSimpleAdType("CLASHROYALE", "images\\clashroyale.jpg", "https://supercell.com/en/games/clashroyale/", true);
+            addSimpleAdType("FAKEVIDEO", "images\\Trollface.png", "https://www.idiot.com/thisisafakeurlthatprobablydoesntexistbutyaneverknowmaybe", true);
+            addSimpleAdType("COCACOLA", "images\\cocacola.png", "https://en.wikipedia.org/wiki/Coca-Cola", true);
+            addSimpleAdType("BALANCEPROBLEMS", "images\\balanceproblems.png", "https://en.wikipedia.org/wiki/Wii_Balance_Board", true);
+            addSimpleAdType("WOMEN", "images\\women.png", "https://www.consumerbags.com/gift-guide/coolest-gifts-for-her", true);
+            addSimpleAdType("RAID", "images\\raidshadowlegends.jpg", "https://www.youtube.com/embed/aHyJQDNdVFQ?si=tLiiEBZXfUMnpxzh", true);
+            addSimpleAdType("CANDYCRUSH", "images\\candycrush.jpg", "https://www.youtube.com/embed/uLBACF0Ms8E?si=tKQibIc4U98qrHU3&amp;start=1674", true);
+            addSimpleAdType("GUTTERS", "images\\gutters.png", "https:\\jachambers.xyz/FinalProject_CSS385/webpages/simple.html", true);
+            addSimpleAdType("PRIME", "images\\prime.png", "https://blog.onlineshoppingtools.com/tb/pricing?popup=1&utm_source=n&utm_medium=atn&atnid=927472d3-c19a-4fd4-a7f8-35819b50dd51&uxid=&atnds=18&ec=0&uxid0=", true)
+            addSimpleAdType("XFINITY", "images\\xfinity.png", "https://www.xfinity.com/national/", true);
 
 
+            // add simple ads that open a new tab
+            addSimpleAdType("DRAGONDODGE", "images\\dragondodge.png", "https://scratch.mit.edu/projects/87813129/", false);
+            addSimpleAdType("WINDOWS", "images\\windows.png", "https://scratch.mit.edu/projects/236363429", false);
+            addSimpleAdType("RICKASTLEY", "images\\rickastley", "https://youtu.be/dQw4w9WgXcQ?si=5eWewPtghiXOGGpr", false);
+            addSimpleAdType("CANCER", "images\\cancer.png", "https://www.prevention.com/health/g42690515/18267732/", false);
+            addSimpleAdType("AFK", "images\\afk.png", "https://play.google.com/store/apps/details?id=com.lilithgame.hgame.gp&hl=en_US", false);
+            addSimpleAdType("ADBLOCKUPDATE", "images\\adblockupdate.jpg", "https://getadblock.com/en/", false);
 
-            //addSimpleAdType("SPONGEBOB", "SurviveTheInternet\\images\\spongebob.png", "https://www.buzzfeed.com/elizabeth_cotton/first-date-red-flags");
-            addSimpleAdType("RAID", "SurviveTheInternet\\images\\raidshadowlegends.jpg", "https://www.youtube.com/embed/aHyJQDNdVFQ?si=tLiiEBZXfUMnpxzh");
-            //addSimpleAdType("RICKROLL", "SurviveTheInternet\\images\\rickastley.png", "https://www.youtube.com/embed/dQw4w9WgXcQ?si=bqij3aK17nBOoNIT");
-            addSimpleAdType("CANDYCRUSH", "SurviveTheInternet\\images\\candycrush.jpg", "https://www.youtube.com/embed/uLBACF0Ms8E?si=tKQibIc4U98qrHU3&amp;start=1674");
+            const wordsOfAffirmation = [
+                "yes", "yup", "yep", "ya-huh", "sure",
+                "absolutely", "affirmative", "agreed", "all right", "alright",
+                "amen", "as you wish", "assuredly", "aye", "bingo",
+                "certainly", "check", "definitely", "exactly", "for sure",
+                "gladly", "got it", "granted", "indeed", "indubitably",
+                "it is so", "just so", "of course", "ok", "okay",
+                "positively", "precisely", "roger", "right", "sounds good",
+                "sure thing", "that's right", "totally", "true", "understood",
+                "undoubtedly", "unquestionably", "very well", "will do", "yass",
+                "yeah", "yea", "yessir", "yessum", "you bet"
+            ];
+
+            const wordsOfConfirmation = [
+                "okay", "sounds good", "got it",
+                "alright", "fine", "sure", "no problem", "very well",
+                "ok", "okey", "okey-dokey", "okie-dokie", "all good",
+                "acceptable", "agreed", "roger that", "understood", "as you say",
+                "cool", "for sure", "deal", "good to go", "affirmative",
+                "no worries", "right on", "yup", "aye", "certainly",
+                "definitely", "indeed", "that's fine", "true", "you bet",
+                "fair enough", "just so", "precisely", "positively", "by all means",
+                "of course", "agreed upon", "that's correct", "that's right", "no objection",
+                "you got it", "clear", "sure thing", "so be it", "granted",
+                "fine by me", "copacetic", "amen", "will do"
+            ];
         
-            addAdType("NUKE", "SurviveTheInternet\\images\\nuke.png",
+            addAdType("BREAKINGUP", "images\\breakingup.png", 
+                helper_createAdBehavior(() => {
+                    let response = window.prompt("So, you clicked on the break-up ad, huh? How does that make you feel? Good? Powerful? You think you're just better than everyone else or something? Is that what it is?")
+                    if (response == null) {
+                        helper_reset();
+                    }
+                    else {
+                        if (!wordsOfAffirmation.some(word => response.toLowerCase().includes(word.toLowerCase()))) {
+                            response = window.prompt("You know what? I don't care. I don't want to be around you anymore. I'm breaking up with you.");
+                            if (!wordsOfConfirmation.some(word => response.toLowerCase().includes(word.toLowerCase()))) {
+                                response = window.prompt("What's that? You're sorry? You'll try to be a better person?");
+                                if (wordsOfAffirmation.some(word => response.toLowerCase().includes(word.toLowerCase()))) {
+                                    window.alert("Oh. Well. That means a lot to me. Thank you...");
+                                    window.alert("Here. I feel bad. Take $1000.");
+                                    score += 1000;
+                                    maxScore += 1000;
+                                    scoreDisplay.textContent = `${score}`;
+                                    plusScoreDisplay.textContent = `+$1000`;
+                                    helper_fadeOut(plusScoreDisplay, 5);
+                                }
+                                else {
+                                    window.alert("I knew you'd say that. We're through.");
+                                    score -= 1000;
+                                    maxScore -= 1000;
+                                    scoreDisplay.textContent = `${score}`;
+                                    plusScoreDisplay.textContent = `-$1000 :(`;
+                                    helper_fadeOut(plusScoreDisplay, 5);
+                                }
+                            }
+                        }
+                        helper_reset();
+                    }
+                })
+            );
+
+            addAdType("NUKE", "images\\nuke.png",
                 helper_createAdBehavior(() => {
                     explosionSoundEffect.play();
                     backgroundMusic.volume = 0.3;
                     explosionSoundEffect.onended = () => {
                         helper_fadeInMusic();
-                        explosionSoundEffect = new Audio("SurviveTheInternet\\audio\\effects\\SFX bossexplosion.mp3");
+                        explosionSoundEffect = new Audio("audio\\effects\\SFX bossexplosion.mp3");
                     }
                     helper_reset();
                 })
             );
         
-            addAdType("DOWNLOAD", "SurviveTheInternet\\images\\download.png",
+            addAdType("DOWNLOAD", "images\\download.png",
                 helper_createAdBehavior(() => {
                     const platform = navigator.platform;
                     if (platform.includes("Win")) helper_openURL("https://fakeupdate.net/win10ue/");
@@ -424,7 +498,9 @@
                 })
             );
 
-            // addAdType("FNAF", "SurviveTheInternet\\images\\fnaf.jpg",
+            
+
+            // addAdType("FNAF", "images\\fnaf.jpg",
             //     helper_createAdBehavior(() => {
             //         triggerGreenScreenEffect();
             //         helper_reset();
@@ -443,10 +519,16 @@
             behaviorMap[adType] = behaviorFunction;
         }
 
-        function addSimpleAdType(adName, imagePath, url) {
+        function addSimpleAdType(adName, imagePath, url, embedded) {
             addAdType(adName, imagePath, 
                 helper_createAdBehavior(() => {
-                    helper_openURL(url);
+                    if (embedded) {
+                        helper_openURL(url);
+                    }
+                    else {
+                        window.open(url);
+                    }
+                    
                     helper_reset();
                 })
             );
@@ -520,7 +602,7 @@
             tint.style.visibility = "collapse";
             adContainer.style.visibility = "collapse";
             adIframe.style.visibility = "collapse";
-            adIframe.src = "https://example.com/";
+            adIframe.src = "https//www.example.com";
         }
 
         //#region UI
@@ -642,7 +724,7 @@
 
                 Console.log("treasure percentage decreased back to " + treasurePercentage);
 
-                dreamSpeedrunMusic = new Audio('SurviveTheInternet\\audio\\music\\dreamSpeedrun.mp3');
+                dreamSpeedrunMusic = new Audio('audio\\music\\dreamSpeedrun.mp3');
 
                 dreamSpeedrunMusic.removeEventListener("ended", onMusicEnd);
             }
@@ -846,7 +928,7 @@
             }
             powerUpActive = false;
             dreamSpeedrunMusic.pause();
-            dreamSpeedrunMusic = new Audio('SurviveTheInternet\\audio\\music\\dreamSpeedrun.mp3');
+            dreamSpeedrunMusic = new Audio('audio\\music\\dreamSpeedrun.mp3');
         }
 
         // Math.random() ==> float [0, 1)
