@@ -230,7 +230,7 @@
     
     <div id="shopContainer">
         <div id="scoreContainer">
-            <div id="score">0</div>
+            <div id="score">$0</div>
             <div id="addScore"></div>
         </div>
     </div>
@@ -310,26 +310,10 @@
                 },
             },
             {
-                name: "More Powerups",
-                description: "Make powerups more likely to spawn",
-                cost: 100,
-                maxLevel: 5,
-                onUpgrade: (level) => {
-                    console.log(`Powerup frequency increased to level ${level}`);
-                    powerUpPercentage += 0.01;
-                    adPercentage -= 0.01;
-                },
-                onDowngrade: (level) => {
-                    console.log(`Powerup frequency decreased to level ${level}`);
-                    powerUpPercentage -= 0.01;
-                    adPercentage += 0.01;
-                },
-            },
-            {
                 name: "Ad Blocker",
                 description: "Reduces the frequency of ads",
-                cost: 25,
-                maxLevel: 10,
+                cost: 100,
+                maxLevel: 5,
                 onUpgrade: (level) => {
                     console.log(`Ad frequency decreased to level ${level}`);
                     adPercentage -= 0.05;
@@ -341,6 +325,22 @@
                     treasurePercentage -= 0.05;
                 },
             },
+            {
+                name: "More Powerups",
+                description: "Make powerups more likely to spawn",
+                cost: 150,
+                maxLevel: 5,
+                onUpgrade: (level) => {
+                    console.log(`Powerup frequency increased to level ${level}`);
+                    powerUpPercentage += 0.01;
+                    adPercentage -= 0.01;
+                },
+                onDowngrade: (level) => {
+                    console.log(`Powerup frequency decreased to level ${level}`);
+                    powerUpPercentage -= 0.01;
+                    adPercentage += 0.01;
+                },
+            }
         ];
         
         const imageList = [];
@@ -461,7 +461,7 @@
                                     window.alert("Here. I feel bad. Take $1000.");
                                     score += 1000;
                                     maxScore += 1000;
-                                    scoreDisplay.textContent = `${score}`;
+                                    scoreDisplay.textContent = `$${score}`;
                                     plusScoreDisplay.textContent = `+$1000`;
                                     helper_fadeOut(plusScoreDisplay, 5);
                                 }
@@ -469,7 +469,7 @@
                                     window.alert("I knew you'd say that. We're through.");
                                     score -= 1000;
                                     maxScore -= 1000;
-                                    scoreDisplay.textContent = `${score}`;
+                                    scoreDisplay.textContent = `$${score}`;
                                     plusScoreDisplay.textContent = `-$1000 :(`;
                                     helper_fadeOut(plusScoreDisplay, 5);
                                 }
@@ -656,8 +656,8 @@
                     if (!gameOver && playing) {
                         score += newClickable.score;
                         maxScore += newClickable.score;
-                        scoreDisplay.textContent = `${score}`;
-                        plusScoreDisplay.textContent = `+${newClickable.score}`;
+                        scoreDisplay.textContent = `$${score}`;
+                        plusScoreDisplay.textContent = `+$${newClickable.score}`;
                         helper_fadeOut(plusScoreDisplay, 2);
                         powerUpActive = true;
                         elements_doRandomPowerUp();
@@ -688,8 +688,8 @@
                     if (!gameOver && playing) {
                         score += newClickable.score;
                         maxScore += newClickable.score;
-                        scoreDisplay.textContent = `${score}`;
-                        plusScoreDisplay.textContent = `+${newClickable.score}`;
+                        scoreDisplay.textContent = `$${score}`;
+                        plusScoreDisplay.textContent = `+$${newClickable.score}`;
                         helper_fadeOut(plusScoreDisplay, 2);
                         element.remove();
                     }
@@ -899,7 +899,7 @@
         }
 
         function updateScoreDisplay() {
-            scoreDisplay.textContent = `${score}`;
+            scoreDisplay.textContent = `$${score}`;
         }
 
         setInterval(updateScoreDisplay, 100);
