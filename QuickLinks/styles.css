@@ -1,0 +1,96 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: rgb(27, 27, 27);
+    color: rgb(255, 255, 255);
+}
+
+#main {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.singleClass {
+    background-color: rgb(40,40,40);
+    margin: 15px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    width:500px;
+    scale:1.0;
+    transition: 0.2s;
+}
+
+.courseNameHeader {
+    display: block;
+    margin: 10px;
+    padding: 10px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.courseNameHeader:hover {
+    cursor:pointer;
+    text-decoration: underline;
+}
+
+.flagContainer {
+    display: block;
+    margin: 5px;
+    padding: 5px;
+}
+
+.flag {
+    display: inline;
+    background-color: rgb(60, 60, 60);
+    margin: 10px;
+    padding: 15px;
+    border-radius: 100px;
+    transition: 0.2s;
+}
+
+.buttonContainer {
+    display: flexbox;
+    margin: 10px;
+    padding: 5px;
+    margin-top: 15px;
+}
+
+.buttonLink {
+    display: flex;
+    background-color: rgb(60,60,60);
+    margin: 5px;
+    padding: 5px;
+    align-items: center;
+    transition: 0.2s;
+}
+
+.buttonLink:hover {
+    background-color: rgb(80,80,80);
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.linkIcon {
+    width: 25px;
+    height: 25px;
+    padding: 10px;
+    padding-right: 20px;
+    fill: white;
+}
+
+a {
+    color: rgb(168, 213, 255);
+    text-decoration: none;
+    scale: 1.0;
+    transition: 0.2s;
+}
+
+a:hover {
+    color:rgb(0, 132, 255);
+    transition: 0.2s;
+    text-decoration: underline;
+}
