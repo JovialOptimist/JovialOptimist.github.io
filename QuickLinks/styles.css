@@ -53,7 +53,7 @@ body {
     font-weight: bold;
 }
 
-@media (max-width: 420px) {
+@media (max-width: 500px) {
     .courseNameHeader {
         font-size: 24px;
     }
