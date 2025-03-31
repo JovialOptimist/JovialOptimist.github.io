@@ -4,6 +4,7 @@ body {
     padding: 10px;
     background-color: rgb(27, 27, 27);
     color: rgb(230, 230, 230);
+    
 }
 
 #main {
@@ -23,6 +24,12 @@ body {
     color: rgb(255,255,255);
 }
 
+@media (min-width: 500px) {
+    #appHeader {
+        align-items: start;
+        align-self: start;
+    }
+}
 .singleClass {
     background-color: rgb(40,40,40);
     margin: 15px;
@@ -30,6 +37,7 @@ body {
     padding: 10px;
     border-radius: 10px;
     width:83vw;
+    max-width: 600px;
     scale:1.0;
     transition: 0.2s;
 }
