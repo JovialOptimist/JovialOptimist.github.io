@@ -7,59 +7,40 @@ let polygonLayer = null; // Store polygon layer for updates
 
 document.getElementById("searchButton").addEventListener("click", async () => {
     const input = document.getElementById("locationInput").value.trim();
-    if (!input) return;
+    if (!input) return; // ignore null input
 
+    let place = null;
     let osmType = null;
     let osmId = null;
 
     try {
-        if (/^\d+$/.test(input)) {
-            // 📌 If input is a number, assume it's an OSM ID and determine its type
+        const isOsmID = /^\d+$/.test(input); // Check if input is a number
+        let nominatimData = null;
+        let errorMessage = null;
+
+        // Step 1: Fetch data from Nominatim API
+        if (isOsmID) {
+            // get all of the ways and relations for the given OSM ID
             let nominatimResponse = await fetch(`https://nominatim.openstreetmap.org/lookup?osm_ids=W${input},R${input}&format=json`);
-            let nominatimData = await nominatimResponse.json();
-            
-            if (nominatimData.length === 0) {
-                alert("Invalid OSM ID!");
-                return;
-            }
-
-            let place = nominatimData[0];
-            let i = 0;
-            do {
-                place = nominatimData[i];
-                osmType = place.osm_type;
-                osmId = place.osm_id;
-                i++;
-            } while ((osmType !== "way" && osmType !== "relation") && i < nominatimData.length);
-            if (osmType !== "way" && osmType !== "relation") {
-                alert("Selected place does not have a boundary!");
-                return;
-            }
+            nominatimData = await nominatimResponse.json();
+            errorMessage = "Could not find a way or relation with OSM ID " + input + ".";
         } else {
-            // 📌 Otherwise, assume it's a location name and use Nominatim search
+            // get all of the ways and relations for the given object
             let nominatimResponse = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(input)}`);
-            let nominatimData = await nominatimResponse.json();
-
-            if (nominatimData.length === 0) {
-                alert("Location not found!");
-                return;
-            }
-
-            let place = nominatimData[0];
-            let i = 0;
-            do {
-                place = nominatimData[i];
-                osmType = place.osm_type;
-                osmId = place.osm_id;
-                i++;
-            } while ((osmType !== "way" && osmType !== "relation") && i < nominatimData.length);
-            if (osmType !== "way" && osmType !== "relation") {
-                alert("Selected place does not have a boundary!");
-                return;
-            }
+            nominatimData = await nominatimResponse.json();
+            errorMessage = "Could not find anything named " + input + ".";
         }
 
+        // filter out everything other than ways or relations from nominatim data
+        nominatimData = nominatimData.filter(candidate => candidate.osm_type === "way" || candidate.osm_type === "relation");
+        if (nominatimData.length === 0) {
+            alert(errorMessage);
+            return;
+        }
 
+        place = nominatimData[0]; // Take the first result
+        osmType = place.osm_type; // "way" or "relation"
+        osmId = place.osm_id; // OSM ID
         console.log(`Fetching OSM Data for ${osmType}(${osmId})`);
 
         // Step 2: Fetch boundary data from Overpass API
@@ -192,23 +173,12 @@ document.getElementById("searchButton").addEventListener("click", async () => {
             map.removeLayer(polygonLayer);
         }
         
-        if (osmType === "relation") {
-            // Multipolygon with potential holes
-            polygonLayer = L.polygon(coordinates, {
-                color: "blue",
-                weight: 2,
-                fillOpacity: 0.4
-            }).addTo(map);
-        } else {
-            // Simple polygon
-            polygonLayer = L.polygon(coordinates, {
-                color: "blue",
-                weight: 2,
-                fillOpacity: 0.4
-            }).addTo(map);
-        }
+        polygonLayer = L.polygon(coordinates, {
+            color: "blue",
+            weight: 2,
+            fillOpacity: 0.4
+        }).addTo(map);
         
-
         map.fitBounds(polygonLayer.getBounds());
 
         // Step 5: Enable polygon dragging
