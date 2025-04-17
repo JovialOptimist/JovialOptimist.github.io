@@ -184,14 +184,14 @@ document.getElementById("searchButton").addEventListener("click", async () => {
         
 
         // Step 6: Calculate area and draw equivalent rectangle
-        const area = calculatePolygonArea(coordinates);
-        console.log(`Total area: ${area.toFixed(2)} m²`);
+        // const area = calculatePolygonArea(coordinates);
+        // console.log(`Total area: ${area.toFixed(2)} m²`);
 
-        if (window.rectangleLayer) {
-            map.removeLayer(window.rectangleLayer);
-        }
-        window.rectangleLayer = drawEquivalentRectangle(area);
-        enablePolygonDragging(window.rectangleLayer); // ✅ Enable dragging
+        // if (window.rectangleLayer) {
+        //     map.removeLayer(window.rectangleLayer);
+        // }
+        // window.rectangleLayer = drawEquivalentRectangle(area);
+        // enablePolygonDragging(window.rectangleLayer); // ✅ Enable dragging
         
         // if (window.circleLayer) {
         //     map.removeLayer(window.circleLayer);
