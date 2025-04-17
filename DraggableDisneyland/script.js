@@ -180,44 +180,24 @@ document.getElementById("searchButton").addEventListener("click", async () => {
         }).addTo(map);
         
         map.fitBounds(polygonLayer.getBounds());
+        enablePolygonDragging(polygonLayer); // ✅ Enable dragging
+        
 
-        // Step 5: Enable polygon dragging
-        polygonLayer.on('mousedown', function (event) {
-            map.dragging.disable();
-            let startLatLng = event.latlng;
+        // Step 6: Calculate area and draw equivalent rectangle
+        const area = calculatePolygonArea(coordinates);
+        console.log(`Total area: ${area.toFixed(2)} m²`);
+
+        if (window.rectangleLayer) {
+            map.removeLayer(window.rectangleLayer);
+        }
+        window.rectangleLayer = drawEquivalentRectangle(area);
+        enablePolygonDragging(window.rectangleLayer); // ✅ Enable dragging
         
-            function moveHandler(moveEvent) {
-                let deltaLat = moveEvent.latlng.lat - startLatLng.lat;
-                let deltaLng = moveEvent.latlng.lng - startLatLng.lng;
-        
-                // Get all rings (outer and inner) — could be single or multi
-                let latLngs = polygonLayer.getLatLngs();
-        
-                let newLatLngs = latLngs.map(ring => {
-                    // If it's a multipolygon (nested), map inner arrays
-                    if (Array.isArray(ring[0])) {
-                        return ring.map(subRing =>
-                            subRing.map(point => L.latLng(point.lat + deltaLat, point.lng + deltaLng))
-                        );
-                    } else {
-                        // Single ring
-                        return ring.map(point => L.latLng(point.lat + deltaLat, point.lng + deltaLng));
-                    }
-                });
-        
-                polygonLayer.setLatLngs(newLatLngs);
-                startLatLng = moveEvent.latlng;
-            }
-        
-            function stopHandler() {
-                map.off('mousemove', moveHandler);
-                map.off('mouseup', stopHandler);
-                map.dragging.enable();
-            }
-        
-            map.on('mousemove', moveHandler);
-            map.on('mouseup', stopHandler);
-        });
+        // if (window.circleLayer) {
+        //     map.removeLayer(window.circleLayer);
+        // }
+        // window.circleLayer = drawEquivalentCircle(area);
+        // enablePolygonDragging(window.circleLayer); // ✅ Enable dragging
         
 
     } catch (error) {
@@ -225,3 +205,131 @@ document.getElementById("searchButton").addEventListener("click", async () => {
         alert("An error occurred while fetching data.");
     }
 });
+
+function calculatePolygonArea(coords) {
+    // Use spherical excess formula for polygons on Earth
+    // Returns area in square meters
+    const R = 6371000; // Radius of Earth in meters
+
+    function rad(deg) {
+        return deg * Math.PI / 180;
+    }
+
+    function ringArea(ring) {
+        let area = 0;
+        for (let i = 0, len = ring.length; i < len; i++) {
+            const [lat1, lon1] = ring[i];
+            const [lat2, lon2] = ring[(i + 1) % len];
+
+            const φ1 = rad(lat1), φ2 = rad(lat2);
+            const Δλ = rad(lon2 - lon1);
+
+            area += Δλ * (2 + Math.sin(φ1) + Math.sin(φ2));
+        }
+        return Math.abs(area * R * R / 2);
+    }
+
+    if (!Array.isArray(coords[0][0])) {
+        // Single polygon
+        return ringArea(coords);
+    } else {
+        // Multipolygon with possible holes
+        let total = 0;
+        coords.forEach(polygon => {
+            const outer = polygon[0];
+            total += ringArea(outer);
+            for (let i = 1; i < polygon.length; i++) {
+                total -= ringArea(polygon[i]); // subtract holes
+            }
+        });
+        return total;
+    }
+}
+
+function drawEquivalentRectangle(totalArea) {
+    // Centered near the center of the map view
+    const center = map.getCenter();
+    const lat = center.lat;
+    const lng = center.lng;
+
+    const sideLength = Math.sqrt(totalArea); // Make it a square for simplicity
+    const metersPerDegreeLat = 111320;
+    const metersPerDegreeLng = 40075000 * Math.cos(lat * Math.PI / 180) / 360;
+    const sideLat = sideLength / metersPerDegreeLat;
+    const sideLng = sideLength / metersPerDegreeLng;    
+
+    const bounds = [
+        [lat - sideLat / 2, lng - sideLng / 2],
+        [lat - sideLat / 2, lng + sideLng / 2],
+        [lat + sideLat / 2, lng + sideLng / 2],
+        [lat + sideLat / 2, lng - sideLng / 2],
+        [lat - sideLat / 2, lng - sideLng / 2],
+    ];
+    
+
+    const rect = L.polygon(bounds, {
+        color: "red",
+        weight: 2,
+        fillOpacity: 0.2,
+        dashArray: "5, 5"
+    }).addTo(map);
+
+    return rect;
+}
+
+function drawEquivalentCircle(totalArea) {
+    // Centered near the center of the map view
+    const center = map.getCenter();
+    const lat = center.lat;
+    const lng = center.lng;
+
+    const radius = Math.sqrt(totalArea / Math.PI); // Radius for circle
+    
+    const circle = L.circle([lat, lng], {
+        color: "green",
+        weight: 2,
+        fillOpacity: 0.2,
+        radius: radius,
+        dashArray: "5, 5"
+    }).addTo(map);
+
+    return circle;
+}
+
+function enablePolygonDragging(layer) {
+    layer.on('mousedown', function (event) {
+        map.dragging.disable();
+        let startLatLng = event.latlng;
+
+        function moveHandler(moveEvent) {
+            let deltaLat = moveEvent.latlng.lat - startLatLng.lat;
+            let deltaLng = moveEvent.latlng.lng - startLatLng.lng;
+
+            let latLngs = layer.getLatLngs();
+
+            let newLatLngs = latLngs.map(ring => {
+                if (Array.isArray(ring[0])) {
+                    return ring.map(subRing =>
+                        subRing.map(point => L.latLng(point.lat + deltaLat, point.lng + deltaLng))
+                    );
+                } else {
+                    return ring.map(point => L.latLng(point.lat + deltaLat, point.lng + deltaLng));
+                }
+            });
+
+            layer.setLatLngs(newLatLngs);
+            startLatLng = moveEvent.latlng;
+        }
+
+        function stopHandler() {
+            map.off('mousemove', moveHandler);
+            map.off('mouseup', stopHandler);
+            map.dragging.enable();
+        }
+
+        map.on('mousemove', moveHandler);
+        map.on('mouseup', stopHandler);
+    });
+}
+
+
