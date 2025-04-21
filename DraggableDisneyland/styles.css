@@ -27,6 +27,12 @@ body {
     cursor: pointer;
 }
 
+.operationButton {
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
 #map {
     width: 100vw;
     height: 100vh;

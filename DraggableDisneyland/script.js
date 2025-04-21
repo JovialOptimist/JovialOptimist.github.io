@@ -184,20 +184,29 @@ document.getElementById("searchButton").addEventListener("click", async () => {
         
 
         // Step 6: Calculate area and draw equivalent rectangle
-        // const area = calculatePolygonArea(coordinates);
-        // console.log(`Total area: ${area.toFixed(2)} m²`);
+        const squareButton = document.getElementById("makeSquareButton");
+        squareButton.addEventListener("click", async () => {
+            const area = calculatePolygonArea(coordinates);
+            console.log(`Total area: ${area.toFixed(2)} m²`);
 
-        // if (window.rectangleLayer) {
-        //     map.removeLayer(window.rectangleLayer);
-        // }
-        // window.rectangleLayer = drawEquivalentRectangle(area);
-        // enablePolygonDragging(window.rectangleLayer); // ✅ Enable dragging
-        
-        // if (window.circleLayer) {
-        //     map.removeLayer(window.circleLayer);
-        // }
-        // window.circleLayer = drawEquivalentCircle(area);
-        // enablePolygonDragging(window.circleLayer); // ✅ Enable dragging
+            if (window.rectangleLayer) {
+                map.removeLayer(window.rectangleLayer);
+            }
+            window.rectangleLayer = drawEquivalentRectangle(area);
+            enablePolygonDragging(window.rectangleLayer); // ✅ Enable dragging
+        });
+
+        const circleButton = document.getElementById("makeCircleButton");
+        circleButton.addEventListener("click", async () => {
+            const area = calculatePolygonArea(coordinates);
+            console.log(`Total area: ${area.toFixed(2)} m²`);
+
+            if (window.circleLayer) {
+                map.removeLayer(window.circleLayer);
+            }
+            window.circleLayer = drawEquivalentCircle(area);
+            enablePolygonDragging(window.circleLayer); // ✅ Enable dragging
+        });
         
 
     } catch (error) {
@@ -305,8 +314,25 @@ function enablePolygonDragging(layer) {
             let deltaLat = moveEvent.latlng.lat - startLatLng.lat;
             let deltaLng = moveEvent.latlng.lng - startLatLng.lng;
 
-            let latLngs = layer.getLatLngs();
+            let latLngs;
 
+            try {
+                latLngs = layer.getLatLngs(); // Polygon or rectangle
+            } catch (e) {
+                // If it's a circle, handle differently
+                if (layer instanceof L.Circle) {
+                    let center = layer.getLatLng();
+                    let newCenter = L.latLng(center.lat + deltaLat, center.lng + deltaLng);
+                    layer.setLatLng(newCenter);
+                    startLatLng = moveEvent.latlng;
+                    return;
+                } else {
+                    console.error("Unsupported layer type for dragging.");
+                    return;
+                }
+            }
+
+            // Shift polygon or rectangle points
             let newLatLngs = latLngs.map(ring => {
                 if (Array.isArray(ring[0])) {
                     return ring.map(subRing =>
@@ -331,5 +357,6 @@ function enablePolygonDragging(layer) {
         map.on('mouseup', stopHandler);
     });
 }
+
 
 
