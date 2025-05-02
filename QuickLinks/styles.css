@@ -37,6 +37,7 @@ body {
     margin: 15px;
     margin-bottom: 20px;
     padding: 10px;
+    border: 2px solid rgb(60, 60, 60);
     border-radius: 10px;
     width:83vw;
     max-width: 600px;
@@ -120,4 +121,8 @@ a:hover {
     color:rgb(0, 132, 255);
     transition: 0.2s;
     text-decoration: underline;
+}
+
+.highlight {
+    border: 2px solid hsl(120, 100%, 50%);
 }
