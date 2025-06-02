@@ -151,7 +151,12 @@
     </div>
 </body>
 <script>
-    window.onload = function () {
+    window.onload = pushCurrentCourseToTop;
+    window.addEventListener('focus', function (event) {
+        pushCurrentCourseToTop();
+    });
+
+    function pushCurrentCourseToTop() {
         const now = new Date();
         const day = now.getDay();
 
@@ -193,7 +198,7 @@
                 }
             }
         }
-    };
+    }
 </script>
 
 
