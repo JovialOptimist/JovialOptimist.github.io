@@ -7,68 +7,72 @@ let polygonLayer = null; // Store polygon layer for updates
 
 document.getElementById("searchButton").addEventListener("click", async () => {
     const input = document.getElementById("locationInput").value.trim();
-    if (!input) return; // ignore null input
+    if (!input) return;
 
     let place = null;
     let osmType = null;
     let osmId = null;
+    let overpassData = null;
 
     try {
-        const isOsmID = /^\d+$/.test(input); // Check if input is a number
-        let nominatimData = null;
-        let errorMessage = null;
+        const isOsmID = /^\d+$/.test(input);
 
-        // Step 1: Fetch data from Nominatim API
         if (isOsmID) {
-            // get all of the ways and relations for the given OSM ID
-            let nominatimResponse = await fetch(`https://nominatim.openstreetmap.org/lookup?osm_ids=W${input},R${input}&format=json`);
-            nominatimData = await nominatimResponse.json();
-            errorMessage = "Could not find a way or relation with OSM ID " + input + ".";
+            // Treat input as a Way ID and fetch directly from Overpass
+            osmType = "way";
+            osmId = input;
+            console.log(`Direct Overpass query for Way(${osmId})`);
+
+            let query = `[out:json]; way(${osmId}); (._; >;); out body;`;
+            let response = await fetch(`https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`);
+            overpassData = await response.json();
+
+            if (!overpassData.elements || overpassData.elements.length === 0) {
+                alert("Could not find a way with that ID.");
+                return;
+            }
         } else {
-            // get all of the ways and relations for the given object
+            // Use Nominatim to resolve name into way/relation
             let nominatimResponse = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(input)}`);
-            nominatimData = await nominatimResponse.json();
-            errorMessage = "Could not find anything named " + input + ".";
+            let nominatimData = await nominatimResponse.json();
+
+            nominatimData = nominatimData.filter(candidate => candidate.osm_type === "way" || candidate.osm_type === "relation");
+            if (nominatimData.length === 0) {
+                alert("Could not find anything named " + input + ".");
+                return;
+            }
+
+            place = nominatimData[0];
+            osmType = place.osm_type;
+            osmId = place.osm_id;
+
+            console.log(`Resolved ${input} to ${osmType}(${osmId})`);
+
+            let query = `[out:json]; ${osmType}(${osmId}); (._; >;); out body;`;
+            let response = await fetch(`https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`);
+            overpassData = await response.json();
+
+            if (!overpassData.elements || overpassData.elements.length === 0) {
+                alert("Boundary data not found!");
+                return;
+            }
         }
 
-        // filter out everything other than ways or relations from nominatim data
-        nominatimData = nominatimData.filter(candidate => candidate.osm_type === "way" || candidate.osm_type === "relation");
-        if (nominatimData.length === 0) {
-            alert(errorMessage);
-            return;
-        }
-
-        place = nominatimData[0]; // Take the first result
-        osmType = place.osm_type; // "way" or "relation"
-        osmId = place.osm_id; // OSM ID
-        console.log(`Fetching OSM Data for ${osmType}(${osmId})`);
-
-        // Step 2: Fetch boundary data from Overpass API
-        let query = `[out:json]; ${osmType}(${osmId}); (._; >;); out body;`;
-        let overpassResponse = await fetch(`https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`);
-        let overpassData = await overpassResponse.json();
-
-        if (!overpassData.elements || overpassData.elements.length === 0) {
-            alert("Boundary data not found!");
-            return;
-        }
-
-        // Step 3: Extract node coordinates
+        // Proceed with node parsing and polygon drawing (unchanged from your code)
         let nodes = {};
         let ways = [];
 
         overpassData.elements.forEach(el => {
             if (el.type === "node") {
-                nodes[el.id] = [el.lat, el.lon]; // Store node coordinates
+                nodes[el.id] = [el.lat, el.lon];
             } else if (el.type === "way") {
-                ways.push(el); // Store way elements
+                ways.push(el);
             }
         });
 
         let coordinates = [];
 
         if (osmType === "way") {
-            // Directly get nodes of the way
             let wayNodes = overpassData.elements.find(el => el.type === "way" && el.id == osmId)?.nodes;
             if (!wayNodes) {
                 alert("Could not find geometry.");
@@ -78,38 +82,35 @@ document.getElementById("searchButton").addEventListener("click", async () => {
         } else if (osmType === "relation") {
             let outerRings = [];
             let innerRings = [];
-        
+
             let relation = overpassData.elements.find(el => el.type === "relation" && el.id == osmId);
             if (!relation) {
                 alert("Relation not found!");
                 return;
             }
-        
-            // Map way ID to its node list
+
             let wayMap = {};
             ways.forEach(way => {
                 wayMap[way.id] = way.nodes.map(id => nodes[id]);
             });
-        
-            // Group members by role
+
             let outerWays = relation.members.filter(m => m.type === "way" && m.role === "outer");
             let innerWays = relation.members.filter(m => m.type === "way" && m.role === "inner");
-        
-            // Assemble closed rings
+
             function buildRings(ways) {
                 let rings = [];
-        
+
                 while (ways.length) {
                     let ring = ways.shift();
                     let coords = [...wayMap[ring.ref]];
                     let changed = true;
-        
+
                     while (changed) {
                         changed = false;
                         for (let i = 0; i < ways.length; i++) {
                             let nextCoords = wayMap[ways[i].ref];
                             if (!nextCoords) continue;
-        
+
                             if (coords[coords.length - 1].toString() === nextCoords[0].toString()) {
                                 coords = coords.concat(nextCoords.slice(1));
                                 ways.splice(i, 1);
@@ -133,59 +134,52 @@ document.getElementById("searchButton").addEventListener("click", async () => {
                             }
                         }
                     }
-        
+
                     rings.push(coords);
                 }
-        
+
                 return rings;
             }
-        
+
             outerRings = buildRings(outerWays);
             innerRings = buildRings(innerWays);
-        
+
             if (outerRings.length === 0) {
                 alert("No outer boundary found.");
                 return;
             }
-        
-            // Leaflet format: array of rings: [outer, [inner1, inner2, ...]]
+
             coordinates = outerRings.map((outer, index) => {
                 let outerRing = outer;
                 let inner = [];
-        
-                // Optional: match which inner holes go with which outer ring
+
                 if (index === 0) {
                     inner = innerRings;
                 }
-        
+
                 return [outerRing, ...inner];
             });
         }
-        
 
         if (coordinates.length === 0) {
             alert("Could not construct boundary.");
             return;
         }
 
-        // Step 4: Draw polygon on the map
         if (polygonLayer) {
             map.removeLayer(polygonLayer);
         }
-        
+
         polygonLayer = L.polygon(coordinates, {
             color: "blue",
             weight: 2,
             fillOpacity: 0.4
         }).addTo(map);
-        
-        map.fitBounds(polygonLayer.getBounds());
-        enablePolygonDragging(polygonLayer); // ✅ Enable dragging
-        
 
-        // Step 6: Calculate area and draw equivalent rectangle
-        const squareButton = document.getElementById("makeSquareButton");
-        squareButton.addEventListener("click", async () => {
+        map.fitBounds(polygonLayer.getBounds());
+        enablePolygonDragging(polygonLayer);
+
+        document.getElementById("makeSquareButton").addEventListener("click", async () => {
             const area = calculatePolygonArea(coordinates);
             console.log(`Total area: ${area.toFixed(2)} m²`);
 
@@ -193,11 +187,10 @@ document.getElementById("searchButton").addEventListener("click", async () => {
                 map.removeLayer(window.rectangleLayer);
             }
             window.rectangleLayer = drawEquivalentRectangle(area);
-            enablePolygonDragging(window.rectangleLayer); // ✅ Enable dragging
+            enablePolygonDragging(window.rectangleLayer);
         });
 
-        const circleButton = document.getElementById("makeCircleButton");
-        circleButton.addEventListener("click", async () => {
+        document.getElementById("makeCircleButton").addEventListener("click", async () => {
             const area = calculatePolygonArea(coordinates);
             console.log(`Total area: ${area.toFixed(2)} m²`);
 
@@ -205,15 +198,81 @@ document.getElementById("searchButton").addEventListener("click", async () => {
                 map.removeLayer(window.circleLayer);
             }
             window.circleLayer = drawEquivalentCircle(area);
-            enablePolygonDragging(window.circleLayer); // ✅ Enable dragging
+            enablePolygonDragging(window.circleLayer);
         });
-        
 
     } catch (error) {
         console.error("Error:", error);
         alert("An error occurred while fetching data.");
     }
 });
+
+
+document.getElementById("searchButton2").addEventListener("click", async () => {
+    const tagInput = prompt("Enter Overpass tag filter (e.g., landuse=industrial):");
+    if (!tagInput) return;
+
+    const bounds = map.getBounds();
+    //const bbox = `${bounds.getSouth()},${bounds.getWest()},${bounds.getNorth()},${bounds.getEast()}`;
+
+    const query = `
+        [out:json][timeout:25];
+        area[name="Issaquah"]->.searchArea;
+        (
+            way[${tagInput}](area.searchArea);
+        );
+        (._; >;);
+        out body;
+    `;
+
+    try {
+        const res = await fetch(`https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`);
+        const data = await res.json();
+
+        const nodes = {};
+        const ways = [];
+
+        for (const el of data.elements) {
+            if (el.type === "node") {
+                nodes[el.id] = [el.lat, el.lon];
+            } else if (el.type === "way" && el.nodes[0] === el.nodes[el.nodes.length - 1]) {
+                ways.push(el);
+            }
+        }
+
+        let totalArea = 0;
+        const allCoords = [];
+
+        for (const way of ways) {
+            const coords = way.nodes.map(id => nodes[id]).filter(Boolean);
+            if (coords.length > 2) {
+                currentArea = calculatePolygonArea(coords);
+                console.log(`Area of way ${way.id}: ${currentArea.toFixed(2)} m²`);
+                totalArea += currentArea;
+                allCoords.push(coords);
+            }
+        }
+
+        console.log(`Found ${ways.length} closed ways with total area: ${totalArea.toFixed(2)} m²`);
+
+        if (totalArea === 0) {
+            alert("No area could be calculated from the result.");
+            return;
+        }
+
+        if (window.squareFromSearchLayer) {
+            map.removeLayer(window.squareFromSearchLayer);
+        }
+
+        window.squareFromSearchLayer = drawEquivalentRectangle(totalArea);
+        enablePolygonDragging(window.squareFromSearchLayer);
+
+    } catch (err) {
+        console.error("Overpass error:", err);
+        alert("Failed to fetch data from Overpass.");
+    }
+});
+
 
 function calculatePolygonArea(coords) {
     // Use spherical excess formula for polygons on Earth
