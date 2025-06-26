@@ -1,0 +1,210 @@
+/* Default theme */
+.theme-default {
+    --bg: #fdfdfd;
+    --border: #ccc;
+    --text: #333;
+}
+
+.theme-red {
+    --bg: #ffe5e5;
+    --border: #cc3333;
+    --text: #cc0000;
+}
+
+.theme-orange {
+    --bg: #fff3e0;
+    --border: #ffa733;
+    --text: #cc6600;
+}
+
+.theme-yellow {
+    --bg: #fffce0;
+    --border: #e6c200;
+    --text: #b38f00;
+}
+
+.theme-green {
+    --bg: #e7fbe7;
+    --border: #55aa55;
+    --text: #337733;
+}
+
+.theme-blue {
+    --bg: #e0f0ff;
+    --border: #3399cc;
+    --text: #006699;
+}
+
+.theme-purple {
+    --bg: #f4e9f9;
+    --border: #aa77cc;
+    --text: #774499;
+}
+
+.theme-gray {
+    --bg: #f0f0f0;
+    --border: #999;
+    --text: #444;
+}
+
+.theme-indigo {
+    --bg: #e8eaf6;
+    --border: #5c6bc0;
+    --text: #3f51b5;
+}
+
+.theme-pink {
+    --bg: #fde0ec;
+    --border: #f06292;
+    --text: #e91e63;
+}
+
+.theme-coffee {
+    --bg: #f5ebe0;
+    --border: #a9745b;
+    --text: #6f4e37;
+}
+
+.theme-brown {
+    --bg: #f3e5dc;
+    --border: #a1887f;
+    --text: #5d4037;
+}
+
+.theme-beer {
+    --bg: #fff8e1;
+    --border: #ffca28;
+    --text: #ffb300;
+}
+
+.theme-darkblue {
+    --bg: #e3eaf3;
+    --border: #3a5f8a;
+    --text: #1c3d63;
+}
+
+.theme-lightred {
+    --bg: #ffeaea;
+    --border: #ff6666;
+    --text: #cc3333;
+}
+
+.theme-teal {
+    --bg: #e0f2f1;
+    --border: #26a69a;
+    --text: #00796b;
+}
+
+.theme-electric {
+    --bg: #f0faff;
+    --border: #00c2ff;
+    --text: #0088cc;
+}
+
+.theme-burgundy {
+    --bg: #f9e0e6;
+    --border: #8e294f;
+    --text: #6a1b33;
+}
+
+.theme-forest {
+    --bg: #e6f4ea;
+    --border: #4caf50;
+    --text: #2e7d32;
+}
+
+.theme-lightblue {
+    --bg: #e0f7fa;
+    --border: #4dd0e1;
+    --text: #0097a7;
+}
+
+.theme-coral {
+    --bg: #ffe9e6;
+    --border: #ff6f61;
+    --text: #e63946;
+}
+
+.theme-darkgray {
+    --bg: #eeeeee;
+    --border: #666666;
+    --text: #333333;
+}
+
+.theme-aqua {
+    --bg: #e0fefb;
+    --border: #00d8d6;
+    --text: #008c8a;
+}
+
+.theme-sand {
+    --bg: #fff9e6;
+    --border: #e0c48f;
+    --text: #b59b6a;
+}
+
+.theme-cyan {
+    --bg: #e0f7f9;
+    --border: #00bcd4;
+    --text: #0097a7;
+}
+
+.way-card {
+    background-color: var(--bg);
+    border: 2px solid var(--border);
+    color: var(--text);
+    border-radius: 12px;
+    padding: 1.25rem;
+    max-width: 300px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    font-family: system-ui, sans-serif;
+    margin: 1rem auto;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.way-card h2,
+.way-card .way-id,
+.way-card .way-details-summary {
+    color: var(--text);
+}
+
+.way-canvas {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 1rem 0;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.way-details {
+    background-color: rgba(255, 255, 255, 0.4);
+    border: 1px dashed var(--border);
+    padding: 0.5rem;
+    border-radius: 6px;
+}
+
+.way-tags {
+    font-family: monospace;
+    font-size: 0.85rem;
+    white-space: pre-wrap;
+    color: var(--text);
+}
+
+.card-button {
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    color: inherit;
+    cursor: pointer;
+    padding: 0;
+    font: inherit;
+    text-align: left;
+}
+
+.card-button:hover {
+    transition: 0.1s;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+}
