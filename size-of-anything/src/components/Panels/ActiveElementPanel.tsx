@@ -1,4 +1,5 @@
 import React from "react";
+import "../../styles/global.css";
 
 type Coordinate = [number, number];
 
@@ -10,20 +11,7 @@ function ActiveElementPanel({
   outline?: Coordinate[];
 }) {
   return (
-    <div
-      style={{
-        width: "30vw",
-        height: "20vh",
-        backgroundColor: "#a5f2f1",
-        boxSizing: "border-box",
-        border: "3px solid #539695",
-        borderRadius: "8px",
-        verticalAlign: "middle",
-        textAlign: "center",
-        alignContent: "center",
-        fontSize: "1.5em",
-      }}
-    >
+    <div id="activeElementPanel">
       {/* Panel content goes here */}
       <p className="text-center font-semibold">Active Element</p>
       {name && <p className="text-center text-md mt-2">Name: {name}</p>}

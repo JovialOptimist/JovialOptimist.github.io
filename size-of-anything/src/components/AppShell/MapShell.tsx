@@ -11,7 +11,7 @@ import "../../styles/global.css";
 export const MapShell: React.FC = () => {
   return (
     <MapProvider>
-      <div className="flex">
+      <div id="mapDiscoverContainer">
         {/* Map + floating panels */}
         <MapView />
 
