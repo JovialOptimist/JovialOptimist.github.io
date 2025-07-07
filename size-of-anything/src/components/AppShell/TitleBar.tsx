@@ -1,18 +1,22 @@
-// src/components/AppShell/TitleBar.tsx
 import React from "react";
-import { Button } from "../UI/Button";
 import { useAppContext } from "../../context/AppContext";
+import "../../styles/global.css"; // Ensure global styles are applied
+// enable tailwind
+import "../../styles/theme.css"; // Ensure theme styles are applied
 
 export const TitleBar: React.FC = () => {
   const { toggleSettingsModal, toggleMenu } = useAppContext();
 
   return (
-    <div className="flex items-center justify-between px-4 py-2 bg-white dark:bg-black border-b border-gray-300 dark:border-gray-700">
-      <h1 className="text-xl font-bold inline">The Size of Anything</h1>
-      <div className="space-x-2">
-        <Button onClick={toggleSettingsModal}>⚙️</Button>
-        <Button onClick={toggleMenu}>☰</Button>
+    <>
+      {/* Left side: title */}
+      <div id="titleBar">
+        <div>The Size of Anything</div>
+        <div className="flex space-x-2">
+          <button onClick={toggleSettingsModal}>⚙️</button>
+          <button onClick={toggleMenu}>☰</button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };

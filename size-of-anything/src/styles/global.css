@@ -20,8 +20,32 @@ body {
 }
 
 #map {
-    height: 100%;
-    width: 100%;
-    min-height: 400px;
+    width: 80%;
+    min-height: 20vh;
     /* fallback minimum height */
 }
+
+#discoveriesPanel {
+    background-color: #ff00ff;
+}
+
+#titleBar {
+    display: flex;
+    font-size: 2em;
+    font-weight: 500;
+    color: black;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #03fca5;
+    padding: 10px;
+}
+
+#titleBar button {
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    font-size: inherit;
+    cursor: pointer;
+    padding: 10px;
+}
+

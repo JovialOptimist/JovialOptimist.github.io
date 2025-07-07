@@ -6,7 +6,21 @@ import React, {
   useRef,
   useState,
 } from "react";
+import ReactDOM from "react-dom";
 import L, { Map as LeafletMap } from "leaflet";
+import { ActiveElementPanel } from "../components/Panels";
+import { createRoot } from "react-dom/client";
+// import <script src="Leaflet.Control.Custom.js"></script>
+
+// Extend Leaflet's type definitions to add Control.Button
+declare global {
+  namespace L {
+    namespace Control {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      let Panel: any;
+    }
+  }
+}
 
 interface MapContextType {
   map: LeafletMap | null;
@@ -28,6 +42,22 @@ export const MapProvider: React.FC<{ children: React.ReactNode }> = ({
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution: "&copy; OpenStreetMap contributors",
       }).addTo(mapRef.current);
+      L.control.scale().addTo(mapRef.current);
+
+      L.Control.Panel = L.Control.extend({
+        options: {
+          position: "topright",
+        },
+        onAdd: function (map: LeafletMap) {
+          var container = document.createElement("div");
+          createRoot(container).render(<ActiveElementPanel />);
+          return container;
+        },
+      });
+
+      var control = new L.Control.Panel();
+      control.addTo(mapRef.current);
+
       setMapReady(true);
     }
   }, []);
