@@ -11,20 +11,12 @@ import "../../styles/global.css";
 export const MapShell: React.FC = () => {
   return (
     <MapProvider>
-      <div className="flex w-full h-full">
+      <div className="flex">
         {/* Map + floating panels */}
-        <div className="relative flex-1 w-80 h-full">
-          <MapView />
-          <MapControls />
-        </div>
+        <MapView />
 
         {/* Discoveries panel on the right */}
-        <div
-          id="discoveriesPanel"
-          className="w-20 h-full overflow-y-auto border-l border-gray-300"
-        >
-          <DiscoveriesPanel />
-        </div>
+        <DiscoveriesPanel />
       </div>
     </MapProvider>
   );

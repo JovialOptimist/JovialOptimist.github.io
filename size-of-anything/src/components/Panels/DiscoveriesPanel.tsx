@@ -4,7 +4,7 @@ export const DiscoveriesPanel: React.FC = () => {
   return (
     <div
       style={{
-        width: "30vw",
+        width: "4vw",
         height: "20vh",
         backgroundColor: "#ffd0f0",
         boxSizing: "border-box",
