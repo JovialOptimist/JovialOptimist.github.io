@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import ReactDOM from "react-dom";
 import L, { Map as LeafletMap } from "leaflet";
-import { ActiveElementPanel } from "../components/Panels";
+import { ActiveElementPanel, CreationPanel } from "../components/Panels";
 import { createRoot } from "react-dom/client";
 // import <script src="Leaflet.Control.Custom.js"></script>
 
@@ -18,6 +18,7 @@ declare global {
     namespace Control {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let Panel: any;
+      let Creationpanel: any;
     }
   }
 }
@@ -38,11 +39,18 @@ export const MapProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     const el = document.getElementById("map");
     if (el && !mapRef.current) {
-      mapRef.current = L.map(el).setView([47.6062, -122.3321], 10);
+      mapRef.current = L.map(el, {
+        zoomControl: false, // Disable default zoom control
+      }).setView([47.6062, -122.3321], 10);
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution: "&copy; OpenStreetMap contributors",
       }).addTo(mapRef.current);
       L.control.scale().addTo(mapRef.current);
+      L.control
+        .zoom({
+          position: "bottomright",
+        })
+        .addTo(mapRef.current);
 
       L.Control.Panel = L.Control.extend({
         options: {
@@ -55,8 +63,21 @@ export const MapProvider: React.FC<{ children: React.ReactNode }> = ({
         },
       });
 
+      L.Control.Creationpanel = L.Control.extend({
+        options: {
+          position: "topleft",
+        },
+        onAdd: function (map: LeafletMap) {
+          var container = document.createElement("div");
+          createRoot(container).render(<CreationPanel />);
+          return container;
+        },
+      });
+
       var control = new L.Control.Panel();
       control.addTo(mapRef.current);
+      var creationControl = new L.Control.Creationpanel();
+      creationControl.addTo(mapRef.current);
 
       setMapReady(true);
     }
