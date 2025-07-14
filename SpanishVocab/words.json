@@ -1,0 +1,1234 @@
+{
+  "wordMatches": [
+    {
+      "term": "celoso/a",
+      "definition": "jealous",
+      "type": "adjective"
+    },
+    {
+      "term": "cuidadoso/a",
+      "definition": "careful",
+      "type": "adjective"
+    },
+    {
+      "term": "autoritario",
+      "definition": "strict; authoritarian",
+      "type": "adjective"
+    },
+    {
+      "term": "falso/a",
+      "definition": "insincere",
+      "type": "adjective"
+    },
+    {
+      "term": "cariñoso",
+      "definition": "affectionate",
+      "type": "noun"
+    },
+    {
+      "term": "gracioso/a",
+      "definition": "funny; pleasant",
+      "type": "adjective"
+    },
+    {
+      "term": "inseguro/a",
+      "definition": "insecure",
+      "type": "adjective"
+    },
+    {
+      "term": "(in)maduro/a",
+      "definition": "(im)mature",
+      "type": "adjective"
+    },
+    {
+      "term": "mentiroso/a",
+      "definition": "lying",
+      "type": "adjective"
+    },
+    {
+      "term": "orgulloso/a",
+      "definition": "proud",
+      "type": "adjective"
+    },
+    {
+      "term": "permisivo/a",
+      "definition": "permissive; easy-going",
+      "type": "adjective"
+    },
+    {
+      "term": "seguro/a",
+      "definition": "sure; confident",
+      "type": "adjective"
+    },
+    {
+      "term": "sensato/a",
+      "definition": "sensible",
+      "type": "adjective"
+    },
+    {
+      "term": "sensible",
+      "definition": "sensitive",
+      "type": "adjective"
+    },
+    {
+      "term": "tacaño/a",
+      "definition": "cheap; stingy",
+      "type": "adjective"
+    },
+    {
+      "term": "tímido/a",
+      "definition": "shy",
+      "type": "adjective"
+    },
+    {
+      "term": "tradicional",
+      "definition": "traditional",
+      "type": "noun"
+    },
+    {
+      "term": "agobiado/a",
+      "definition": "overwhelmed",
+      "type": "adjective"
+    },
+    {
+      "term": "ansioso/a",
+      "definition": "anxious",
+      "type": "adjective"
+    },
+    {
+      "term": "deprimido/a",
+      "definition": "depressed",
+      "type": "adjective"
+    },
+    {
+      "term": "disgustado/a",
+      "definition": "disgusted",
+      "type": "adjective"
+    },
+    {
+      "term": "emocionado/a",
+      "definition": "excited",
+      "type": "adjective"
+    },
+    {
+      "term": "preocupado/a (por)",
+      "definition": "worried (about)",
+      "type": "adjective"
+    },
+    {
+      "term": "solo/a",
+      "definition": "alone; lonely",
+      "type": "adjective"
+    },
+    {
+      "term": "tranquilo/a",
+      "definition": "calm",
+      "type": "adjective"
+    },
+    {
+      "term": "adorar",
+      "definition": "to adore",
+      "type": "verb"
+    },
+    {
+      "term": "apreciar",
+      "definition": "to appreciate",
+      "type": "verb"
+    },
+    {
+      "term": "enamorarse (de)",
+      "definition": "to fall in love with",
+      "type": "verb"
+    },
+    {
+      "term": "estar harto/a (de)",
+      "definition": "to be fed up (with); to be sick (of)",
+      "type": "verb"
+    },
+    {
+      "term": "odiar",
+      "definition": "to hate",
+      "type": "verb"
+    },
+    {
+      "term": "sentirse",
+      "definition": "to feel",
+      "type": "verb"
+    },
+    {
+      "term": "soñar (con)",
+      "definition": "to dream (about)",
+      "type": "verb"
+    },
+    {
+      "term": "tener celos (de)",
+      "definition": "to be jealous (of)",
+      "type": "verb"
+    },
+    {
+      "term": "tener vergüenza (de)",
+      "definition": "to be ashamed/embarrassed (of)",
+      "type": "verb"
+    },
+    {
+      "term": "el/la amado/a",
+      "definition": "loved one; sweetheart",
+      "type": "adjective"
+    },
+    {
+      "term": "el ánimo",
+      "definition": "spirit",
+      "type": "noun"
+    },
+    {
+      "term": "el cariño",
+      "definition": "affection",
+      "type": "noun"
+    },
+    {
+      "term": "la cita (a ciegas)",
+      "definition": "(blind) date",
+      "type": "noun"
+    },
+    {
+      "term": "el compromiso",
+      "definition": "commitment; responsibility",
+      "type": "noun"
+    },
+    {
+      "term": "la confianza",
+      "definition": "trust; confidence",
+      "type": "noun"
+    },
+    {
+      "term": "el desánimo",
+      "definition": "the state of being discouraged",
+      "type": "noun"
+    },
+    {
+      "term": "el divorcio",
+      "definition": "divorce",
+      "type": "noun"
+    },
+    {
+      "term": "la pareja",
+      "definition": "couple; partner",
+      "type": "noun"
+    },
+    {
+      "term": "el sentimiento",
+      "definition": "feeling; emotion",
+      "type": "adjective"
+    },
+    {
+      "term": "atraer",
+      "definition": "to attract",
+      "type": "verb"
+    },
+    {
+      "term": "coquetear",
+      "definition": "to flirt",
+      "type": "verb"
+    },
+    {
+      "term": "cuidar",
+      "definition": "to take care of",
+      "type": "verb"
+    },
+    {
+      "term": "dejar a alguien",
+      "definition": "to leave someone",
+      "type": "verb"
+    },
+    {
+      "term": "discutir",
+      "definition": "to argue",
+      "type": "verb"
+    },
+    {
+      "term": "educar",
+      "definition": "to raise; to bring up",
+      "type": "verb"
+    },
+    {
+      "term": "hacerle caso a alguien",
+      "definition": "to pay attention to someone",
+      "type": "verb"
+    },
+    {
+      "term": "impresionar",
+      "definition": "to impress",
+      "type": "verb"
+    },
+    {
+      "term": "llevar ... años de (casados)",
+      "definition": "to be (married) for ... years",
+      "type": "verb"
+    },
+    {
+      "term": "llevarse bien/mal/fatal",
+      "definition": "to get along well/badly/terribly",
+      "type": "verb"
+    },
+    {
+      "term": "mantenerse en contacto",
+      "definition": "to keep in touch",
+      "type": "verb"
+    },
+    {
+      "term": "pasarlo bien/mal/fatal",
+      "definition": "to have a good/bad/terrible time",
+      "type": "verb"
+    },
+    {
+      "term": "proponer matrimonio",
+      "definition": "to propose (marriage)",
+      "type": "verb"
+    },
+    {
+      "term": "romper (con)",
+      "definition": "to break up (with)",
+      "type": "verb"
+    },
+    {
+      "term": "soportar a alguien",
+      "definition": "to put up with someone",
+      "type": "verb"
+    },
+    {
+      "term": "casado/a",
+      "definition": "married",
+      "type": "adjective"
+    },
+    {
+      "term": "divorciado/a",
+      "definition": "divorced",
+      "type": "adjective"
+    },
+    {
+      "term": "separado/a",
+      "definition": "separated",
+      "type": "adjective"
+    },
+    {
+      "term": "soltero/a",
+      "definition": "single",
+      "type": "adjective"
+    },
+    {
+      "term": "viudo/a",
+      "definition": "widowed",
+      "type": "adjective"
+    },
+    {
+      "term": "El ajedrez",
+      "definition": "chess",
+      "type": "noun"
+    },
+    {
+      "term": "caer bien/mal",
+      "definition": "to get along with well/badly with",
+      "type": "verb"
+    },
+    {
+      "term": "el billar",
+      "definition": "billiards",
+      "type": "verb"
+    },
+    {
+      "term": "disgustar",
+      "definition": "to upset",
+      "type": "verb"
+    },
+    {
+      "term": "atreverse a",
+      "definition": "to dare (to)",
+      "type": "verb"
+    },
+    {
+      "term": "el boliche",
+      "definition": "bowling",
+      "type": "noun"
+    },
+    {
+      "term": "doler",
+      "definition": "to hurt; to ache",
+      "type": "verb"
+    },
+    {
+      "term": "acercarse a",
+      "definition": "to approach",
+      "type": "verb"
+    },
+    {
+      "term": "encantar",
+      "definition": "to like very much",
+      "type": "verb"
+    },
+    {
+      "term": "preocuparse por",
+      "definition": "to worry (about)",
+      "type": "verb"
+    },
+    {
+      "term": "las cartas/los naipes",
+      "definition": "(playing) cards",
+      "type": "noun"
+    },
+    {
+      "term": "fijarse en",
+      "definition": "to take notice (of)",
+      "type": "verb"
+    },
+    {
+      "term": "convertirse en",
+      "definition": "to become",
+      "type": "verb"
+    },
+    {
+      "term": "faltar",
+      "definition": "to lack; to need",
+      "type": "verb"
+    },
+    {
+      "term": "los dardos",
+      "definition": "darts",
+      "type": "noun"
+    },
+    {
+      "term": "el juego de mesa",
+      "definition": "board game",
+      "type": "noun"
+    },
+    {
+      "term": "fascinar",
+      "definition": "to fascinate; to like very much",
+      "type": "verb"
+    },
+    {
+      "term": "enterarse de",
+      "definition": "to find out (about)",
+      "type": "verb"
+    },
+    {
+      "term": "el pasatiempo",
+      "definition": "pastime",
+      "type": "noun"
+    },
+    {
+      "term": "quejarse de",
+      "definition": "to complain (about)",
+      "type": "verb"
+    },
+    {
+      "term": "hacer falta",
+      "definition": "to miss",
+      "type": "verb"
+    },
+    {
+      "term": "la televisión",
+      "definition": "television",
+      "type": "noun"
+    },
+    {
+      "term": "arrepentirse de",
+      "definition": "to regret",
+      "type": "verb"
+    },
+    {
+      "term": "importar",
+      "definition": "to be important to; to matter",
+      "type": "verb"
+    },
+    {
+      "term": "interesar",
+      "definition": "to be interesting to; to interest",
+      "type": "verb"
+    },
+    {
+      "term": "sorprenderse de",
+      "definition": "to be surprised (about)",
+      "type": "verb"
+    },
+    {
+      "term": "el tiempo libre/los ratos libres",
+      "definition": "free time",
+      "type": "noun"
+    },
+    {
+      "term": "molestar",
+      "definition": "to bother; to annoy",
+      "type": "verb"
+    },
+    {
+      "term": "morirse",
+      "definition": "to die (of)",
+      "type": "verb"
+    },
+    {
+      "term": "el videojuego",
+      "definition": "video game",
+      "type": "noun"
+    },
+    {
+      "term": "aburrirse",
+      "definition": "to get bored",
+      "type": "verb"
+    },
+    {
+      "term": "dormir/dormirse",
+      "definition": "to sleep/to fall asleep",
+      "type": "verb"
+    },
+    {
+      "term": "quedar (verbo como gustar)",
+      "definition": "to have left over; to fit (clothing)",
+      "type": "verb"
+    },
+    {
+      "term": "alquilar una película",
+      "definition": "to rent a movie",
+      "type": "verb"
+    },
+    {
+      "term": "acordar/acordarse",
+      "definition": "to agree/to remember",
+      "type": "verb"
+    },
+    {
+      "term": "brindar",
+      "definition": "to make a toast",
+      "type": "verb"
+    },
+    {
+      "term": "mudar/mudarse",
+      "definition": "to change/to move",
+      "type": "verb"
+    },
+    {
+      "term": "celebrar/festejar",
+      "definition": "to celebrate",
+      "type": "verb"
+    },
+    {
+      "term": "dar un paseo",
+      "definition": "to take a stroll, walk",
+      "type": "verb"
+    },
+    {
+      "term": "llevar/llevarse",
+      "definition": "to carry/to carry away",
+      "type": "verb"
+    },
+    {
+      "term": "disfrutar (de)",
+      "definition": "to enjoy",
+      "type": "verb"
+    },
+    {
+      "term": "ir/irse",
+      "definition": "to go/to go away (from)",
+      "type": "verb"
+    },
+    {
+      "term": "divertirse",
+      "definition": "to have fun",
+      "type": "verb"
+    },
+    {
+      "term": "poner/ponerse",
+      "definition": "to put/to put on (clothing)",
+      "type": "verb"
+    },
+    {
+      "term": "entretener(se)",
+      "definition": "to entertain, to amuse (oneself)",
+      "type": "verb"
+    },
+    {
+      "term": "aburrir/aburrirse",
+      "definition": "to bore/to get bored",
+      "type": "verb"
+    },
+    {
+      "term": "gustar",
+      "definition": "to like",
+      "type": "verb"
+    },
+    {
+      "term": "acostarse",
+      "definition": "to go to bed",
+      "type": "verb"
+    },
+    {
+      "term": "reunirse (con)",
+      "definition": "to get together (with)",
+      "type": "verb"
+    },
+    {
+      "term": "afeitarse",
+      "definition": "to shave",
+      "type": "verb"
+    },
+    {
+      "term": "salir (a comer)",
+      "definition": "to go out (to eat)",
+      "type": "verb"
+    },
+    {
+      "term": "bañarse",
+      "definition": "to take a bath",
+      "type": "verb"
+    },
+    {
+      "term": "aficionado/a (a)",
+      "definition": "fond of; a fan (of)",
+      "type": "adjective"
+    },
+    {
+      "term": "cepillarse",
+      "definition": "to brush",
+      "type": "verb"
+    },
+    {
+      "term": "animado/a",
+      "definition": "lively",
+      "type": "adjective"
+    },
+    {
+      "term": "despertarse",
+      "definition": "to wake up",
+      "type": "verb"
+    },
+    {
+      "term": "divertido/a",
+      "definition": "fun",
+      "type": "adjective"
+    },
+    {
+      "term": "ducharse",
+      "definition": "to shower",
+      "type": "verb"
+    },
+    {
+      "term": "entretenido/a",
+      "definition": "entertaining",
+      "type": "adjective"
+    },
+    {
+      "term": "lavarse",
+      "definition": "to wash",
+      "type": "verb"
+    },
+    {
+      "term": "el cine",
+      "definition": "movie theater; cinema",
+      "type": "noun"
+    },
+    {
+      "term": "levantarse",
+      "definition": "to get up",
+      "type": "verb"
+    },
+    {
+      "term": "el circo",
+      "definition": "circus",
+      "type": "noun"
+    },
+    {
+      "term": "maquillarse",
+      "definition": "to put on makeup",
+      "type": "verb"
+    },
+    {
+      "term": "la discoteca",
+      "definition": "discotheque; dance club",
+      "type": "noun"
+    },
+    {
+      "term": "peinarse",
+      "definition": "to comb",
+      "type": "verb"
+    },
+    {
+      "term": "la feria",
+      "definition": "fair",
+      "type": "noun"
+    },
+    {
+      "term": "secarse",
+      "definition": "to dry off",
+      "type": "verb"
+    },
+    {
+      "term": "el festival",
+      "definition": "festival",
+      "type": "noun"
+    },
+    {
+      "term": "el parque de atracciones",
+      "definition": "amusement park",
+      "type": "noun"
+    },
+    {
+      "term": "vestirse",
+      "definition": "to get dressed",
+      "type": "verb"
+    },
+    {
+      "term": "el zoológico",
+      "definition": "zoo",
+      "type": "noun"
+    },
+    {
+      "term": "comer/comerse",
+      "definition": "to eat/to eat oneself (don't try this at home)",
+      "type": "verb"
+    },
+    {
+      "term": "el/la árbitro/a",
+      "definition": "referee",
+      "type": "adjective"
+    },
+    {
+      "term": "parecer/parecerse (a)",
+      "definition": "to seem/to resemble; to look like",
+      "type": "verb"
+    },
+    {
+      "term": "el campeón/la campeona",
+      "definition": "champion",
+      "type": "noun"
+    },
+    {
+      "term": "quitar/quitarse",
+      "definition": "to take away/to take off",
+      "type": "verb"
+    },
+    {
+      "term": "el campeonato",
+      "definition": "championship",
+      "type": "noun"
+    },
+    {
+      "term": "darse cuenta de",
+      "definition": "to realize",
+      "type": "verb"
+    },
+    {
+      "term": "el club deportivo",
+      "definition": "sports club",
+      "type": "noun"
+    },
+    {
+      "term": "olvidarse de",
+      "definition": "to forget (about)",
+      "type": "verb"
+    },
+    {
+      "term": "el/la deportista",
+      "definition": "athlete",
+      "type": "noun"
+    },
+    {
+      "term": "el empate",
+      "definition": "tie (game)",
+      "type": "noun"
+    },
+    {
+      "term": "el/la entrenador(a)",
+      "definition": "coach; trainer",
+      "type": "noun"
+    },
+    {
+      "term": "el equipo",
+      "definition": "team",
+      "type": "noun"
+    },
+    {
+      "term": "el/la espectador(a)",
+      "definition": "spectator",
+      "type": "noun"
+    },
+    {
+      "term": "el torneo",
+      "definition": "tournament",
+      "type": "adjective"
+    },
+    {
+      "term": "anotar/marcar (un gol/un punto)",
+      "definition": "to score (a goal/a point)",
+      "type": "verb"
+    },
+    {
+      "term": "desafiar",
+      "definition": "to challenge",
+      "type": "verb"
+    },
+    {
+      "term": "empatar",
+      "definition": "to tie (games)",
+      "type": "verb"
+    },
+    {
+      "term": "ganar un partido",
+      "definition": "to win a game",
+      "type": "verb"
+    },
+    {
+      "term": "perder un partido",
+      "definition": "to lose a game",
+      "type": "verb"
+    },
+    {
+      "term": "vencer",
+      "definition": "to defeat",
+      "type": "verb"
+    },
+    {
+      "term": "el álbum",
+      "definition": "album",
+      "type": "noun"
+    },
+    {
+      "term": "el asiento",
+      "definition": "seat",
+      "type": "noun"
+    },
+    {
+      "term": "el/la cantante",
+      "definition": "singer",
+      "type": "noun"
+    },
+    {
+      "term": "el concierto",
+      "definition": "concert",
+      "type": "noun"
+    },
+    {
+      "term": "el conjunto/el grupo musical",
+      "definition": "musical group; band",
+      "type": "noun"
+    },
+    {
+      "term": "el escenario",
+      "definition": "scenery; stage",
+      "type": "noun"
+    },
+    {
+      "term": "el espectáculo",
+      "definition": "show",
+      "type": "noun"
+    },
+    {
+      "term": "el estreno",
+      "definition": "premiere; debut",
+      "type": "noun"
+    },
+    {
+      "term": "la función",
+      "definition": "performance (theater; movie)",
+      "type": "noun"
+    },
+    {
+      "term": "el/la músico/a",
+      "definition": "musician",
+      "type": "adjective"
+    },
+    {
+      "term": "la obra de teatro",
+      "definition": "play",
+      "type": "noun"
+    },
+    {
+      "term": "la taquilla",
+      "definition": "box office",
+      "type": "noun"
+    },
+    {
+      "term": "aplaudir",
+      "definition": "to applaud",
+      "type": "verb"
+    },
+    {
+      "term": "conseguir boletos/entradas",
+      "definition": "to get tickets",
+      "type": "verb"
+    },
+    {
+      "term": "hacer cola",
+      "definition": "to wait in line",
+      "type": "verb"
+    },
+    {
+      "term": "poner un disco compacto",
+      "definition": "to play a CD",
+      "type": "verb"
+    },
+    {
+      "term": "el balcón",
+      "definition": "balcony",
+      "type": "noun"
+    },
+    {
+      "term": "la escalera",
+      "definition": "staircase",
+      "type": "noun"
+    },
+    {
+      "term": "el hogar",
+      "definition": "home; fireplace",
+      "type": "verb"
+    },
+    {
+      "term": "la limpieza",
+      "definition": "cleaning",
+      "type": "noun"
+    },
+    {
+      "term": "los muebles",
+      "definition": "furniture",
+      "type": "noun"
+    },
+    {
+      "term": "los quehaceres",
+      "definition": "chores",
+      "type": "noun"
+    },
+    {
+      "term": "apagar",
+      "definition": "to turn off",
+      "type": "verb"
+    },
+    {
+      "term": "barrer",
+      "definition": "to sweep",
+      "type": "verb"
+    },
+    {
+      "term": "calentar e:ie",
+      "definition": "to warm up",
+      "type": "verb"
+    },
+    {
+      "term": "cocinar",
+      "definition": "to cook",
+      "type": "verb"
+    },
+    {
+      "term": "encender e:ie",
+      "definition": "to turn on",
+      "type": "verb"
+    },
+    {
+      "term": "freír e:i",
+      "definition": "to fry",
+      "type": "verb"
+    },
+    {
+      "term": "hervir e:ie",
+      "definition": "to boil",
+      "type": "verb"
+    },
+    {
+      "term": "lavar",
+      "definition": "to wash",
+      "type": "verb"
+    },
+    {
+      "term": "limpiar",
+      "definition": "to clean",
+      "type": "verb"
+    },
+    {
+      "term": "pasar la aspiradora",
+      "definition": "to vacuum",
+      "type": "verb"
+    },
+    {
+      "term": "poner/quitar la mesa",
+      "definition": "to set/clear the table",
+      "type": "verb"
+    },
+    {
+      "term": "quitar el polvo",
+      "definition": "to dust",
+      "type": "verb"
+    },
+    {
+      "term": "tocar el timbre",
+      "definition": "to ring the doorbell",
+      "type": "verb"
+    },
+    {
+      "term": "el centro comercial",
+      "definition": "mall",
+      "type": "noun"
+    },
+    {
+      "term": "el dinero en efectivo",
+      "definition": "cash",
+      "type": "noun"
+    },
+    {
+      "term": "la ganga",
+      "definition": "bargain",
+      "type": "noun"
+    },
+    {
+      "term": "el probador",
+      "definition": "dressing room",
+      "type": "noun"
+    },
+    {
+      "term": "el reembolso",
+      "definition": "refund",
+      "type": "noun"
+    },
+    {
+      "term": "el supermercado",
+      "definition": "supermarket",
+      "type": "noun"
+    },
+    {
+      "term": "la tarjeta de crédito/débito",
+      "definition": "credit/debit card",
+      "type": "noun"
+    },
+    {
+      "term": "devolver o:ue",
+      "definition": "to return (items)",
+      "type": "verb"
+    },
+    {
+      "term": "hacer mandados",
+      "definition": "to run errands",
+      "type": "verb"
+    },
+    {
+      "term": "ir de compras",
+      "definition": "to go shopping",
+      "type": "verb"
+    },
+    {
+      "term": "probarse o:ue",
+      "definition": "to try on",
+      "type": "verb"
+    },
+    {
+      "term": "seleccionar",
+      "definition": "to select; to pick out",
+      "type": "verb"
+    },
+    {
+      "term": "auténtico/a",
+      "definition": "real; genuine (authentic)",
+      "type": "adjective"
+    },
+    {
+      "term": "barato/a",
+      "definition": "cheap/inexpensive",
+      "type": "adjective"
+    },
+    {
+      "term": "caro/a",
+      "definition": "expensive",
+      "type": "adjective"
+    },
+    {
+      "term": "a menudo",
+      "definition": "frequently; often",
+      "type": "noun"
+    },
+    {
+      "term": "a propósito",
+      "definition": "on purpose",
+      "type": "noun"
+    },
+    {
+      "term": "a tiempo",
+      "definition": "on time",
+      "type": "noun"
+    },
+    {
+      "term": "a veces",
+      "definition": "sometimes",
+      "type": "noun"
+    },
+    {
+      "term": "apenas",
+      "definition": "hardly; scarcely",
+      "type": "noun"
+    },
+    {
+      "term": "así",
+      "definition": "like this; so",
+      "type": "adjective"
+    },
+    {
+      "term": "bastante",
+      "definition": "quite; enough",
+      "type": "noun"
+    },
+    {
+      "term": "casi",
+      "definition": "almost",
+      "type": "noun"
+    },
+    {
+      "term": "casi nunca",
+      "definition": "rarely",
+      "type": "noun"
+    },
+    {
+      "term": "de repente",
+      "definition": "suddenly",
+      "type": "noun"
+    },
+    {
+      "term": "de vez en cuando",
+      "definition": "now and then; once in a while",
+      "type": "noun"
+    },
+    {
+      "term": "en aquel entonces",
+      "definition": "at that time",
+      "type": "noun"
+    },
+    {
+      "term": "en el acto",
+      "definition": "immediately; on the spot",
+      "type": "noun"
+    },
+    {
+      "term": "enseguida",
+      "definition": "right away",
+      "type": "noun"
+    },
+    {
+      "term": "por casualidad",
+      "definition": "by chance",
+      "type": "noun"
+    },
+    {
+      "term": "la agenda",
+      "definition": "datebook",
+      "type": "noun"
+    },
+    {
+      "term": "la costumbre",
+      "definition": "custom; habit",
+      "type": "noun"
+    },
+    {
+      "term": "el horario",
+      "definition": "schedule",
+      "type": "noun"
+    },
+    {
+      "term": "la rutina",
+      "definition": "routine",
+      "type": "noun"
+    },
+    {
+      "term": "la soledad",
+      "definition": "solitude; loneliness",
+      "type": "noun"
+    },
+    {
+      "term": "acostumbrarse (a)",
+      "definition": "to get used to; to grow accustomed (to)",
+      "type": "verb"
+    },
+    {
+      "term": "arreglarse",
+      "definition": "to get ready",
+      "type": "verb"
+    },
+    {
+      "term": "averiguar",
+      "definition": "to find out; to check",
+      "type": "verb"
+    },
+    {
+      "term": "probar o:ue (a)",
+      "definition": "to try",
+      "type": "verb"
+    },
+    {
+      "term": "soler o:ue",
+      "definition": "to be in the habit of; to be used to",
+      "type": "verb"
+    },
+    {
+      "term": "atrasado/a",
+      "definition": "late",
+      "type": "adjective"
+    },
+    {
+      "term": "cotidiano/a",
+      "definition": "everyday",
+      "type": "adjective"
+    },
+    {
+      "term": "diario/a",
+      "definition": "daily",
+      "type": "adjective"
+    },
+    {
+      "term": "inesperado/a",
+      "definition": "unexpected",
+      "type": "adjective"
+    },
+    {
+      "term": "el cansacio",
+      "definition": "exhaustion",
+      "type": "noun"
+    },
+    {
+      "term": "el cuadro",
+      "definition": "painting",
+      "type": "noun"
+    },
+    {
+      "term": "la obra maestra",
+      "definition": "masterpiece",
+      "type": "noun"
+    },
+    {
+      "term": "el/la pintor(a)",
+      "definition": "painter",
+      "type": "noun"
+    },
+    {
+      "term": "el reatro",
+      "definition": "portrait",
+      "type": "noun"
+    },
+    {
+      "term": "pintar",
+      "definition": "to paint",
+      "type": "verb"
+    },
+    {
+      "term": "retratar",
+      "definition": "to portray",
+      "type": "verb"
+    },
+    {
+      "term": "fatigado/a",
+      "definition": "fatigued",
+      "type": "adjective"
+    },
+    {
+      "term": "imprevisto/a",
+      "definition": "unexpected",
+      "type": "adjective"
+    },
+    {
+      "term": "previsto/a",
+      "definition": "planned",
+      "type": "adjective"
+    }
+  ]
+}

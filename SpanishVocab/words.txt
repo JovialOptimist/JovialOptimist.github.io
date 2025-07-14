@@ -1,0 +1,246 @@
+celoso/a	jealous
+cuidadoso/a	careful
+autoritario	strict; authoritarian
+falso/a	insincere
+cariñoso	affectionate
+gracioso/a	funny; pleasant
+inseguro/a	insecure
+(in)maduro/a	(im)mature
+mentiroso/a	lying
+orgulloso/a	proud
+permisivo/a	permissive; easy-going
+seguro/a	sure; confident
+sensato/a	sensible
+sensible	sensitive
+tacaño/a	cheap; stingy
+tímido/a	shy
+tradicional	traditional
+agobiado/a	overwhelmed
+ansioso/a	anxious
+deprimido/a	depressed
+disgustado/a	disgusted
+emocionado/a	excited
+preocupado/a (por)	worried (about)
+solo/a	alone; lonely
+tranquilo/a	calm
+adorar	to adore
+apreciar	to appreciate
+enamorarse (de)	to fall in love with
+estar harto/a (de)	to be fed up (with); to be sick (of)
+odiar	to hate
+sentirse	to feel
+soñar (con)	to dream (about)
+tener celos (de)	to be jealous (of)
+tener vergüenza (de)	to be ashamed/embarrassed (of)
+el/la amado/a	loved one; sweetheart
+el ánimo	spirit
+el cariño	affection
+la cita (a ciegas)	(blind) date
+el compromiso	commitment; responsibility
+la confianza	trust; confidence
+el desánimo	the state of being discouraged
+el divorcio	divorce
+la pareja	couple; partner
+el sentimiento	feeling; emotion
+atraer	to attract
+coquetear	to flirt
+cuidar	to take care of
+dejar a alguien	to leave someone
+discutir	to argue
+educar	to raise; to bring up
+hacerle caso a alguien	to pay attention to someone
+impresionar	to impress
+llevar ... años de (casados)	to be (married) for ... years
+llevarse bien/mal/fatal	to get along well/badly/terribly
+mantenerse en contacto	to keep in touch
+pasarlo bien/mal/fatal	to have a good/bad/terrible time
+proponer matrimonio	to propose (marriage)
+romper (con)	to break up (with)
+soportar a alguien	to put up with someone
+casado/a	married
+divorciado/a	divorced
+separado/a	separated
+soltero/a	single
+viudo/a	widowed
+El ajedrez	chess
+caer bien/mal	to get along with well/badly with
+el billar	billiards
+disgustar	to upset
+atreverse a	to dare (to)
+el boliche	bowling
+doler	to hurt; to ache
+acercarse a	to approach
+encantar	to like very much
+preocuparse por	to worry (about)
+las cartas/los naipes	(playing) cards
+fijarse en	to take notice (of)
+convertirse en	to become
+faltar	to lack; to need
+los dardos	darts
+el juego de mesa	board game
+fascinar	to fascinate; to like very much
+enterarse de	to find out (about)
+el pasatiempo	pastime
+quejarse de	to complain (about)
+hacer falta	to miss
+la televisión	television
+arrepentirse de	to regret
+importar	to be important to; to matter
+interesar	to be interesting to; to interest
+sorprenderse de	to be surprised (about)
+el tiempo libre/los ratos libres	free time
+molestar	to bother; to annoy
+morirse	to die (of)
+el videojuego	video game
+aburrirse	to get bored
+dormir/dormirse	to sleep/to fall asleep
+quedar (verbo como gustar)	to have left over; to fit (clothing)
+alquilar una película	to rent a movie
+acordar/acordarse	to agree/to remember
+brindar	to make a toast
+mudar/mudarse	to change/to move
+celebrar/festejar	to celebrate
+dar un paseo	to take a stroll, walk
+llevar/llevarse	to carry/to carry away
+disfrutar (de)	to enjoy
+ir/irse	to go/to go away (from)
+divertirse	to have fun
+poner/ponerse	to put/to put on (clothing)
+entretener(se)	to entertain, to amuse (oneself)
+aburrir/aburrirse	to bore/to get bored
+gustar	to like
+acostarse	to go to bed
+reunirse (con)	to get together (with)
+afeitarse	to shave
+salir (a comer)	to go out (to eat)
+bañarse	to take a bath
+aficionado/a (a)	fond of; a fan (of)
+cepillarse	to brush
+animado/a	lively
+despertarse	to wake up
+divertido/a	fun
+ducharse	to shower
+entretenido/a	entertaining
+lavarse	to wash
+el cine	movie theater; cinema
+levantarse	to get up
+el circo	circus
+maquillarse	to put on makeup
+la discoteca	discotheque; dance club
+peinarse	to comb
+la feria	fair
+secarse	to dry off
+el festival	festival
+el parque de atracciones	amusement park
+vestirse	to get dressed
+el zoológico	zoo
+comer/comerse	to eat/to eat oneself (don't try this at home)
+el/la árbitro/a	referee
+parecer/parecerse (a)	to seem/to resemble; to look like
+el campeón/la campeona	champion
+quitar/quitarse	to take away/to take off
+el campeonato	championship
+darse cuenta de	to realize
+el club deportivo	sports club
+olvidarse de	to forget (about)
+el/la deportista	athlete
+el empate	tie (game)
+el/la entrenador(a)	coach; trainer
+el equipo	team
+el/la espectador(a)	spectator
+el torneo	tournament
+anotar/marcar (un gol/un punto)	to score (a goal/a point)
+desafiar	to challenge
+empatar	to tie (games)
+ganar un partido	to win a game
+perder un partido	to lose a game
+vencer	to defeat
+el álbum	album
+el asiento	seat
+el/la cantante	singer
+el concierto	concert
+el conjunto/el grupo musical	musical group; band
+el escenario	scenery; stage
+el espectáculo	show
+el estreno	premiere; debut
+la función	performance (theater; movie)
+el/la músico/a	musician
+la obra de teatro	play
+la taquilla	box office
+aplaudir	to applaud
+conseguir boletos/entradas	to get tickets
+hacer cola	to wait in line
+poner un disco compacto	to play a CD
+el balcón	balcony
+la escalera	staircase
+el hogar	home; fireplace
+la limpieza	cleaning
+los muebles	furniture
+los quehaceres	chores
+apagar	to turn off
+barrer	to sweep
+calentar e:ie	to warm up
+cocinar	to cook
+encender e:ie	to turn on
+freír e:i	to fry
+hervir e:ie	to boil
+lavar	to wash
+limpiar	to clean
+pasar la aspiradora	to vacuum
+poner/quitar la mesa	to set/clear the table
+quitar el polvo	to dust
+tocar el timbre	to ring the doorbell
+el centro comercial	mall
+el dinero en efectivo	cash
+la ganga	bargain
+el probador	dressing room
+el reembolso	refund
+el supermercado	supermarket
+la tarjeta de crédito/débito	credit/debit card
+devolver o:ue	to return (items)
+hacer mandados	to run errands
+ir de compras	to go shopping
+probarse o:ue	to try on
+seleccionar	to select; to pick out
+auténtico/a	real; genuine (authentic)
+barato/a	cheap/inexpensive
+caro/a	expensive
+a menudo	frequently; often
+a propósito	on purpose
+a tiempo	on time
+a veces	sometimes
+apenas	hardly; scarcely
+así	like this; so
+bastante	quite; enough
+casi	almost
+casi nunca	rarely
+de repente	suddenly
+de vez en cuando	now and then; once in a while
+en aquel entonces	at that time
+en el acto	immediately; on the spot
+enseguida	right away
+por casualidad	by chance
+la agenda	datebook
+la costumbre	custom; habit
+el horario	schedule
+la rutina	routine
+la soledad	solitude; loneliness
+acostumbrarse (a)	to get used to; to grow accustomed (to)
+arreglarse	to get ready
+averiguar	to find out; to check
+probar o:ue (a)	to try
+soler o:ue	to be in the habit of; to be used to
+atrasado/a	late
+cotidiano/a	everyday
+diario/a	daily
+inesperado/a	unexpected
+el cansacio	exhaustion
+el cuadro	painting
+la obra maestra	masterpiece
+el/la pintor(a)	painter
+el reatro	portrait
+pintar	to paint
+retratar	to portray
+fatigado/a	fatigued
+imprevisto/a	unexpected
+previsto/a	planned

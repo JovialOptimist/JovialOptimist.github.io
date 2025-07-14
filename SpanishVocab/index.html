@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Spanish Vocabulary Trainer</title>
+        <style>
+    body { font-family: sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; vertical-align: middle; display: flex; align-items: center;        /* Add this */
+        justify-content: center;    /* Add this */
+        height: 92vh; flex-direction: column; background-color: #f9f9f9; }
+    
+    #uploadSection { margin-bottom: 20px; }
+    #questionContainer { margin-top: 20px; text-align: center;}
+    .option { margin: 8px 0; cursor: pointer; padding: 6px; border: 1px solid #ccc; border-radius: 4px; user-select: none; width: 150px; height: 150px; text-align: center; vertical-align: middle; display: flex;              /* Add this */
+  align-items: center;        /* Add this */
+  justify-content: center;    /* Add this */
+padding: 10px;
+transition: 0.1s ease;}
+    .option:hover { background-color: #f0f0f0; }
+    .correct { background-color: #c8e6c9; }
+    .correct:hover { background-color: #a5d6a7; }
+    .wrong { background-color: #ffcdd2; }
+    .wrong:hover { background-color: #ef9a9a; }
+    #nextBtn { margin-top: 20px; display: none; }
+    #status { margin-top: 20px; font-size: 0.9em; color: #555; }
+    main { display: flex; flex-direction: column; align-items: center; vertical-align: middle;}
+  </style>
+    </head>
+    <body>
+        <div id="uploadSection">
+            <p>Select a <code>words.json</code> file (formatted as an array of
+                word objects):</p>
+            <input type="file" id="fileInput" accept=".json" />
+        </div>
+
+        <main>
+            <div id="questionContainer"></div>
+            <div id="status"></div>
+        </main>
+
+        <script>
+    const fileInput = document.getElementById("fileInput");
+    const questionContainer = document.getElementById("questionContainer");
+    const statusDiv = document.getElementById("status");
+
+    let vocab = [];
+    let activeSet = [];
+    let masteredWords = [];
+    let newWords = [];
+    let currentWord = null;
+    const batchSize = 12;
+    const masteryStreak = 3;
+
+    const STORAGE_KEY = "vocabProgress";
+
+    function loadProgress() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (!saved) return null;
+      return JSON.parse(saved);
+    }
+
+    function saveProgress() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(vocab));
+    }
+
+    fileInput.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        const data = JSON.parse(reader.result);
+        const saved = loadProgress();
+
+        vocab = data.wordMatches.map(entry => {
+          const savedEntry = saved?.find(w => w.term === entry.term);
+          return {
+            term: entry.term,
+            def: entry.definition,
+            type: entry.type,
+            streak: savedEntry?.streak || 0,
+            status: savedEntry?.status || "new"
+          };
+        });
+
+        masteredWords = vocab.filter(w => w.status === "mastered");
+        newWords = vocab.filter(w => w.status === "new");
+        activeSet = vocab.filter(w => w.status === "learning").slice(0, batchSize);
+
+        const filler = batchSize - activeSet.length;
+        activeSet = activeSet.concat(newWords.splice(0, filler));
+        activeSet.forEach(w => w.status = "learning");
+        activeSet = vocab;
+
+        showNextQuestion();
+      };
+      reader.readAsText(file);
+      // Hide the file input
+        document.getElementById("uploadSection").style.display = "none";
+    });
+
+    function chooseWord() {
+      if (Math.random() < 0.2 && masteredWords.length > 0) {
+        return masteredWords[Math.floor(Math.random() * masteredWords.length)];
+      }
+      return activeSet[Math.floor(Math.random() * activeSet.length)];
+    }
+
+    function showNextQuestion() {
+      questionContainer.innerHTML = "";
+      currentWord = chooseWord();
+      if (!currentWord) {
+        questionContainer.innerHTML = "<p>🎉 All words mastered!</p>";
+        return;
+      }
+
+      const mode = Math.random() < 0.5 ? "multiple" : "invertedMultiple";
+
+      if (mode === "multiple") showMultipleChoice(currentWord);
+      else if (mode === "invertedMultiple") showInvertedMultipleChoice(currentWord);
+
+      updateStatus();
+    }
+
+    function showMultipleChoice(word) {
+        questionContainer.innerHTML = `<h1>${word.term}</h1>`;
+        const pool = vocab.filter(w => w.type === word.type && w.term !== word.term);
+        const choices = [word.def];
+        while (choices.length < 9 && pool.length > 0) {
+            const candidate = pool.splice(Math.floor(Math.random() * pool.length), 1)[0];
+            if (!choices.includes(candidate.def)) choices.push(candidate.def);
+        }
+        shuffle(choices);
+
+        const grid = document.createElement("div");
+        grid.style.display = "grid";
+        grid.style.gridTemplateColumns = "repeat(3, 1fr)";
+        grid.style.gap = "12px";
+        choices.forEach(choice => {
+        const div = document.createElement("div");
+        div.textContent = choice;
+        div.className = "option";
+        div.onclick = () => {
+            if (div.classList.contains("correct")) showNextQuestion();
+            else {
+                updateProgress(word, choice === word.def);
+                div.classList.add(choice === word.def ? "correct" : "wrong");
+            }
+        };
+        grid.appendChild(div);
+        });
+        questionContainer.appendChild(grid);
+    }
+
+    function showInvertedMultipleChoice(word) {
+        questionContainer.innerHTML = `<h1>${word.def}</h1>`;
+        const pool = vocab.filter(w => w.type === word.type && w.term !== word.term);
+        const choices = [word.term];
+        while (choices.length < 9 && pool.length > 0) {
+            const candidate = pool.splice(Math.floor(Math.random() * pool.length), 1)[0];
+            if (!choices.includes(candidate.term)) choices.push(candidate.term);
+        }
+        shuffle(choices);
+
+        const grid = document.createElement("div");
+        grid.style.display = "grid";
+        grid.style.gridTemplateColumns = "repeat(3, 1fr)";
+        grid.style.gap = "12px";
+        choices.forEach(choice => {
+        const div = document.createElement("div");
+        div.textContent = choice;
+        div.className = "option";
+        div.onclick = () => {
+            if (div.classList.contains("correct")) showNextQuestion();
+            else {
+                updateProgress(word, choice === word.term);
+                div.classList.add(choice === word.term ? "correct" : "wrong");
+            }
+            
+        };
+        grid.appendChild(div);
+        });
+        questionContainer.appendChild(grid);
+    }
+
+    function updateProgress(word, correct) {
+      if (correct) {
+        word.streak++;
+        if (word.streak >= masteryStreak && word.status !== "mastered") {
+          word.status = "mastered";
+          masteredWords.push(word);
+          activeSet = activeSet.filter(w => w !== word);
+          if (newWords.length > 0) {
+            const next = newWords.shift();
+            next.status = "learning";
+            activeSet.push(next);
+          }
+        }
+      } else {
+        word.streak = 0;
+      }
+      saveProgress();
+    }
+
+    function updateStatus() {
+      const mastered = masteredWords.length;
+      const active = activeSet.length;
+      const remaining = newWords.length;
+      statusDiv.textContent = `🧠 Active: ${active}, ✅ Mastered: ${mastered}, 🆕 Remaining: ${remaining}`;
+    }
+
+    function shuffle(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+    }
+
+  </script>
+    </body>
+</html>
