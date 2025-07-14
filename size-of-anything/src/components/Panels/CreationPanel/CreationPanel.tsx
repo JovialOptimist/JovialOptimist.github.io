@@ -286,29 +286,38 @@ export const CreationPanel: React.FC = () => {
 };
 
 function enablePolygonDragging(layer: L.Polygon<any>, map: L.Map) {
+  let originalLatLngs: L.LatLng[][] | null = null;
+  let dragStartLatLng: L.LatLng | null = null;
+
   layer.on("mousedown", function (event) {
     map.dragging.disable();
-    let startLatLng = event.latlng;
+    dragStartLatLng = event.latlng;
+
+    // Deep copy of the original points (not just a reference)
+    const latLngs = layer.getLatLngs() as any;
+    originalLatLngs = latLngs.map((ring: any) =>
+      Array.isArray(ring[0])
+        ? ring.map((subRing: any) =>
+            subRing.map((pt: L.LatLng) => L.latLng(pt.lat, pt.lng))
+          )
+        : ring.map((pt: L.LatLng) => L.latLng(pt.lat, pt.lng))
+    );
 
     function moveHandler(moveEvent: { latlng: L.LatLng }) {
-      const latLngs = layer.getLatLngs() as any;
+      if (!originalLatLngs || !dragStartLatLng) return;
 
-      const latDiff = moveEvent.latlng.lat - startLatLng.lat;
-      const lngDiff = moveEvent.latlng.lng - startLatLng.lng;
+      const latDiff = moveEvent.latlng.lat - dragStartLatLng.lat;
+      const lngDiff = moveEvent.latlng.lng - dragStartLatLng.lng;
 
-      // Estimate previous and current latitude
-      const startLat = startLatLng.lat;
+      const startLat = dragStartLatLng.lat;
       const newLat = moveEvent.latlng.lat;
 
       const startCos = Math.cos((startLat * Math.PI) / 180);
       const newCos = Math.cos((newLat * Math.PI) / 180);
 
-      // Ratio of how 1° of longitude changes in width
       const widthScale = startCos / newCos;
 
-      // Shift polygon and apply width scaling
       function shiftAndScaleRing(ring: L.LatLng[]) {
-        // Compute the center longitude of the ring (to scale around it)
         const centerLng =
           ring.reduce((sum, pt) => sum + pt.lng, 0) / ring.length;
 
@@ -323,7 +332,7 @@ function enablePolygonDragging(layer: L.Polygon<any>, map: L.Map) {
         });
       }
 
-      const newLatLngs = latLngs.map((ring: any) => {
+      const transformed = originalLatLngs.map((ring: any) => {
         if (Array.isArray(ring[0])) {
           return ring.map((subRing: any) => shiftAndScaleRing(subRing));
         } else {
@@ -331,15 +340,17 @@ function enablePolygonDragging(layer: L.Polygon<any>, map: L.Map) {
         }
       });
 
-      layer.setLatLngs(newLatLngs);
-      startLatLng = moveEvent.latlng;
+      layer.setLatLngs(transformed);
     }
 
     function stopHandler() {
       map.off("mousemove", moveHandler);
       map.off("mouseup", stopHandler);
-
       map.dragging.enable();
+
+      // Clear temporary state
+      originalLatLngs = null;
+      dragStartLatLng = null;
     }
 
     map.on("mousemove", moveHandler);
