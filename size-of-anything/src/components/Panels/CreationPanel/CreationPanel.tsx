@@ -7,6 +7,29 @@ export const CreationPanel: React.FC = () => {
   const { map } = useMapContext();
   const polygonLayerRef = React.useRef<L.Polygon | null>(null);
 
+  const handleVoiceInput = () => {
+    const input = document.querySelector<HTMLInputElement>(".input-field");
+    if (!("webkitSpeechRecognition" in window)) {
+      alert("Speech recognition not supported in this browser.");
+      return;
+    }
+    const recognition = new (window as any).webkitSpeechRecognition();
+    recognition.lang = "en-US";
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+    recognition.onresult = (event: any) => {
+      if (input) {
+        input.value = event.results[0][0].transcript;
+        input.dispatchEvent(new Event("input", { bubbles: true }));
+        handleSearch();
+      }
+    };
+    recognition.onerror = () => {
+      alert("Speech recognition error.");
+    };
+    recognition.start();
+  };
+
   const handleSearch = async () => {
     const input = document
       .querySelector<HTMLInputElement>(".input-field")
@@ -251,33 +274,7 @@ export const CreationPanel: React.FC = () => {
           placeholder="Search for anything..."
           className="input-field"
         />
-        <button
-          id="microphoneButton"
-          type="button"
-          onClick={() => {
-            const input =
-              document.querySelector<HTMLInputElement>(".input-field");
-            if (!("webkitSpeechRecognition" in window)) {
-              alert("Speech recognition not supported in this browser.");
-              return;
-            }
-            const recognition = new (window as any).webkitSpeechRecognition();
-            recognition.lang = "en-US";
-            recognition.interimResults = false;
-            recognition.maxAlternatives = 1;
-            recognition.onresult = (event: any) => {
-              if (input) {
-                input.value = event.results[0][0].transcript;
-                input.dispatchEvent(new Event("input", { bubbles: true }));
-                handleSearch();
-              }
-            };
-            recognition.onerror = () => {
-              alert("Speech recognition error.");
-            };
-            recognition.start();
-          }}
-        >
+        <button id="microphoneButton" type="button" onClick={handleVoiceInput}>
           🎤
         </button>
         <button id="searchButton" onClick={handleSearch}>
@@ -294,44 +291,43 @@ function enablePolygonDragging(layer: L.Polygon<any>, map: L.Map) {
     let startLatLng = event.latlng;
 
     function moveHandler(moveEvent: { latlng: L.LatLng }) {
-      let deltaLat = moveEvent.latlng.lat - startLatLng.lat;
-      let deltaLng = moveEvent.latlng.lng - startLatLng.lng;
+      const latLngs = layer.getLatLngs() as any;
 
-      let latLngs;
+      const latDiff = moveEvent.latlng.lat - startLatLng.lat;
+      const lngDiff = moveEvent.latlng.lng - startLatLng.lng;
 
-      try {
-        latLngs = layer.getLatLngs(); // Polygon or rectangle
-      } catch (e) {
-        // If it's a circle, handle differently
-        if (layer instanceof L.Circle) {
-          let center = layer.getLatLng();
-          let newCenter = L.latLng(
-            center.lat + deltaLat,
-            center.lng + deltaLng
-          );
-          layer.setLatLng(newCenter);
-          startLatLng = moveEvent.latlng;
-          return;
-        } else {
-          console.error("Unsupported layer type for dragging.");
-          return;
-        }
+      // Estimate previous and current latitude
+      const startLat = startLatLng.lat;
+      const newLat = moveEvent.latlng.lat;
+
+      const startCos = Math.cos((startLat * Math.PI) / 180);
+      const newCos = Math.cos((newLat * Math.PI) / 180);
+
+      // Ratio of how 1° of longitude changes in width
+      const widthScale = startCos / newCos;
+
+      // Shift polygon and apply width scaling
+      function shiftAndScaleRing(ring: L.LatLng[]) {
+        // Compute the center longitude of the ring (to scale around it)
+        const centerLng =
+          ring.reduce((sum, pt) => sum + pt.lng, 0) / ring.length;
+
+        return ring.map((pt) => {
+          const newLat = pt.lat + latDiff;
+
+          const lngOffset = pt.lng - centerLng;
+          const scaledLngOffset = lngOffset * widthScale;
+          const newLng = centerLng + scaledLngOffset + lngDiff;
+
+          return L.latLng(newLat, newLng);
+        });
       }
 
-      // Shift polygon or rectangle points
-      let newLatLngs = latLngs.map((ring: any) => {
-        if (Array.isArray(ring) && Array.isArray(ring[0])) {
-          return ring.map((subRing: any) =>
-            subRing.map((point: any) =>
-              L.latLng(point.lat + deltaLat, point.lng + deltaLng)
-            )
-          );
-        } else if (Array.isArray(ring)) {
-          return ring.map((point: any) =>
-            L.latLng(point.lat + deltaLat, point.lng + deltaLng)
-          );
+      const newLatLngs = latLngs.map((ring: any) => {
+        if (Array.isArray(ring[0])) {
+          return ring.map((subRing: any) => shiftAndScaleRing(subRing));
         } else {
-          return ring;
+          return shiftAndScaleRing(ring);
         }
       });
 
@@ -342,6 +338,7 @@ function enablePolygonDragging(layer: L.Polygon<any>, map: L.Map) {
     function stopHandler() {
       map.off("mousemove", moveHandler);
       map.off("mouseup", stopHandler);
+
       map.dragging.enable();
     }
 
