@@ -69,7 +69,13 @@ export const MapProvider: React.FC<{ children: React.ReactNode }> = ({
         },
         onAdd: function (map: LeafletMap) {
           var container = document.createElement("div");
-          createRoot(container).render(<CreationPanel />);
+          // Pass the current map context to the CreationPanel
+          const root = createRoot(container);
+          root.render(
+            <MapContext.Provider value={{ map: mapRef.current, mapReady }}>
+              <CreationPanel />
+            </MapContext.Provider>
+          );
           return container;
         },
       });
