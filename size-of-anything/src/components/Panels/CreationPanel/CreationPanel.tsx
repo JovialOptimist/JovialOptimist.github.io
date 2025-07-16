@@ -6,6 +6,7 @@ import L from "leaflet";
 export const CreationPanel: React.FC = () => {
   const { map } = useMapContext();
   const polygonLayerRef = React.useRef<L.Polygon | null>(null);
+  const [isQueryMode, setIsQueryMode] = React.useState(false);
 
   const handleVoiceInput = () => {
     const input = document.querySelector<HTMLInputElement>(".input-field");
@@ -244,7 +245,7 @@ export const CreationPanel: React.FC = () => {
       }
 
       if (polygonLayerRef.current && map) {
-        map.removeLayer(polygonLayerRef.current);
+        //map.removeLayer(polygonLayerRef.current);
       }
 
       if (map) {
@@ -265,6 +266,80 @@ export const CreationPanel: React.FC = () => {
     }
   };
 
+  React.useEffect(() => {
+    if (!map || !isQueryMode) return;
+
+    const onMapClick = async (e: L.LeafletMouseEvent) => {
+      setIsQueryMode(false);
+      const lat = e.latlng.lat;
+      const lng = e.latlng.lng;
+
+      const distance = 25; // meters around point
+      const query = `
+      [out:json][timeout:25];
+      (
+        is_in(${lat}, ${lng});
+        way(around:${distance},${lat},${lng});
+        relation(around:${distance},${lat},${lng});
+      );
+      out body geom;
+      >;
+      out geom;
+    `;
+
+      try {
+        const response = await fetch(
+          "https://overpass-api.de/api/interpreter",
+          {
+            method: "POST",
+            body: query,
+            headers: { "Content-Type": "text/plain" },
+          }
+        );
+
+        const data = await response.json();
+
+        const polygonFeature = extractFirstValidPolygon(data.elements);
+        if (!polygonFeature) {
+          alert("No valid polygon found at that location.");
+          return;
+        }
+
+        const latLngs = polygonFeature.map(([lat, lon]) => [
+          lat,
+          lon,
+        ]) as L.LatLngExpression[];
+
+        if (polygonLayerRef.current) {
+          map.removeLayer(polygonLayerRef.current);
+        }
+
+        polygonLayerRef.current = L.polygon(latLngs, {
+          color: "red",
+          weight: 2,
+          fillOpacity: 0.3,
+        }).addTo(map);
+
+        map.fitBounds(polygonLayerRef.current.getBounds());
+        enablePolygonDragging(polygonLayerRef.current, map);
+      } catch (error) {
+        console.error(error);
+        alert("Failed to load data.");
+      }
+    };
+
+    map.on("click", onMapClick);
+
+    return () => {
+      map.off("click", onMapClick);
+      setIsQueryMode(false);
+    };
+  }, [map, isQueryMode]);
+
+  const handleMagicWandClick = () => {
+    setIsQueryMode(true);
+  };
+
   return (
     <div id="creationPanel">
       {/* Panel content goes here */}
@@ -279,6 +354,9 @@ export const CreationPanel: React.FC = () => {
         </button>
         <button id="searchButton" onClick={handleSearch}>
           🔍
+        </button>
+        <button id="magicWandButton" onClick={handleMagicWandClick}>
+          🪄
         </button>
       </div>
     </div>
@@ -356,4 +434,23 @@ function enablePolygonDragging(layer: L.Polygon<any>, map: L.Map) {
     map.on("mousemove", moveHandler);
     map.on("mouseup", stopHandler);
   });
+}
+
+function extractFirstValidPolygon(elements: any[]): [number, number][] | null {
+  for (const el of elements) {
+    if (!el.geometry || el.geometry.length < 3) continue;
+
+    const coords = el.geometry.map((p: any) => [p.lat, p.lon]);
+
+    // Ensure the polygon is closed
+    const first = coords[0];
+    const last = coords[coords.length - 1];
+    if (first[0] !== last[0] || first[1] !== last[1]) {
+      coords.push(first);
+    }
+
+    return coords as [number, number][];
+  }
+
+  return null;
 }
