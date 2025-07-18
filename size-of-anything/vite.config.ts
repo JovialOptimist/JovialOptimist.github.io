@@ -6,7 +6,7 @@ import { resolve } from 'path'
 export default defineConfig({
   plugins: [react()],
   publicDir: resolve(__dirname, 'public'),
-  base: '/',
+  base: '/size-of-anything/',
   server: {
     fs: {
       // Allow serving files from one level up the project root
