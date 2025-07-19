@@ -26,6 +26,13 @@ declare global {
 interface MapContextType {
   map: LeafletMap | null;
   mapReady: boolean;
+  polygons?:
+    | {
+        id: string;
+        geojson: GeoJSON.Polygon | GeoJSON.MultiPolygon;
+        color: string;
+      }[]
+    | null;
 }
 
 const MapContext = createContext<MapContextType | undefined>(undefined);
@@ -59,11 +66,11 @@ export const MapProvider: React.FC<{ children: React.ReactNode }> = ({
         onAdd: function (map: LeafletMap) {
           var container = document.createElement("div");
           createRoot(container).render(<ActiveElementPanel />);
-          
+
           // Stop map events from triggering through the panel
           L.DomEvent.disableClickPropagation(container);
           L.DomEvent.disableScrollPropagation(container);
-          
+
           return container;
         },
       });
@@ -81,11 +88,11 @@ export const MapProvider: React.FC<{ children: React.ReactNode }> = ({
               <CreationPanel />
             </MapContext.Provider>
           );
-          
+
           // Stop map events from triggering through the panel
           L.DomEvent.disableClickPropagation(container);
           L.DomEvent.disableScrollPropagation(container);
-          
+
           return container;
         },
       });

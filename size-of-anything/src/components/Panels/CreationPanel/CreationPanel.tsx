@@ -11,7 +11,7 @@ const OSM_Type = {
 type OSM_Type = (typeof OSM_Type)[keyof typeof OSM_Type];
 
 export const CreationPanel: React.FC = () => {
-  const { map } = useMapContext();
+  const { map /*, polygons? */ } = useMapContext();
   const polygonLayerRef = React.useRef<L.Polygon | null>(null);
   const [isQueryMode, setIsQueryMode] = React.useState(false);
 
@@ -466,6 +466,9 @@ async function queryAndDisplayPolygon(
   // Add to map
   if (map) {
     addPolygonToMap(polygonCoords, map, polygonLayerRef);
+  } else {
+    console.error("Map is not initialized: cannot add polygon.");
+    return null;
   }
 
   return polygonCoords;
