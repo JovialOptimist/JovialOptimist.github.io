@@ -3,6 +3,13 @@ import "../../../styles/global.css";
 import { useMapContext } from "../../../context/MapContext";
 import L from "leaflet";
 
+const OSM_Type = {
+  NODE: "node",
+  WAY: "way",
+  RELATION: "relation",
+} as const;
+type OSM_Type = (typeof OSM_Type)[keyof typeof OSM_Type];
+
 export const CreationPanel: React.FC = () => {
   const { map } = useMapContext();
   const polygonLayerRef = React.useRef<L.Polygon | null>(null);
@@ -40,72 +47,23 @@ export const CreationPanel: React.FC = () => {
     let place = null;
     let osmType = null;
     let osmId: string | null = null;
-    let overpassData = null;
+    let overpassDataElements = null;
+    let nodes: { [id: number]: [number, number] } = {};
+    let ways: any[] = [];
+    let coordinates: any[] = [];
 
     try {
-      const isOsmID = /^\d+$/.test(input);
+      // Use Nominatim to resolve name into way/relation
+      let possiblePlaces: any[] = await fetchCandidates(input);
+      place = possiblePlaces[0];
+      osmType = place.osm_type;
+      osmId = place.osm_id;
+      console.log(`Resolved ${input} to ${osmType}(${osmId})`);
 
-      if (isOsmID) {
-        // Treat input as a Way ID and fetch directly from Overpass
-        osmType = "way";
-        osmId = input;
-        console.log(`Direct Overpass query for Way(${osmId})`);
+      overpassDataElements = await getRawCoordinates(osmType, osmId);
 
-        let query = `[out:json]; way(${osmId}); (._; >;); out body;`;
-        let response = await fetch(
-          `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(
-            query
-          )}`
-        );
-        overpassData = await response.json();
-
-        if (!overpassData.elements || overpassData.elements.length === 0) {
-          alert("Could not find a way with that ID.");
-          return;
-        }
-      } else {
-        // Use Nominatim to resolve name into way/relation
-        let nominatimResponse = await fetch(
-          `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
-            input
-          )}`
-        );
-        let nominatimData = await nominatimResponse.json();
-
-        nominatimData = nominatimData.filter(
-          (candidate: any) =>
-            candidate.osm_type === "way" || candidate.osm_type === "relation"
-        );
-        if (nominatimData.length === 0) {
-          alert("Could not find anything named " + input + ".");
-          return;
-        }
-
-        place = nominatimData[0];
-        osmType = place.osm_type;
-        osmId = place.osm_id;
-
-        console.log(`Resolved ${input} to ${osmType}(${osmId})`);
-
-        let query = `[out:json]; ${osmType}(${osmId}); (._; >;); out body;`;
-        let response = await fetch(
-          `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(
-            query
-          )}`
-        );
-        overpassData = await response.json();
-
-        if (!overpassData.elements || overpassData.elements.length === 0) {
-          alert("Boundary data not found!");
-          return;
-        }
-      }
-
-      // Proceed with node parsing and polygon drawing (unchanged from your code)
-      let nodes: { [id: number]: [number, number] } = {};
-      let ways: any[] = [];
-
-      overpassData.elements.forEach((el: any) => {
+      // Add each node and way to the respective collections
+      overpassDataElements.forEach((el: any) => {
         if (el.type === "node") {
           nodes[el.id] = [el.lat, el.lon];
         } else if (el.type === "way") {
@@ -113,153 +71,31 @@ export const CreationPanel: React.FC = () => {
         }
       });
 
-      let coordinates: any[] = [];
+      // Construct coordinates based on the type of OSM element
+      coordinates = buildCoords(
+        osmType as OSM_Type,
+        overpassDataElements,
+        osmId,
+        nodes,
+        ways
+      );
 
-      if (osmType === "way") {
-        let wayNodes = overpassData.elements.find(
-          (el: { type: string; id: string | null }) =>
-            el.type === "way" && el.id == osmId
-        )?.nodes;
-        if (!wayNodes) {
-          alert("Could not find geometry.");
-          return;
-        }
-        coordinates = wayNodes.map((id: string | number) => nodes[Number(id)]);
-      } else if (osmType === "relation") {
-        let outerRings = [];
-        let innerRings = [];
-
-        let relation = overpassData.elements.find(
-          (el: { type: string; id: string | null }) =>
-            el.type === "relation" && el.id == osmId
-        );
-        if (!relation) {
-          alert("Relation not found!");
-          return;
-        }
-
-        let wayMap: { [key: number]: [number, number][] } = {};
-        ways.forEach((way: any) => {
-          wayMap[way.id] = way.nodes.map((id: number) => nodes[id]);
-        });
-
-        let outerWays = relation.members.filter(
-          (m: { type: string; role: string }) =>
-            m.type === "way" && m.role === "outer"
-        );
-        let innerWays = relation.members.filter(
-          (m: { type: string; role: string }) =>
-            m.type === "way" && m.role === "inner"
-        );
-
-        function buildRings(ways: any[]) {
-          let rings = [];
-
-          while (ways.length) {
-            let ring = ways.shift();
-            let coords = [...wayMap[ring.ref]];
-            let changed = true;
-
-            while (changed) {
-              changed = false;
-              for (let i = 0; i < ways.length; i++) {
-                let nextCoords = wayMap[ways[i].ref];
-                if (!nextCoords) continue;
-
-                if (
-                  coords[coords.length - 1].toString() ===
-                  nextCoords[0].toString()
-                ) {
-                  coords = coords.concat(nextCoords.slice(1));
-                  ways.splice(i, 1);
-                  changed = true;
-                  break;
-                } else if (
-                  coords[0].toString() ===
-                  nextCoords[nextCoords.length - 1].toString()
-                ) {
-                  coords = nextCoords.slice(0, -1).concat(coords);
-                  ways.splice(i, 1);
-                  changed = true;
-                  break;
-                } else if (coords[0].toString() === nextCoords[0].toString()) {
-                  coords = nextCoords.reverse().slice(0, -1).concat(coords);
-                  ways.splice(i, 1);
-                  changed = true;
-                  break;
-                } else if (
-                  coords[coords.length - 1].toString() ===
-                  nextCoords[nextCoords.length - 1].toString()
-                ) {
-                  coords = coords.concat(nextCoords.reverse().slice(1));
-                  ways.splice(i, 1);
-                  changed = true;
-                  break;
-                }
-              }
-            }
-
-            rings.push(coords);
-          }
-
-          return rings;
-        }
-
-        outerRings = buildRings(outerWays);
-        innerRings = buildRings(innerWays);
-
-        if (outerRings.length === 0) {
-          alert("No outer boundary found.");
-          return;
-        }
-
-        coordinates = outerRings.map((outer, index) => {
-          let outerRing = outer;
-          let inner: [number, number][][] = [];
-
-          if (index === 0) {
-            inner = innerRings;
-          }
-
-          return [outerRing, ...inner];
-        });
-      }
-
-      if (coordinates.length === 0) {
-        alert("Could not construct boundary.");
+      if (!coordinates || coordinates.length === 0) {
+        alert("Could not find geometry for " + place + ".");
         return;
       }
 
       // Ensure coordinates is always an array of LatLng tuples or array of arrays
-      let polygonCoords: L.LatLngExpression[] | L.LatLngExpression[][] =
-        coordinates;
-
-      // If coordinates is a flat array of [lat, lng], wrap it in another array for consistency
-      if (
+      // If it's a single ring, convert to array of LatLngExpression
+      let isSingleRing =
         Array.isArray(coordinates) &&
         coordinates.length > 0 &&
         Array.isArray(coordinates[0]) &&
-        typeof coordinates[0][0] === "number"
-      ) {
-        polygonCoords = [coordinates as [number, number][]];
-      }
+        typeof coordinates[0][0] === "number";
+      let polygonCoords: L.LatLngExpression[] | L.LatLngExpression[][] =
+        isSingleRing ? [coordinates as [number, number][]] : coordinates;
 
-      if (polygonLayerRef.current && map) {
-        //map.removeLayer(polygonLayerRef.current);
-      }
-
-      if (map) {
-        polygonLayerRef.current = L.polygon(polygonCoords, {
-          color: "blue",
-          weight: 2,
-          fillOpacity: 0.4,
-        }).addTo(map);
-      }
-
-      if (map && polygonLayerRef.current) {
-        map.fitBounds(polygonLayerRef.current.getBounds());
-        enablePolygonDragging(polygonLayerRef.current, map);
-      }
+      addPolygonToMap(polygonCoords);
     } catch (error) {
       console.error("Error:", error);
       alert("An error occurred while fetching data.");
@@ -340,6 +176,23 @@ export const CreationPanel: React.FC = () => {
     setIsQueryMode(true);
   };
 
+  function addPolygonToMap(
+    polygonCoords: L.LatLngExpression[] | L.LatLngExpression[][]
+  ) {
+    if (map) {
+      polygonLayerRef.current = L.polygon(polygonCoords, {
+        color: "blue",
+        weight: 2,
+        fillOpacity: 0.4,
+      }).addTo(map);
+    }
+
+    if (map && polygonLayerRef.current) {
+      map.fitBounds(polygonLayerRef.current.getBounds());
+      enablePolygonDragging(polygonLayerRef.current, map);
+    }
+  }
+
   return (
     <div id="creationPanel">
       {/* Panel content goes here */}
@@ -362,6 +215,52 @@ export const CreationPanel: React.FC = () => {
     </div>
   );
 };
+
+// Given the name of a place,
+// fetch all possible candidates from Nominatim,
+// filter out only ways and relations,
+// and return the remaining list of candidates.
+async function fetchCandidates(input: string) {
+  // Gather candidates from Nominatim
+  let nominatimResponse = await fetch(
+    `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+      input
+    )}`
+  );
+  let nominatimData = await nominatimResponse.json();
+  console.log("Nominatim data:", nominatimData);
+
+  // Filter out only ways and relations
+  nominatimData = nominatimData.filter(
+    (candidate: any) =>
+      candidate.osm_type === "way" || candidate.osm_type === "relation"
+  );
+
+  // If no candidates found, alert the user
+  if (nominatimData.length === 0) {
+    alert("Could not find anything named " + input + ".");
+    return [];
+  }
+
+  // Return the filtered candidates
+  return nominatimData;
+}
+
+// Given an OSM type and ID (which guarantees a unique element),
+// fetch and return the coordinates of that way or relation using Overpass API.
+async function getRawCoordinates(osmType: string, osmId: string | null) {
+  let query = `[out:json]; ${osmType}(${osmId}); (._; >;); out body;`;
+  let response = await fetch(
+    `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`
+  );
+  let coordinates = (await response.json()).elements;
+
+  if (!coordinates || coordinates.length === 0) {
+    alert("Boundary data not found!");
+    return;
+  }
+  return coordinates;
+}
 
 function enablePolygonDragging(layer: L.Polygon<any>, map: L.Map) {
   let originalLatLngs: L.LatLng[][] | null = null;
@@ -453,4 +352,125 @@ function extractFirstValidPolygon(elements: any[]): [number, number][] | null {
   }
 
   return null;
+}
+
+function buildCoords(
+  osmType: OSM_Type,
+  overpassDataElements: any[],
+  osmId: string | null,
+  nodes: { [id: number]: [number, number] },
+  ways: any[]
+): any[] {
+  if (osmType == OSM_Type.WAY) {
+    let wayNodes = overpassDataElements.find(
+      (el: { type: string; id: string | null }) =>
+        el.type === "way" && el.id == osmId
+    )?.nodes;
+
+    if (!wayNodes) {
+      return [];
+    }
+
+    return wayNodes.map((id: number) => nodes[id]);
+  } else if (osmType == OSM_Type.RELATION) {
+    let outerRings = [];
+    let innerRings = [];
+
+    let relation = overpassDataElements.find(
+      (el: { type: string; id: string | null }) =>
+        el.type === "relation" && el.id == osmId
+    );
+    if (!relation) {
+      alert("Relation not found!");
+      return [];
+    }
+
+    let wayMap: { [key: number]: [number, number][] } = {};
+    ways.forEach((way: any) => {
+      wayMap[way.id] = way.nodes.map((id: number) => nodes[id]);
+    });
+
+    let outerWays = relation.members.filter(
+      (m: { type: string; role: string }) =>
+        m.type === "way" && m.role === "outer"
+    );
+    let innerWays = relation.members.filter(
+      (m: { type: string; role: string }) =>
+        m.type === "way" && m.role === "inner"
+    );
+
+    function buildRings(ways: any[]) {
+      let rings = [];
+
+      while (ways.length) {
+        let ring = ways.shift();
+        let coords = [...wayMap[ring.ref]];
+        let changed = true;
+
+        while (changed) {
+          changed = false;
+          for (let i = 0; i < ways.length; i++) {
+            let nextCoords = wayMap[ways[i].ref];
+            if (!nextCoords) continue;
+
+            if (
+              coords[coords.length - 1].toString() === nextCoords[0].toString()
+            ) {
+              coords = coords.concat(nextCoords.slice(1));
+              ways.splice(i, 1);
+              changed = true;
+              break;
+            } else if (
+              coords[0].toString() ===
+              nextCoords[nextCoords.length - 1].toString()
+            ) {
+              coords = nextCoords.slice(0, -1).concat(coords);
+              ways.splice(i, 1);
+              changed = true;
+              break;
+            } else if (coords[0].toString() === nextCoords[0].toString()) {
+              coords = nextCoords.reverse().slice(0, -1).concat(coords);
+              ways.splice(i, 1);
+              changed = true;
+              break;
+            } else if (
+              coords[coords.length - 1].toString() ===
+              nextCoords[nextCoords.length - 1].toString()
+            ) {
+              coords = coords.concat(nextCoords.reverse().slice(1));
+              ways.splice(i, 1);
+              changed = true;
+              break;
+            }
+          }
+        }
+
+        rings.push(coords);
+      }
+
+      return rings;
+    }
+
+    outerRings = buildRings(outerWays);
+    innerRings = buildRings(innerWays);
+
+    if (outerRings.length === 0) {
+      alert("No outer boundary found.");
+      return [];
+    }
+
+    return outerRings.map((outer, index) => {
+      let outerRing = outer;
+      let inner: [number, number][][] = [];
+
+      if (index === 0) {
+        inner = innerRings;
+      }
+
+      return [outerRing, ...inner];
+    });
+  } else {
+    console.error("Unsupported OSM type:", osmType);
+    return [];
+  }
 }
