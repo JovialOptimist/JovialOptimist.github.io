@@ -48,9 +48,6 @@ export const CreationPanel: React.FC = () => {
     let osmType = null;
     let osmId: string | null = null;
     let overpassDataElements = null;
-    let nodes: { [id: number]: [number, number] } = {};
-    let ways: any[] = [];
-    let coordinates: any[] = [];
 
     try {
       // Use Nominatim to resolve name into way/relation
@@ -63,39 +60,17 @@ export const CreationPanel: React.FC = () => {
       overpassDataElements = await getRawCoordinates(osmType, osmId);
 
       // Add each node and way to the respective collections
-      overpassDataElements.forEach((el: any) => {
-        if (el.type === "node") {
-          nodes[el.id] = [el.lat, el.lon];
-        } else if (el.type === "way") {
-          ways.push(el);
-        }
-      });
-
-      // Construct coordinates based on the type of OSM element
-      coordinates = buildCoords(
-        osmType as OSM_Type,
-        overpassDataElements,
-        osmId,
-        nodes,
-        ways
-      );
-
-      if (!coordinates || coordinates.length === 0) {
-        alert("Could not find geometry for " + place + ".");
-        return;
+      if (map) {
+        await queryAndDisplayPolygon(
+          overpassDataElements,
+          {
+            osmType: osmType as OSM_Type,
+            osmId,
+          },
+          map,
+          polygonLayerRef
+        );
       }
-
-      // Ensure coordinates is always an array of LatLng tuples or array of arrays
-      // If it's a single ring, convert to array of LatLngExpression
-      let isSingleRing =
-        Array.isArray(coordinates) &&
-        coordinates.length > 0 &&
-        Array.isArray(coordinates[0]) &&
-        typeof coordinates[0][0] === "number";
-      let polygonCoords: L.LatLngExpression[] | L.LatLngExpression[][] =
-        isSingleRing ? [coordinates as [number, number][]] : coordinates;
-
-      addPolygonToMap(polygonCoords);
     } catch (error) {
       console.error("Error:", error);
       alert("An error occurred while fetching data.");
@@ -135,29 +110,16 @@ export const CreationPanel: React.FC = () => {
 
         const data = await response.json();
 
-        const polygonFeature = extractFirstValidPolygon(data.elements);
-        if (!polygonFeature) {
-          alert("No valid polygon found at that location.");
+        const coords = await queryAndDisplayPolygon(
+          data.elements,
+          {}, // No osmType or osmId since this is spatial discovery
+          map,
+          polygonLayerRef
+        );
+        if (!coords) {
+          alert("No valid polygon found at this location.");
           return;
         }
-
-        const latLngs = polygonFeature.map(([lat, lon]) => [
-          lat,
-          lon,
-        ]) as L.LatLngExpression[];
-
-        if (polygonLayerRef.current) {
-          map.removeLayer(polygonLayerRef.current);
-        }
-
-        polygonLayerRef.current = L.polygon(latLngs, {
-          color: "red",
-          weight: 2,
-          fillOpacity: 0.3,
-        }).addTo(map);
-
-        map.fitBounds(polygonLayerRef.current.getBounds());
-        enablePolygonDragging(polygonLayerRef.current, map);
       } catch (error) {
         console.error(error);
         alert("Failed to load data.");
@@ -175,23 +137,6 @@ export const CreationPanel: React.FC = () => {
   const handleMagicWandClick = () => {
     setIsQueryMode(true);
   };
-
-  function addPolygonToMap(
-    polygonCoords: L.LatLngExpression[] | L.LatLngExpression[][]
-  ) {
-    if (map) {
-      polygonLayerRef.current = L.polygon(polygonCoords, {
-        color: "blue",
-        weight: 2,
-        fillOpacity: 0.4,
-      }).addTo(map);
-    }
-
-    if (map && polygonLayerRef.current) {
-      map.fitBounds(polygonLayerRef.current.getBounds());
-      enablePolygonDragging(polygonLayerRef.current, map);
-    }
-  }
 
   return (
     <div id="creationPanel">
@@ -472,5 +417,75 @@ function buildCoords(
   } else {
     console.error("Unsupported OSM type:", osmType);
     return [];
+  }
+}
+
+async function queryAndDisplayPolygon(
+  overpassElements: any[],
+  options: {
+    osmType?: OSM_Type;
+    osmId?: string | null;
+  },
+  map: L.Map,
+  polygonLayerRef: React.MutableRefObject<L.Polygon | null>
+) {
+  let polygonCoords: L.LatLngExpression[] | L.LatLngExpression[][] | null =
+    null;
+
+  if (options.osmType && options.osmId) {
+    const nodes: { [id: number]: [number, number] } = {};
+    const ways: any[] = [];
+
+    for (const el of overpassElements) {
+      if (el.type === "node") nodes[el.id] = [el.lat, el.lon];
+      else if (el.type === "way") ways.push(el);
+    }
+
+    const coords = buildCoords(
+      options.osmType,
+      overpassElements,
+      options.osmId,
+      nodes,
+      ways
+    );
+    if (!coords || coords.length === 0) return null;
+
+    // Normalize to always be [[]] (multi-ring)
+    const isSingleRing =
+      Array.isArray(coords) &&
+      coords.length > 0 &&
+      Array.isArray(coords[0]) &&
+      typeof coords[0][0] === "number";
+    polygonCoords = isSingleRing ? [coords as [number, number][]] : coords;
+  } else {
+    const extracted = extractFirstValidPolygon(overpassElements);
+    if (!extracted) return null;
+    polygonCoords = [extracted];
+  }
+
+  // Add to map
+  if (map) {
+    addPolygonToMap(polygonCoords, map, polygonLayerRef);
+  }
+
+  return polygonCoords;
+}
+
+function addPolygonToMap(
+  polygonCoords: L.LatLngExpression[] | L.LatLngExpression[][],
+  map: L.Map,
+  polygonLayerRef: React.MutableRefObject<L.Polygon | null>
+) {
+  if (map) {
+    polygonLayerRef.current = L.polygon(polygonCoords, {
+      color: "blue",
+      weight: 2,
+      fillOpacity: 0.4,
+    }).addTo(map);
+  }
+
+  if (map && polygonLayerRef.current) {
+    map.fitBounds(polygonLayerRef.current.getBounds());
+    enablePolygonDragging(polygonLayerRef.current, map);
   }
 }
