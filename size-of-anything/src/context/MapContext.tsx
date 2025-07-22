@@ -84,9 +84,7 @@ export const MapProvider: React.FC<{ children: React.ReactNode }> = ({
           // Pass the current map context to the CreationPanel
           const root = createRoot(container);
           root.render(
-            <MapContext.Provider value={{ map: mapRef.current, mapReady }}>
-              <CreationPanel />
-            </MapContext.Provider>
+            <CreationPanel map={mapRef.current} mapReady={mapReady} />
           );
 
           // Stop map events from triggering through the panel

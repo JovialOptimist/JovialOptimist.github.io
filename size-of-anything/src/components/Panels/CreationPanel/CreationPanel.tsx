@@ -10,8 +10,12 @@ const OSM_Type = {
 } as const;
 type OSM_Type = (typeof OSM_Type)[keyof typeof OSM_Type];
 
-export const CreationPanel: React.FC = () => {
-  const { map /*, polygons? */ } = useMapContext();
+interface Props {
+  map: L.Map | null;
+  mapReady: boolean;
+}
+
+export const CreationPanel: React.FC<Props> = ({ map, mapReady }) => {
   const polygonLayerRef = React.useRef<L.Polygon | null>(null);
   const [isQueryMode, setIsQueryMode] = React.useState(false);
 
