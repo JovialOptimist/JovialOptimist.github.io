@@ -1,6 +1,5 @@
 import React from "react";
 import "../../../styles/global.css";
-import { useMapContext } from "../../../context/MapContext";
 import L from "leaflet";
 
 const OSM_Type = {
@@ -15,7 +14,7 @@ interface Props {
   mapReady: boolean;
 }
 
-export const CreationPanel: React.FC<Props> = ({ map, mapReady }) => {
+export const CreationPanel: React.FC<Props> = ({ map }) => {
   const polygonLayerRef = React.useRef<L.Polygon | null>(null);
   const [isQueryMode, setIsQueryMode] = React.useState(false);
 

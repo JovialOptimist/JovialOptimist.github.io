@@ -2,13 +2,6 @@
 import React from "react";
 import { AppProvider } from "./context/AppContext";
 import { TitleBar, SettingsModal, MenuDropdown } from "./components/AppShell";
-import { MapProvider } from "./context/MapContext";
-import { MapView, MapControls } from "./components/Map";
-import {
-  CreationPanel,
-  ActiveElementPanel,
-  DiscoveriesPanel,
-} from "./components/Panels";
 import { MapShell } from "./components/AppShell/MapShell";
 import "./styles/global.css";
 

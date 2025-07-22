@@ -6,7 +6,6 @@ import React, {
   useRef,
   useState,
 } from "react";
-import ReactDOM from "react-dom";
 import L, { Map as LeafletMap } from "leaflet";
 import { ActiveElementPanel, CreationPanel } from "../components/Panels";
 import { createRoot } from "react-dom/client";
@@ -63,7 +62,7 @@ export const MapProvider: React.FC<{ children: React.ReactNode }> = ({
         options: {
           position: "topright",
         },
-        onAdd: function (map: LeafletMap) {
+        onAdd: function () {
           var container = document.createElement("div");
           createRoot(container).render(<ActiveElementPanel />);
 
@@ -79,7 +78,7 @@ export const MapProvider: React.FC<{ children: React.ReactNode }> = ({
         options: {
           position: "topleft",
         },
-        onAdd: function (map: LeafletMap) {
+        onAdd: function () {
           var container = document.createElement("div");
           // Pass the current map context to the CreationPanel
           const root = createRoot(container);
