@@ -1,0 +1,30 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "[!s]*/**": true,
+        "s[!i]*/**": true,
+        "si[!z]*/**": true,
+        "siz[!e]*/**": true,
+        "size[!-]*/**": true,
+        "size-[!o]*/**": true,
+        "size-o[!f]*/**": true,
+        "size-of[!-]*/**": true,
+        "size-of-[!a]*/**": true,
+        "size-of-a[!n]*/**": true,
+        "size-of-an[!y]*/**": true,
+        "size-of-any[!t]*/**": true,
+        "size-of-anyt[!h]*/**": true,
+        "size-of-anyth[!i]*/**": true,
+        "size-of-anythi[!n]*/**": true,
+        "size-of-anythin[!g]*/**": true,
+        "size-of-anything[!-]*/**": true,
+        "size-of-anything-[!2]*/**": true,
+        "size-of-anything-2/[!s]*/**": true,
+        "size-of-anything-2/s[!r]*/**": true,
+        "size-of-anything-2/sr[!c]*/**": true
+    }
+}
