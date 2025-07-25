@@ -27,25 +27,27 @@ const SETTINGS_ICONS = [
 export default function IconSidebar() {
   const { activePanel, setActivePanel } = usePanel();
 
-  const renderButton = (item: (typeof ICONS)[0]) => (
+  const renderButton = (
+    item: (typeof ICONS)[0] | (typeof SETTINGS_ICONS)[0]
+  ) => (
     <button
       key={item.key}
       onClick={() => setActivePanel(activePanel === item.key ? null : item.key)}
-      className={`p-3 group relative hover:bg-gray-700 ${
-        activePanel === item.key ? "border-l-4 border-white bg-gray-800" : ""
+      className={`icon-button flex flex-col items-center group relative ${
+        activePanel === item.key ? "active" : ""
       }`}
     >
-      {item.icon}
-      <span className="absolute left-12 top-1/2 -translate-y-1/2 bg-gray-900 text-white text-sm rounded px-2 py-1 hidden group-hover:block">
-        {item.label}
-      </span>
+      <span className="flex items-center justify-center">{item.icon}</span>
+      {activePanel === item.key && (
+        <span className="text-xs mt-1">{item.key}</span>
+      )}
     </button>
   );
 
   return (
-    <div className="flex flex-col justify-between h-full bg-gray-900 text-white w-14">
-      <div>{ICONS.map(renderButton)}</div>
-      <div>{SETTINGS_ICONS.map(renderButton)}</div>
+    <div className="icon-sidebar">
+      <div className="top-tools">{ICONS.map(renderButton)}</div>
+      <div className="bottom-tools">{SETTINGS_ICONS.map(renderButton)}</div>
     </div>
   );
 }

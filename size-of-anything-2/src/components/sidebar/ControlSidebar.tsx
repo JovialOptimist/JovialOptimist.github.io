@@ -8,8 +8,19 @@ export default function ControlSidebar() {
   if (!activePanel) return null;
 
   return (
-    <div className="w-80 bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700 overflow-auto">
-      <PanelController panelKey={activePanel} />
+    <div className="control-sidebar">
+      <PanelController
+        panelKey={
+          activePanel as
+            | "text-search"
+            | "magic-wand"
+            | "custom-area"
+            | "history"
+            | "help"
+            | "donate"
+            | "settings"
+        }
+      />
     </div>
   );
 }
