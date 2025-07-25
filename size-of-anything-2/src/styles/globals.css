@@ -24,7 +24,7 @@ body {
 
 /* Layout */
 .app-container {
-    display: flex;
+    position: relative;
     height: 100vh;
     width: 100vw;
     overflow: hidden;
@@ -32,7 +32,11 @@ body {
 
 /* Sidebar styles */
 .icon-sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: var(--sidebar-width);
+    height: calc(100vh - 2rem);
     background-color: var(--gray-800);
     color: white;
     display: flex;
@@ -41,6 +45,7 @@ body {
     align-items: flex-start;
     padding-top: 1rem;
     padding-bottom: 1rem;
+    z-index: 1000;
 }
 
 .top-tools,
@@ -98,12 +103,16 @@ body {
 
 /* Control sidebar */
 .control-sidebar {
+    position: absolute;
+    top: 0;
+    left: var(--sidebar-width);
     width: var(--control-panel-width);
     background-color: rgb(20, 80, 200);
     height: 100vh;
     min-width: 100px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
+    z-index: 900;
 }
 
 /* Panel content */
@@ -123,7 +132,7 @@ body {
 
 /* Map styles */
 .map-container, .map-view-container {
-    flex: 1;
+    width: 100%;
     height: 100%;
     position: relative;
 }
@@ -152,7 +161,7 @@ body {
 .active-element-display {
     position: absolute;
     bottom: 1rem;
-    left: calc(1rem + var(--sidebar-width) + var(--control-panel-width));
+    left: calc(1rem + var(--sidebar-width));
     background-color: white;
     border-radius: 0.5rem;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
