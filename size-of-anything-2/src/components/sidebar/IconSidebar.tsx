@@ -33,14 +33,12 @@ export default function IconSidebar() {
     <button
       key={item.key}
       onClick={() => setActivePanel(activePanel === item.key ? null : item.key)}
-      className={`icon-button flex flex-col items-center group relative ${
+      className={`icon-button group relative ${
         activePanel === item.key ? "active" : ""
       }`}
     >
-      <span className="flex items-center justify-center">{item.icon}</span>
-      {activePanel === item.key && (
-        <span className="text-xs mt-1">{item.key}</span>
-      )}
+      {item.icon}
+      <span>{item.label}</span>
     </button>
   );
 

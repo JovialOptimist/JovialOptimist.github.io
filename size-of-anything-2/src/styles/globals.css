@@ -3,6 +3,7 @@
     --sidebar-button-size: 80px;
     --sidebar-width: calc(var(--sidebar-button-size) + 20px);
     --control-panel-width: 300px;
+    --icon-fill-size: 60%;
     --bg-gray-50: #f9fafb;
     --text-gray-900: #111827;
     --gray-800: #1f2937;
@@ -34,7 +35,6 @@ body {
     width: var(--sidebar-width);
     background-color: var(--gray-800);
     color: white;
-    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -60,16 +60,28 @@ body {
     position: relative;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
+    flex-direction: column;
+        /* stack icon and label vertically */
+    /* <-- Center the icon horizontally */
     margin-left: 0.5rem;
+}
+
+.icon-button>svg {
+    width: var(--icon-fill-size);
+    height: var(--icon-fill-size);
+    display: block;
+    pointer-events: none;
 }
 
 .icon-button:hover {
     background-color: var(--gray-700);
+    color: white;
 }
 
 .icon-button.active {
-    background-color: var(--gray-700);
+    background-color: var(--gray-900);
+    color: white;
 }
 
 .icon-button.active::before {
@@ -90,7 +102,6 @@ body {
     background-color: rgb(20, 80, 200);
     height: 100vh;
     min-width: 100px;
-    border-left: 1px solid var(--gray-200);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
 }
@@ -98,6 +109,7 @@ body {
 /* Panel content */
 .panel {
     padding: 1rem;
+    color: white;
 }
 
 .panel h2 {
@@ -106,6 +118,7 @@ body {
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
     border-bottom: 1px solid var(--gray-200);
+    color: white;
 }
 
 /* Map styles */
