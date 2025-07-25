@@ -105,7 +105,6 @@ body {
 .control-sidebar {
     position: absolute;
     top: 0;
-    left: var(--sidebar-width);
     width: var(--control-panel-width);
     background-color: rgb(20, 80, 200);
     height: 100vh;
@@ -113,6 +112,21 @@ body {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
     z-index: 900;
+    transition: transform 0.3s ease-in-out;
+    transform-origin: left center;
+}
+
+/* Visible state: sidebar is positioned normally */
+.control-sidebar.visible {
+    left: var(--sidebar-width);
+    transform: translateX(0);
+}
+
+/* Hidden state: sidebar is positioned off-screen */
+.control-sidebar.hidden {
+    left: var(--sidebar-width);
+    transform: translateX(-100%);
+    pointer-events: none; /* Prevent interaction when hidden */
 }
 
 /* Panel content */
@@ -161,12 +175,23 @@ body {
 .active-element-display {
     position: absolute;
     bottom: 1rem;
-    left: calc(1rem + var(--sidebar-width));
     background-color: white;
     border-radius: 0.5rem;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     padding: 0.75rem;
-    width: calc(100% - var(--sidebar-width) - 2rem);
     max-width: 32rem;
-    z-index: 10;
+    z-index: 800; /* Below sidebars but above map */
+    transition: left 0.3s ease-in-out;
+}
+
+/* When the sidebar is expanded */
+.active-element-display.sidebar-expanded {
+    left: calc(1rem + var(--sidebar-width) + var(--control-panel-width));
+    width: calc(100% - var(--sidebar-width) - var(--control-panel-width) - 2rem);
+}
+
+/* When the sidebar is collapsed */
+.active-element-display.sidebar-collapsed {
+    left: calc(1rem + var(--sidebar-width));
+    width: calc(100% - var(--sidebar-width) - 2rem);
 }

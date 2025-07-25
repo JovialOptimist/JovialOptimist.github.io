@@ -10,7 +10,16 @@ export default function MapView() {
   useEffect(() => {
     // Prevent reinitialization
     if (mapRef.current && !mapInstanceRef.current) {
-      const map = L.map(mapRef.current).setView([47.615, -122.035], 13);
+      const map = L.map(mapRef.current, {
+        zoomControl: false, // disable default position of zoom control
+      }).setView([47.615, -122.035], 13);
+
+      // Add back the zoom control to the bottom right
+      L.control
+        .zoom({
+          position: "bottomright",
+        })
+        .addTo(map);
 
       // Add a basic tile layer
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
