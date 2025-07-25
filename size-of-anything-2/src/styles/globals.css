@@ -122,7 +122,7 @@ body {
 }
 
 /* Map styles */
-.map-container {
+.map-container, .map-view-container {
     flex: 1;
     height: 100%;
     position: relative;
@@ -131,6 +131,11 @@ body {
 #map {
     height: 100%;
     width: 100%;
+}
+
+/* Optional: override leaflet default font if desired */
+.leaflet-container {
+    font-family: system-ui, sans-serif;
 }
 
 .map-controls {
