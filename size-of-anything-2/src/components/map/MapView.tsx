@@ -3,7 +3,6 @@ import { useEffect, useRef } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useMapStore } from "../../state/mapStore";
-import React from "react";
 
 export default function MapView() {
   const mapRef = useRef<HTMLDivElement>(null); // Ref to the map container
@@ -80,6 +79,7 @@ export default function MapView() {
       }).addTo(layerGroup);
 
       // Make draggable
+      enablePolygonDragging(layer, mapInstanceRef.current);
 
       // Set bounds to the feature's bounds
       try {
@@ -100,4 +100,81 @@ export default function MapView() {
       <div id="map" ref={mapRef}></div>
     </div>
   );
+}
+
+function enablePolygonDragging(geoJsonLayer: L.GeoJSON, map: L.Map | null) {
+  if (!map) return;
+
+  geoJsonLayer.eachLayer((innerLayer) => {
+    // Only enable dragging on polygon layers
+    if (innerLayer instanceof L.Polygon) {
+      let originalLatLngs: L.LatLng[][] | null = null;
+      let dragStartLatLng: L.LatLng | null = null;
+
+      innerLayer.on("mousedown", function (event) {
+        map.dragging.disable();
+        dragStartLatLng = event.latlng;
+
+        // Deep copy of the original points
+        const latLngs = innerLayer.getLatLngs() as any;
+        originalLatLngs = latLngs.map((ring: any) =>
+          Array.isArray(ring[0])
+            ? ring.map((subRing: any) =>
+                subRing.map((pt: L.LatLng) => L.latLng(pt.lat, pt.lng))
+              )
+            : ring.map((pt: L.LatLng) => L.latLng(pt.lat, pt.lng))
+        );
+
+        function moveHandler(moveEvent: { latlng: L.LatLng }) {
+          if (!originalLatLngs || !dragStartLatLng) return;
+
+          const latDiff = moveEvent.latlng.lat - dragStartLatLng.lat;
+          const lngDiff = moveEvent.latlng.lng - dragStartLatLng.lng;
+
+          const startLat = dragStartLatLng.lat;
+          const newLat = moveEvent.latlng.lat;
+
+          const startCos = Math.cos((startLat * Math.PI) / 180);
+          const newCos = Math.cos((newLat * Math.PI) / 180);
+          const widthScale = startCos / newCos;
+
+          function shiftAndScaleRing(ring: L.LatLng[]) {
+            const centerLng =
+              ring.reduce((sum, pt) => sum + pt.lng, 0) / ring.length;
+
+            return ring.map((pt) => {
+              const newLat = pt.lat + latDiff;
+              const lngOffset = pt.lng - centerLng;
+              const scaledLngOffset = lngOffset * widthScale;
+              const newLng = centerLng + scaledLngOffset + lngDiff;
+              return L.latLng(newLat, newLng);
+            });
+          }
+
+          const transformed = originalLatLngs.map((ring: any) => {
+            if (Array.isArray(ring[0])) {
+              return ring.map((subRing: any) => shiftAndScaleRing(subRing));
+            } else {
+              return shiftAndScaleRing(ring);
+            }
+          });
+
+          (innerLayer as L.Polygon).setLatLngs(transformed);
+        }
+
+        function stopHandler() {
+          if (!map) return;
+          map.off("mousemove", moveHandler);
+          map.off("mouseup", stopHandler);
+          map.dragging.enable();
+
+          originalLatLngs = null;
+          dragStartLatLng = null;
+        }
+
+        map.on("mousemove", moveHandler);
+        map.on("mouseup", stopHandler);
+      });
+    }
+  });
 }
