@@ -9,11 +9,20 @@ interface MapArea {
   properties?: Record<string, any>;
 }
 
+interface GeoJSONFeature {
+  type: "Feature";
+  geometry: {
+    type: "Polygon" | "MultiPolygon";
+    coordinates: number[][][] | number[][][][];
+  };
+  properties: Record<string, any>;
+}
+
 interface MapState {
   areas: MapArea[];
   activeAreaId: string | null;
-  geojsonAreas: any[];
-  addGeoJSONFromSearch: (feature: any) => void;
+  geojsonAreas: GeoJSONFeature[];
+  addGeoJSONFromSearch: (feature: GeoJSONFeature) => void;
   addArea: (area: MapArea) => void;
   updateArea: (id: string, area: Partial<MapArea>) => void;
   removeArea: (id: string) => void;
@@ -26,7 +35,7 @@ export const useMapStore = create<MapState>((set) => ({
   areas: [],
   activeAreaId: null,
   geojsonAreas: [],
-  addGeoJSONFromSearch: (feature) =>
+  addGeoJSONFromSearch: (feature: GeoJSONFeature) =>
     set((state) => ({
       geojsonAreas: [...state.geojsonAreas, feature],
     })),
