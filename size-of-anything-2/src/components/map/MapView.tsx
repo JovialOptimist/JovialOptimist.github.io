@@ -8,6 +8,8 @@ export default function MapView() {
   const mapRef = useRef<HTMLDivElement>(null); // Ref to the map container
   const mapInstanceRef = useRef<L.Map | null>(null); // Store Leaflet map instance
   const geojsonAreas = useMapStore((state) => state.geojsonAreas);
+  const isSelectingArea = useMapStore((state) => state.isSelectingArea);
+  const setClickedPosition = useMapStore((state) => state.setClickedPosition);
 
   useEffect(() => {
     // Prevent reinitialization
@@ -29,6 +31,14 @@ export default function MapView() {
           '&copy; <a href="https://www.openstreetmap.org/">OSM</a> contributors',
       }).addTo(map);
 
+      // Handle map clicks for area selection
+      map.on('click', (e) => {
+        if (isSelectingArea) {
+          const { lat, lng } = e.latlng;
+          setClickedPosition([lat, lng]);
+        }
+      });
+
       // Store map instance so we can clean up later
       mapInstanceRef.current = map;
     }
@@ -39,7 +49,7 @@ export default function MapView() {
         mapInstanceRef.current = null;
       }
     };
-  }, []);
+  }, [isSelectingArea, setClickedPosition]);
 
   // Reference to store our GeoJSON layer group for better management
   const geoJSONLayerGroupRef = useRef<L.LayerGroup | null>(null);
@@ -96,7 +106,7 @@ export default function MapView() {
   }, [geojsonAreas]);
 
   return (
-    <div className="map-container">
+    <div className={`map-container ${isSelectingArea ? 'selecting-area' : ''}`}>
       <div id="map" ref={mapRef}></div>
     </div>
   );

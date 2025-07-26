@@ -22,6 +22,10 @@ interface MapState {
   areas: MapArea[];
   activeAreaId: string | null;
   geojsonAreas: GeoJSONFeature[];
+  isSelectingArea: boolean;
+  clickedPosition: [number, number] | null;
+  setIsSelectingArea: (isSelecting: boolean) => void;
+  setClickedPosition: (position: [number, number] | null) => void;
   addGeoJSONFromSearch: (feature: GeoJSONFeature) => void;
   addArea: (area: MapArea) => void;
   updateArea: (id: string, area: Partial<MapArea>) => void;
@@ -35,6 +39,10 @@ export const useMapStore = create<MapState>((set) => ({
   areas: [],
   activeAreaId: null,
   geojsonAreas: [],
+  isSelectingArea: false,
+  clickedPosition: null,
+  setIsSelectingArea: (isSelecting) => set({ isSelectingArea: isSelecting }),
+  setClickedPosition: (position) => set({ clickedPosition: position }),
   addGeoJSONFromSearch: (feature: GeoJSONFeature) =>
     set((state) => ({
       geojsonAreas: [...state.geojsonAreas, feature],
