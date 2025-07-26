@@ -1,4 +1,3 @@
-import React from "react";
 import IconSidebar from "./components/sidebar/IconSidebar";
 import ControlSidebar from "./components/sidebar/ControlSidebar";
 import MapView from "./components/map/MapView";
