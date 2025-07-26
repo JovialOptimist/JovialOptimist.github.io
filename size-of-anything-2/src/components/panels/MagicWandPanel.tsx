@@ -11,13 +11,6 @@ type NearbyPlace = {
   distance?: number;
 };
 
-const OSM_Type = {
-  NODE: "node",
-  WAY: "way",
-  RELATION: "relation",
-} as const;
-type OSM_Type = (typeof OSM_Type)[keyof typeof OSM_Type];
-
 // Define GeoJSONFeature type
 type GeoJSONFeature = {
   type: "Feature";
