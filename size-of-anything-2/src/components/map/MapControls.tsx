@@ -6,7 +6,7 @@ import React from "react";
 const MapControls: React.FC = () => {
   const handleShareClick = () => {
     // Logic to handle sharing the map view
-    alert("Share button clicked");
+    console.log("Share button clicked");
   };
 
   // If hovering, change the foreground color to white
@@ -16,10 +16,11 @@ const MapControls: React.FC = () => {
   const foregroundColor = isHovered ? "#ffffff" : "#000000";
 
   return (
-    <div
-      className="map-controls"
+    <button
+      className="map-controls icon-button"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={handleShareClick}
     >
       <svg
         fill={foregroundColor}
@@ -27,7 +28,6 @@ const MapControls: React.FC = () => {
         height="40px"
         viewBox="0 0 50 50"
         xmlns="http://www.w3.org/2000/svg"
-        onClick={handleShareClick}
       >
         <path d="M15 30c-2.8 0-5-2.2-5-5s2.2-5 5-5 5 2.2 5 5-2.2 5-5 5zm0-8c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z" />
         <path d="M35 20c-2.8 0-5-2.2-5-5s2.2-5 5-5 5 2.2 5 5-2.2 5-5 5zm0-8c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z" />
@@ -36,7 +36,7 @@ const MapControls: React.FC = () => {
         <path d="M30.993 15.885l.894 1.79-12.88 6.438-.894-1.79z" />
       </svg>
       <span>Share</span>
-    </div>
+    </button>
   );
 };
 

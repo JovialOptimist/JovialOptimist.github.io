@@ -87,7 +87,7 @@ body {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    margin-left: 0.5rem;
+    margin-left: 10px;
     cursor: pointer;
 }
 
@@ -219,7 +219,7 @@ body {
     box-shadow: var(--map-controls-shadow);
     padding: 0.5rem;
     z-index: 10000;
-    transition: background-color 0.2s, color 0.2s;
+    transition: background-color 0.2s, color 0.2s, scale 0.2s;
     cursor: pointer;
     color: white;
     display: flex;
@@ -231,15 +231,11 @@ body {
     color: var(--icon-sidebar-button-text-color);
 }
 
-.map-controls svg {
-    background: none;
-    border: none;
-    border-radius: 0.25rem;
-}
-
-.map-controls:hover {
-    background-color: var(--icon-sidebar-button-hover-bg);
-    color: var(--icon-sidebar-button-hover-text-color);
+.map-controls:active {
+    transition: background-color 0s;
+    background-color: var(--icon-sidebar-button-active-bg);
+    color: var(--icon-sidebar-button-active-text-color);
+    animation: active-scale 0.2s;
 }
 
 .active-element-display {
