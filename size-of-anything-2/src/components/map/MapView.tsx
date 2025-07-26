@@ -2,10 +2,12 @@
 import React, { useEffect, useRef } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { useMapStore } from "../../state/mapStore";
 
 export default function MapView() {
   const mapRef = useRef<HTMLDivElement>(null); // Ref to the map container
   const mapInstanceRef = useRef<L.Map | null>(null); // Store Leaflet map instance
+  const geojsonAreas = useMapStore((state) => state.geojsonAreas);
 
   useEffect(() => {
     // Prevent reinitialization
@@ -38,6 +40,27 @@ export default function MapView() {
       }
     };
   }, []);
+
+  // Add GeoJSON layers or other map features here
+  useEffect(() => {
+    if (!mapInstanceRef.current) return;
+
+    const map = mapInstanceRef.current;
+
+    // Remove any old layers first (simple implementation)
+    map.eachLayer((layer) => {
+      if ((layer as any)._isGeoJSON) {
+        map.removeLayer(layer);
+      }
+    });
+
+    geojsonAreas.forEach((feature) => {
+      const layer = L.geoJSON(feature);
+      (layer as any)._isGeoJSON = true; // Mark layer for cleanup later
+      layer.addTo(map);
+      map.fitBounds(layer.getBounds(), { padding: [40, 40] });
+    });
+  }, [geojsonAreas]);
 
   return (
     <div className="map-container">

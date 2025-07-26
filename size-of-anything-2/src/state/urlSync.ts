@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useMap } from './mapStore';
+import { useMapStore } from './mapStore';
 import { usePanel } from './panelStore';
 
 /**
@@ -7,7 +7,7 @@ import { usePanel } from './panelStore';
  */
 export const useUrlSync = () => {
   const { activePanel, setActivePanel } = usePanel();
-  const { activeAreaId, areas, setActiveArea } = useMap();
+  const { activeAreaId, areas, setActiveArea } = useMapStore();
 
   // Sync state to URL
   useEffect(() => {
