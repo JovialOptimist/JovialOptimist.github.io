@@ -4,18 +4,37 @@
     --sidebar-width: calc(var(--sidebar-button-size) + 20px);
     --control-panel-width: 300px;
     --icon-fill-size: 60%;
-    --bg-gray-50: #f9fafb;
-    --text-gray-900: #111827;
-    --gray-800: #1f2937;
-    --gray-700: #374151;
-    --gray-200: #e5e7eb;
-    --indigo-500: #6366f1;
+
+    /* Defaults */
+    --default-bg: #f9fafb;
+    --default-fg: #111827;
+
+    /* Icon sidebar styles */
+    --icon-sidebar-bg: #8fb2e6;
+    --icon-sidebar-button-bg: white;
+    --icon-sidebar-button-hover-bg: #43669e;
+    --icon-sidebar-button-active-bg: #4287f5;
+    --icon-sidebar-button-text-color: #1f2937;
+    --icon-sidebar-button-hover-text-color: white;
+    --icon-sidebar-button-active-text-color: white;
+
+    /* Control sidebar styles */
+    --control-sidebar-bg: linear-gradient(270deg, #dfe7ff, #abc3ff);
+    --control-sidebar-text-color: black;
+
+    /* Map controls and active element display styles */
+    --panel-heading-border-color: #e5e7eb;
+    --map-controls-bg: white;
+
+    --map-controls-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    --active-element-display-bg: white;
+    --active-element-display-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 /* Base styles */
 body {
-    background-color: var(--bg-gray-50);
-    color: var(--text-gray-900);
+    background-color: var(--default-bg);
+    color: var(--default-fg);
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Roboto,
@@ -37,7 +56,7 @@ body {
     left: 0;
     width: var(--sidebar-width);
     height: calc(100vh - 2rem);
-    background-color: var(--gray-800);
+    background-color: var(--icon-sidebar-bg);
     color: white;
     display: flex;
     flex-direction: column;
@@ -46,6 +65,7 @@ body {
     padding-top: 1rem;
     padding-bottom: 1rem;
     z-index: 1000;
+    box-shadow: outset 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .top-tools,
@@ -61,15 +81,14 @@ body {
     height: var(--sidebar-button-size);
     padding: 0.5rem;
     border-radius: 0.5rem;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s, scale 0.2s;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-        /* stack icon and label vertically */
-    /* <-- Center the icon horizontally */
     margin-left: 0.5rem;
+    cursor: pointer;
 }
 
 .icon-button>svg {
@@ -80,40 +99,70 @@ body {
 }
 
 .icon-button:hover {
-    background-color: var(--gray-700);
-    color: white;
+    background-color: var(--icon-sidebar-button-hover-bg);
+    color: var(--icon-sidebar-button-hover-text-color);
+}
+
+.icon-button:not(.active):hover {
+    scale: 1.05;
 }
 
 .icon-button.active {
-    background-color: var(--gray-900);
-    color: white;
+    background-color: var(--icon-sidebar-button-active-bg);
+    color: var(--icon-sidebar-button-active-text-color);
+    animation: active-scale 0.2s;
 }
 
-.icon-button.active::before {
-    content: "";
-    position: absolute;
-    left: -0.5rem;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    background-color: var(--indigo-500);
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
+@keyframes active-scale {
+    0% {
+        transform: scale(1);
+    }
+    30% {
+        transform: scale(0.85);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 /* Control sidebar */
 .control-sidebar {
     position: absolute;
     top: 0;
+    left: var(--sidebar-width);
     width: var(--control-panel-width);
-    background-color: rgb(20, 80, 200);
+    background: var(--control-sidebar-bg);
     height: 100vh;
-    min-width: 100px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    overflow-y: auto;
+    min-width: 200px;
+    max-width: 600px;
+    box-shadow: var(--map-controls-shadow);
+    overflow: hidden;
+    /* Prevent content overflow */
     z-index: 900;
     transition: transform 0.3s ease-in-out;
     transform-origin: left center;
+    display: flex;
+    flex-direction: row;
+}
+
+.sidebar-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    /* Optional: for inner spacing */
+    text-align: left;
+}
+
+/* Resize handle sits flush to the right edge */
+.resize-handle {
+    width: 6px;
+    cursor: ew-resize;
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: background-color 0.2s;
+}
+
+.resize-handle:hover {
+    background-color: rgba(255, 255, 255, 0.4);
 }
 
 /* Visible state: sidebar is positioned normally */
@@ -126,13 +175,13 @@ body {
 .control-sidebar.hidden {
     left: var(--sidebar-width);
     transform: translateX(-100%);
-    pointer-events: none; /* Prevent interaction when hidden */
+    pointer-events: none;
 }
 
 /* Panel content */
 .panel {
     padding: 1rem;
-    color: white;
+    color: var(--control-sidebar-text-color);
 }
 
 .panel h2 {
@@ -140,8 +189,8 @@ body {
     font-weight: 600;
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--gray-200);
-    color: white;
+    border-bottom: 1px solid var(--panel-heading-border-color);
+    color: var(--control-sidebar-text-color);
 }
 
 /* Map styles */
@@ -165,22 +214,43 @@ body {
     position: absolute;
     top: 1rem;
     right: 1rem;
-    background-color: white;
+    background-color: var(--icon-sidebar-button-bg);
     border-radius: 0.5rem;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--map-controls-shadow);
     padding: 0.5rem;
-    z-index: 10;
+    z-index: 10000;
+    transition: background-color 0.2s, color 0.2s;
+    cursor: pointer;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    height: var(--sidebar-button-size);
+    width: var(--sidebar-button-size);
+    align-items: center;
+    justify-content: center;
+    color: var(--icon-sidebar-button-text-color);
+}
+
+.map-controls svg {
+    background: none;
+    border: none;
+    border-radius: 0.25rem;
+}
+
+.map-controls:hover {
+    background-color: var(--icon-sidebar-button-hover-bg);
+    color: var(--icon-sidebar-button-hover-text-color);
 }
 
 .active-element-display {
     position: absolute;
     bottom: 1rem;
-    background-color: white;
+    background-color: var(--active-element-display-bg);
     border-radius: 0.5rem;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--active-element-display-shadow);
     padding: 0.75rem;
     max-width: 32rem;
-    z-index: 800; /* Below sidebars but above map */
+    z-index: 800;
     transition: left 0.3s ease-in-out;
 }
 
