@@ -32,16 +32,14 @@ jobs:
         with:
           node-version: "20"
           cache: "npm"
-          cache-dependency-path: size-of-anything/package-lock.json
+          cache-dependency-path: package-lock.json
 
       - name: Install dependencies
-        working-directory: size-of-anything
         run: npm ci
 
       # Specifically instruct GitHub Pages to ignore Jekyll processing
       # Jekyll causes issues with Vite-generated sites
       - name: Build without Jekyll
-        working-directory: size-of-anything
         run: |
           npm run build
           touch dist/.nojekyll
@@ -52,7 +50,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "./size-of-anything/dist"
+          path: "./dist"
 
       - name: Deploy to GitHub Pages
         id: deployment
