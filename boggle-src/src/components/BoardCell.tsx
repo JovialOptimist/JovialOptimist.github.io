@@ -13,6 +13,7 @@ export function BoardCell({ cell, selected, feedback, onTap, tapMode }: Props) {
   const isBlocked = cell.isBlocked;
   const isDouble = isDoubleLetterFace(cell.face);
   const label = isBlocked ? "" : faceDisplay(cell.face);
+  const interactive = tapMode && !isBlocked;
 
   return (
     <div
@@ -32,17 +33,28 @@ export function BoardCell({ cell, selected, feedback, onTap, tapMode }: Props) {
           feedback?.type === "valid" ? "board-cell--feedback-valid" : "",
           feedback?.type === "invalid" ? "board-cell--feedback-invalid" : "",
           isDouble ? "board-cell--double" : "",
-          tapMode && !isBlocked ? "board-cell--tappable" : "",
+        ]
+          .filter(Boolean)
+          .join(" ")}
+      >
+        <span className="board-cell__face">{label}</span>
+      </div>
+
+      <div
+        className={[
+          "board-cell-hit",
+          isBlocked ? "board-cell-hit--blocked" : "",
+          interactive ? "board-cell-hit--tappable" : "",
         ]
           .filter(Boolean)
           .join(" ")}
         data-row={cell.row}
         data-col={cell.col}
-        role={isBlocked ? undefined : "button"}
-        tabIndex={tapMode && !isBlocked ? 0 : -1}
-        onClick={tapMode && !isBlocked ? onTap : undefined}
+        role={interactive ? "button" : undefined}
+        tabIndex={interactive ? 0 : -1}
+        onClick={interactive ? onTap : undefined}
         onKeyDown={
-          tapMode && !isBlocked
+          interactive
             ? (e) => {
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
@@ -54,9 +66,7 @@ export function BoardCell({ cell, selected, feedback, onTap, tapMode }: Props) {
         aria-label={
           isBlocked ? "Blocked cell" : `Letter ${label}${selected ? ", selected" : ""}`
         }
-      >
-        <span className="board-cell__face">{label}</span>
-      </div>
+      />
     </div>
   );
 }
