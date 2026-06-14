@@ -1,0 +1,55 @@
+name: Deploy Boggle
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "boggle-src/**"
+      - ".github/workflows/deploy-boggle.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy-boggle
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: boggle-src/package-lock.json
+
+      - name: Install dependencies
+        working-directory: boggle-src
+        run: npm ci
+
+      - name: Build
+        working-directory: boggle-src
+        run: npm run build
+
+      - name: Sync built files to boggle/
+        run: |
+          rm -rf boggle/*
+          cp -r boggle-src/dist/* boggle/
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add boggle/
+          if git diff --staged --quiet; then
+            echo "No changes to deploy."
+          else
+            git commit -m "Deploy Boggle build"
+            git push
+          fi
