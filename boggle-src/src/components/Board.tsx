@@ -48,23 +48,23 @@ export function Board({
       {...(tapMode ? {} : handlers)}
       aria-label="Boggle board"
     >
-      <svg className="path-overlay" aria-hidden="true">
-        {path.length > 1 &&
-          path.map((coord, i) => {
-            if (i === 0) return null;
-            const prev = path[i - 1]!;
-            return (
-              <line
-                key={`${prev.row}-${prev.col}-${coord.row}-${coord.col}`}
-                x1={`${((prev.col + 0.5) / 6) * 100}%`}
-                y1={`${((prev.row + 0.5) / 6) * 100}%`}
-                x2={`${((coord.col + 0.5) / 6) * 100}%`}
-                y2={`${((coord.row + 0.5) / 6) * 100}%`}
-              />
-            );
-          })}
-      </svg>
       <div className="board-grid">
+        <svg className="path-overlay" aria-hidden="true">
+          {path.length > 1 &&
+            path.map((coord, i) => {
+              if (i === 0) return null;
+              const prev = path[i - 1]!;
+              return (
+                <line
+                  key={`${prev.row}-${prev.col}-${coord.row}-${coord.col}`}
+                  x1={`${((prev.col + 0.5) / 6) * 100}%`}
+                  y1={`${((prev.row + 0.5) / 6) * 100}%`}
+                  x2={`${((coord.col + 0.5) / 6) * 100}%`}
+                  y2={`${((coord.row + 0.5) / 6) * 100}%`}
+                />
+              );
+            })}
+        </svg>
         {board.map((row) =>
           row.map((cell) => {
             const feedback = cellFeedbackForCell(cellFeedback, cell.row, cell.col);

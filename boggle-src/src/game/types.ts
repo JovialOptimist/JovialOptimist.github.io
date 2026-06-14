@@ -16,6 +16,11 @@ export type FoundWord = {
   points: number;
 };
 
+export type JoinWord = {
+  word: string;
+  key: number;
+};
+
 export type GamePhase = "home" | "loading" | "playing" | "results";
 
 export const BOARD_SIZE = 6;

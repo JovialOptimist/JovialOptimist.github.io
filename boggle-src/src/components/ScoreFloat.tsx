@@ -1,5 +1,7 @@
 import { useLayoutEffect, useState } from "react";
+import type { CSSProperties } from "react";
 import { createPortal } from "react-dom";
+import { scoreFloatFontRem } from "../game/scoring";
 
 export type ScoreBump = {
   id: number;
@@ -41,11 +43,17 @@ export function ScoreFloat({ bump, onComplete }: Props) {
 
   if (!motion) return null;
 
+  const floatStyle: CSSProperties = {
+    left: motion.x,
+    top: motion.y,
+    fontSize: `${scoreFloatFontRem(motion.points)}rem`,
+  };
+
   return createPortal(
     <span
       key={motion.id}
       className="score-float"
-      style={{ left: motion.x, top: motion.y }}
+      style={floatStyle}
       onAnimationEnd={handleAnimationEnd}
     >
       +{motion.points}

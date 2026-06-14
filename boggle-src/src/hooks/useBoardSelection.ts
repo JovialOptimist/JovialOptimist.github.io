@@ -145,7 +145,9 @@ export function useBoardSelection({
     draggingRef.current = false;
 
     const currentPath = pathRef.current;
-    runValidation(currentPath);
+    if (currentPath.length > 1) {
+      runValidation(currentPath);
+    }
     setPath([]);
   }, [runValidation]);
 

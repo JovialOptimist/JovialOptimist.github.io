@@ -18,3 +18,11 @@ export function formatTime(seconds: number): string {
   const s = seconds % 60;
   return `${m}:${s.toString().padStart(2, "0")}`;
 }
+
+/** Baseline popup font for the minimum valid word score (4 letters = 10 pts). */
+export const SCORE_FLOAT_BASE_POINTS = 10;
+export const SCORE_FLOAT_BASE_FONT_REM = 1.4;
+
+export function scoreFloatFontRem(points: number): number {
+  return SCORE_FLOAT_BASE_FONT_REM * (points / SCORE_FLOAT_BASE_POINTS);
+}
