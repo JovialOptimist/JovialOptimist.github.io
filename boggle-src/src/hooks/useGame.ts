@@ -1,6 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { loadDictionary } from "../data/loadDictionary";
 import { generateBoard } from "../game/generateBoard";
+import {
+  clearSavedGame,
+  elapsedSecondsSince,
+  hasSavedGame,
+  loadSavedGame,
+  saveGame,
+} from "../game/gameSave";
 import { rotateBoardClockwise } from "../game/rotateBoard";
 import { scoreWord } from "../game/scoring";
 import type {
@@ -21,8 +28,12 @@ export type SubmitOutcome = {
   word: string;
 };
 
+function initialPhase(): GamePhase {
+  return hasSavedGame() ? "loading" : "home";
+}
+
 export function useGame() {
-  const [phase, setPhase] = useState<GamePhase>("home");
+  const [phase, setPhase] = useState<GamePhase>(initialPhase);
   const [board, setBoard] = useState<Board | null>(null);
   const [dictionary, setDictionary] = useState<Set<string> | null>(null);
   const [foundWords, setFoundWords] = useState<FoundWord[]>([]);
@@ -39,9 +50,49 @@ export function useGame() {
   const foundSetRef = useRef(new Set<string>());
   const bumpIdRef = useRef(0);
   const ratchetRef = useRef<number | null>(null);
+  const restoredRef = useRef(false);
 
   useEffect(() => {
-    if (phase !== "playing") return;
+    if (restoredRef.current) return;
+    restoredRef.current = true;
+
+    const saved = loadSavedGame();
+    if (!saved) {
+      setPhase((p) => (p === "loading" ? "home" : p));
+      return;
+    }
+
+    void (async () => {
+      try {
+        const dict = await loadDictionary();
+        setDictionary(dict);
+
+        const elapsed = elapsedSecondsSince(saved.savedAt);
+        const remaining = saved.secondsLeft - elapsed;
+
+        setBoard(saved.board);
+        setFoundWords(saved.foundWords);
+        foundSetRef.current = new Set(saved.foundWordsSet);
+        setTotalScore(saved.totalScore);
+        setDisplayScore(saved.totalScore);
+
+        if (saved.phase === "results" || remaining <= 0) {
+          setSecondsLeft(0);
+          setPhase("results");
+          return;
+        }
+
+        setSecondsLeft(remaining);
+        setPhase("playing");
+      } catch {
+        clearSavedGame();
+        setPhase("home");
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    if (phase !== "playing" || !board) return;
 
     if (secondsLeft <= 0) {
       setPhase("results");
@@ -53,7 +104,22 @@ export function useGame() {
     }, 1000);
 
     return () => window.clearInterval(id);
-  }, [phase, secondsLeft]);
+  }, [phase, secondsLeft, board]);
+
+  useEffect(() => {
+    if (phase !== "playing" && phase !== "results") return;
+    if (!board) return;
+
+    saveGame({
+      phase,
+      board,
+      foundWords,
+      foundWordsSet: [...foundSetRef.current],
+      totalScore,
+      secondsLeft,
+      savedAt: Date.now(),
+    });
+  }, [phase, board, foundWords, totalScore, secondsLeft]);
 
   useEffect(() => {
     return () => {
@@ -77,7 +143,8 @@ export function useGame() {
           }
           return target;
         }
-        return current + 1;
+        const step = Math.max(1, Math.ceil((target - current) / 12));
+        return Math.min(target, current + step);
       });
     }, 40);
   }, []);
@@ -85,6 +152,7 @@ export function useGame() {
   const startGame = useCallback(async () => {
     setPhase("loading");
     setLoadError(null);
+    clearSavedGame();
     try {
       const dict = dictionary ?? (await loadDictionary());
       setDictionary(dict);
@@ -167,7 +235,10 @@ export function useGame() {
     submitPath,
     rotateBoard,
     clearScoreBump: () => setScoreBump(null),
-    goHome: () => setPhase("home"),
+    goHome: () => {
+      clearSavedGame();
+      setPhase("home");
+    },
     playAgain: () => {
       void startGame();
     },

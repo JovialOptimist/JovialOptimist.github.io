@@ -268,19 +268,9 @@ body {
 
 .board-score {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 2px;
+  align-items: center;
   flex-shrink: 0;
   min-width: 0;
-}
-
-.board-score__label {
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--color-text-subtle);
-  font-weight: 600;
 }
 
 .board-score__value {
@@ -311,6 +301,11 @@ body {
   align-items: center;
   justify-content: center;
   padding: 10px 12px;
+  transition: width 0.12s ease-out;
+}
+
+.word-rail__current--sized {
+  flex: 0 0 auto;
 }
 
 .word-rail__current-text {
@@ -318,10 +313,7 @@ body {
   font-weight: 700;
   letter-spacing: 0.1em;
   text-align: center;
-  overflow: hidden;
-  text-overflow: ellipsis;
   white-space: nowrap;
-  width: 100%;
   color: var(--color-text-primary);
 }
 
@@ -343,9 +335,10 @@ body {
 }
 
 .word-rail__history {
-  flex: 1;
+  flex: 1 1 0;
   min-width: 0;
   overflow: hidden;
+  transition: flex-basis 0.15s ease-out;
   mask-image: linear-gradient(to right, black calc(100% - 28px), transparent);
   -webkit-mask-image: linear-gradient(to right, black calc(100% - 28px), transparent);
 }
@@ -360,20 +353,23 @@ body {
   scrollbar-width: none;
   -ms-overflow-style: none;
   padding: 10px 12px;
-  will-change: transform;
 }
 
-.word-rail__history-track--sliding {
-  animation: history-slide-open var(--join-anim-ms) ease-in-out forwards;
+.word-rail__join-slot {
+  flex-shrink: 0;
+  overflow: hidden;
+  width: 0;
+  min-width: 0;
+  opacity: 0;
+  transition: width var(--join-anim-ms) ease-in-out;
 }
 
-@keyframes history-slide-open {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(var(--history-slide, 0));
-  }
+.word-rail__join-slot--open {
+  width: var(--slot-width, 0);
+}
+
+.word-rail__join-slot .word-rail__history-word {
+  display: block;
 }
 
 .word-rail__history-track::-webkit-scrollbar {
@@ -404,6 +400,13 @@ body {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+.word-rail__measure--current {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: none;
 }
 
 .word-rail__flyer {

@@ -3,7 +3,9 @@ import type { CSSProperties } from "react";
 import type { FoundWord, InputMode } from "../game/types";
 
 const JOIN_ANIM_MS = 450;
-const HISTORY_GAP_PX = 10;
+const CURRENT_H_PAD = 24;
+const CURRENT_DEFAULT_FRACTION = 0.42;
+const CURRENT_MAX_FRACTION = 0.78;
 
 export type JoinWord = {
   word: string;
@@ -37,12 +39,14 @@ export function WordRail({
   onJoinComplete,
 }: Props) {
   const currentRef = useRef<HTMLDivElement>(null);
+  const currentMeasureRef = useRef<HTMLSpanElement>(null);
   const historyTrackRef = useRef<HTMLDivElement>(null);
   const measureRef = useRef<HTMLSpanElement>(null);
   const [flyer, setFlyer] = useState<Flyer | null>(null);
   const [flyerActive, setFlyerActive] = useState(false);
-  const [historySlidePx, setHistorySlidePx] = useState(0);
-  const [slideActive, setSlideActive] = useState(false);
+  const [slotWidthPx, setSlotWidthPx] = useState(0);
+  const [slotOpen, setSlotOpen] = useState(false);
+  const [currentSlotWidthPx, setCurrentSlotWidthPx] = useState<number | null>(null);
 
   const newestFirst = [...foundWords].reverse();
   const hideNewestDuringJoin =
@@ -53,8 +57,8 @@ export function WordRail({
 
   useLayoutEffect(() => {
     if (!joinWord) {
-      setHistorySlidePx(0);
-      setSlideActive(false);
+      setSlotWidthPx(0);
+      setSlotOpen(false);
       return;
     }
 
@@ -68,17 +72,17 @@ export function WordRail({
 
     measureEl.textContent = joinWord.word;
     const wordWidth = measureEl.getBoundingClientRect().width;
-    const slidePx = wordWidth + HISTORY_GAP_PX;
 
     const from = currentEl.getBoundingClientRect();
     const historyRect = historyEl.getBoundingClientRect();
     const startX = from.left + from.width / 2;
     const startY = from.top + from.height / 2;
-    const targetX = historyRect.left + 12;
+    // Flyer is center-anchored; target the center of the word's final slot.
+    const targetX = historyRect.left + 12 + wordWidth / 2;
     const targetY = historyRect.top + historyRect.height / 2;
 
-    setHistorySlidePx(slidePx);
-    setSlideActive(false);
+    setSlotWidthPx(wordWidth);
+    setSlotOpen(false);
     setFlyer({
       word: joinWord.word,
       key: joinWord.key,
@@ -94,15 +98,15 @@ export function WordRail({
     if (!flyer) return;
 
     const raf = requestAnimationFrame(() => {
+      setSlotOpen(true);
       setFlyerActive(true);
-      setSlideActive(true);
     });
 
     const timer = window.setTimeout(() => {
       setFlyer(null);
       setFlyerActive(false);
-      setSlideActive(false);
-      setHistorySlidePx(0);
+      setSlotOpen(false);
+      setSlotWidthPx(0);
       onJoinComplete();
     }, JOIN_ANIM_MS);
 
@@ -112,11 +116,52 @@ export function WordRail({
     };
   }, [flyer, onJoinComplete]);
 
+  useLayoutEffect(() => {
+    if (!isSelecting || !currentWord) {
+      setCurrentSlotWidthPx(null);
+      return;
+    }
+
+    const rail = currentRef.current?.parentElement;
+    const measureEl = currentMeasureRef.current;
+    if (!rail || !measureEl) {
+      setCurrentSlotWidthPx(null);
+      return;
+    }
+
+    const updateWidth = () => {
+      measureEl.textContent = currentWord;
+      const wordWidth = measureEl.getBoundingClientRect().width;
+      const defaultSlotWidth = rail.clientWidth * CURRENT_DEFAULT_FRACTION;
+      const maxSlotWidth = rail.clientWidth * CURRENT_MAX_FRACTION;
+      const needed = Math.ceil(wordWidth) + CURRENT_H_PAD;
+
+      if (needed <= defaultSlotWidth) {
+        setCurrentSlotWidthPx(null);
+      } else {
+        setCurrentSlotWidthPx(Math.min(needed, Math.ceil(maxSlotWidth)));
+      }
+    };
+
+    updateWidth();
+    const observer = new ResizeObserver(updateWidth);
+    observer.observe(rail);
+    return () => observer.disconnect();
+  }, [isSelecting, currentWord]);
+
   const hint = inputMode === "drag" ? "Drag letters…" : "Tap letters…";
 
   return (
     <div className="word-rail">
-      <div className="word-rail__current" ref={currentRef}>
+      <div
+        className={`word-rail__current ${currentSlotWidthPx !== null ? "word-rail__current--sized" : ""}`}
+        ref={currentRef}
+        style={
+          currentSlotWidthPx !== null
+            ? ({ width: `${currentSlotWidthPx}px` } as CSSProperties)
+            : undefined
+        }
+      >
         {isSelecting ? (
           <span className="word-rail__current-text" aria-live="polite">
             {currentWord || "\u00a0"}
@@ -129,16 +174,23 @@ export function WordRail({
       <div className="word-rail__divider" aria-hidden="true" />
 
       <div className="word-rail__history">
-        <div
-          ref={historyTrackRef}
-          className={`word-rail__history-track ${slideActive ? "word-rail__history-track--sliding" : ""}`}
-          style={
-            historySlidePx > 0
-              ? ({ "--history-slide": `${historySlidePx}px` } as CSSProperties)
-              : undefined
-          }
-        >
-          {visibleHistory.length === 0 ? (
+        <div ref={historyTrackRef} className="word-rail__history-track">
+          {joinWord && (
+            <span
+              className={`word-rail__join-slot ${slotOpen ? "word-rail__join-slot--open" : ""}`}
+              style={
+                slotWidthPx > 0
+                  ? ({ "--slot-width": `${slotWidthPx}px` } as CSSProperties)
+                  : undefined
+              }
+              aria-hidden="true"
+            >
+              <span className="word-rail__history-word">
+                {joinWord.word}
+              </span>
+            </span>
+          )}
+          {visibleHistory.length === 0 && !joinWord ? (
             <span className="word-rail__history-empty">&nbsp;</span>
           ) : (
             visibleHistory.map((w, i) => (
@@ -154,6 +206,11 @@ export function WordRail({
       </div>
 
       <span ref={measureRef} className="word-rail__measure" aria-hidden="true" />
+      <span
+        ref={currentMeasureRef}
+        className="word-rail__measure word-rail__measure--current"
+        aria-hidden="true"
+      />
 
       {flyer && (
         <span
