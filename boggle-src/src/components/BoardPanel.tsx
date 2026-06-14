@@ -8,9 +8,10 @@ import type {
   InputMode,
 } from "../game/types";
 import { Board as BoardGrid } from "./Board";
-import { CurrentWordBar } from "./CurrentWordBar";
+import { BoardScore } from "./BoardScore";
 import { InputModeToggle } from "./InputModeToggle";
-import { PastWordsStrip } from "./PastWordsStrip";
+import type { JoinWord } from "./WordRail";
+import { WordRail } from "./WordRail";
 
 type Props = {
   board: BoardType;
@@ -34,8 +35,10 @@ type Props = {
   onClearSelection: () => void;
   foundWords: FoundWord[];
   currentWord: string;
-  lastWord: string;
   isSelecting: boolean;
+  displayScore: number;
+  joinWord: JoinWord | null;
+  onJoinComplete: () => void;
 };
 
 export function BoardPanel({
@@ -54,8 +57,10 @@ export function BoardPanel({
   onClearSelection,
   foundWords,
   currentWord,
-  lastWord,
   isSelecting,
+  displayScore,
+  joinWord,
+  onJoinComplete,
 }: Props) {
   const [spinDeg, setSpinDeg] = useState(0);
   const [isSpinning, setIsSpinning] = useState(false);
@@ -77,8 +82,7 @@ export function BoardPanel({
   return (
     <div className="board-panel">
       <div className="board-panel__toolbar">
-        <PastWordsStrip words={foundWords} />
-        <div className="board-panel__controls">
+        <div className="board-panel__toolbar-left">
           <InputModeToggle
             mode={inputMode}
             onChange={onInputModeChange}
@@ -95,6 +99,7 @@ export function BoardPanel({
             ↻
           </button>
         </div>
+        <BoardScore displayScore={displayScore} />
       </div>
 
       <div
@@ -118,10 +123,13 @@ export function BoardPanel({
         />
       </div>
 
-      <CurrentWordBar
+      <WordRail
+        foundWords={foundWords}
         currentWord={currentWord}
-        lastWord={lastWord}
         isSelecting={isSelecting}
+        inputMode={inputMode}
+        joinWord={joinWord}
+        onJoinComplete={onJoinComplete}
       />
     </div>
   );

@@ -28,7 +28,6 @@ export default function App() {
           board={game.board}
           displayScore={game.displayScore}
           foundWords={game.foundWords}
-          lastWord={game.lastWord}
           secondsLeft={game.secondsLeft}
           isPlaying={game.isPlaying}
           scoreBump={game.scoreBump}

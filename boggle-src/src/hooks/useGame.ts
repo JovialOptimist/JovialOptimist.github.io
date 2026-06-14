@@ -28,7 +28,6 @@ export function useGame() {
   const [foundWords, setFoundWords] = useState<FoundWord[]>([]);
   const [secondsLeft, setSecondsLeft] = useState(ROUND_SECONDS);
   const [loadError, setLoadError] = useState<string | null>(null);
-  const [lastWord, setLastWord] = useState("");
   const [totalScore, setTotalScore] = useState(0);
   const [displayScore, setDisplayScore] = useState(0);
   const [scoreBump, setScoreBump] = useState<{
@@ -95,7 +94,6 @@ export function useGame() {
       setSecondsLeft(ROUND_SECONDS);
       setTotalScore(0);
       setDisplayScore(0);
-      setLastWord("");
       setScoreBump(null);
       setPhase("playing");
     } catch {
@@ -132,7 +130,6 @@ export function useGame() {
       const points = scoreWord(effectiveLen);
       foundSetRef.current.add(result.word);
       setFoundWords((prev) => [...prev, { word: result.word, points }]);
-      setLastWord(result.word.toUpperCase());
 
       setTotalScore((prev) => {
         const newTotal = prev + points;
@@ -162,7 +159,6 @@ export function useGame() {
     foundWords,
     totalScore,
     displayScore,
-    lastWord,
     scoreBump,
     secondsLeft,
     loadError,
