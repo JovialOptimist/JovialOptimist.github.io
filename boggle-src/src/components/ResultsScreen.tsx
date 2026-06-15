@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import type { FoundWord } from "../game/types";
 
 type Props = {
@@ -7,12 +8,25 @@ type Props = {
   onHome: () => void;
 };
 
+function sortResultsWords(words: FoundWord[]): FoundWord[] {
+  return words
+    .map((w, index) => ({ w, index }))
+    .sort((a, b) => {
+      const byLength = b.w.word.length - a.w.word.length;
+      if (byLength !== 0) return byLength;
+      return b.index - a.index;
+    })
+    .map(({ w }) => w);
+}
+
 export function ResultsScreen({
   words,
   totalScore,
   onPlayAgain,
   onHome,
 }: Props) {
+  const sortedWords = useMemo(() => sortResultsWords(words), [words]);
+
   return (
     <div className="screen screen--results">
       <header className="results-header">
@@ -25,7 +39,7 @@ export function ResultsScreen({
         {words.length === 0 ? (
           <li className="results-empty">No words found this round.</li>
         ) : (
-          words.map((w) => (
+          sortedWords.map((w) => (
             <li key={w.word}>
               <span>{w.word}</span>
               <span>{w.points}</span>
