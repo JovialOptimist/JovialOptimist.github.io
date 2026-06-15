@@ -106,8 +106,16 @@ body {
 
 .home-actions {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 12px;
+  width: 100%;
+}
+
+.home-actions .btn-primary,
+.home-actions .btn-secondary {
+  flex: 1 1 0;
+  min-width: 0;
+  width: auto;
 }
 
 .home-settings {
@@ -158,25 +166,6 @@ body {
 .setting-toggle button.active {
   background: var(--color-bg-inset);
   color: var(--color-text-primary);
-}
-
-.home-rules {
-  background: var(--color-bg-panel);
-  border-radius: 12px;
-  padding: 16px;
-}
-
-.home-rules h2 {
-  margin: 0 0 8px;
-  font-size: 1rem;
-}
-
-.home-rules ul {
-  margin: 0;
-  padding-left: 1.2rem;
-  color: var(--color-text-on-panel);
-  font-size: 0.9rem;
-  line-height: 1.5;
 }
 
 .btn-primary,
@@ -412,10 +401,26 @@ body {
   line-height: 1.45;
 }
 
+.modal__body {
+  margin-top: 10px;
+}
+
+.rules-list {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: var(--color-text-on-panel);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
 .modal__actions {
   display: flex;
   gap: 10px;
   margin-top: 20px;
+}
+
+.modal__actions--single .btn-primary {
+  width: 100%;
 }
 
 .modal__actions .btn-secondary,

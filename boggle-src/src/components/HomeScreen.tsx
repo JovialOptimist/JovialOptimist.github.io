@@ -1,5 +1,7 @@
+import { useState } from "react";
 import type { BoardSize, GameSettings, TimeMode } from "../game/settings";
 import { boardSizeLabel, gameModeLabel, timeModeLabel } from "../game/settings";
+import { InfoModal } from "./InfoModal";
 
 type Props = {
   settings: GameSettings;
@@ -11,12 +13,27 @@ type Props = {
 const BOARD_SIZES: BoardSize[] = [4, 5, 6];
 const TIME_MODES: TimeMode[] = [60, 180, 300, "freeplay"];
 
+function HowToPlayContent() {
+  return (
+    <ul className="rules-list">
+      <li>Find words of 4+ letters by connecting adjacent letters</li>
+      <li>Drag to connect letters — words validate when you release</li>
+      <li>Tap mode validates after each letter; tap the first letter to reset</li>
+      <li>Double-letter cubes (Qu, Th…) count as two letters on 6×6 boards</li>
+      <li>Blocked squares cannot be used on 6×6 boards</li>
+      <li>Tap the timer during a game to pause</li>
+    </ul>
+  );
+}
+
 export function HomeScreen({
   settings,
   onSettingsChange,
   onStart,
   error,
 }: Props) {
+  const [rulesOpen, setRulesOpen] = useState(false);
+
   const setBoardSize = (boardSize: BoardSize) => {
     onSettingsChange({ ...settings, boardSize });
   };
@@ -69,27 +86,27 @@ export function HomeScreen({
       </section>
 
       <div className="home-actions">
-        <button type="button" className="btn-primary" onClick={onStart}>
-          Single Player
+        <button
+          type="button"
+          className="btn-secondary"
+          onClick={() => setRulesOpen(true)}
+        >
+          How to play
         </button>
-        <button type="button" className="btn-secondary" disabled>
-          Multiplayer
-          <span className="badge">Coming soon</span>
+        <button type="button" className="btn-primary" onClick={onStart}>
+          Start game
         </button>
       </div>
 
       {error && <p className="error-message">{error}</p>}
 
-      <section className="home-rules">
-        <h2>How to play</h2>
-        <ul>
-          <li>Find words of 4+ letters by connecting adjacent letters</li>
-          <li>Drag to connect letters — words validate when you release</li>
-          <li>Tap mode validates after each letter; tap the first letter to reset</li>
-          <li>Double-letter cubes (Qu, Th…) count as two letters on 6×6 boards</li>
-          <li>Blocked squares cannot be used on 6×6 boards</li>
-        </ul>
-      </section>
+      <InfoModal
+        open={rulesOpen}
+        title="How to play"
+        onClose={() => setRulesOpen(false)}
+      >
+        <HowToPlayContent />
+      </InfoModal>
     </div>
   );
 }
