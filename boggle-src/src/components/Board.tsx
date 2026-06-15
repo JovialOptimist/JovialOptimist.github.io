@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import type { RefObject } from "react";
 import type { Board as BoardType, CellFeedback, Coord } from "../game/types";
 import { BoardCell } from "./BoardCell";
@@ -41,10 +42,13 @@ export function Board({
   disabled,
   handlers,
 }: Props) {
+  const boardSize = board.length;
+
   return (
     <div
       ref={boardRef}
       className={`board ${tapMode ? "board--tap" : "board--drag"}`}
+      style={{ "--board-size": boardSize } as CSSProperties}
       {...(tapMode ? {} : handlers)}
       aria-label="Boggle board"
     >
@@ -57,10 +61,10 @@ export function Board({
               return (
                 <line
                   key={`${prev.row}-${prev.col}-${coord.row}-${coord.col}`}
-                  x1={`${((prev.col + 0.5) / 6) * 100}%`}
-                  y1={`${((prev.row + 0.5) / 6) * 100}%`}
-                  x2={`${((coord.col + 0.5) / 6) * 100}%`}
-                  y2={`${((coord.row + 0.5) / 6) * 100}%`}
+                  x1={`${((prev.col + 0.5) / boardSize) * 100}%`}
+                  y1={`${((prev.row + 0.5) / boardSize) * 100}%`}
+                  x2={`${((coord.col + 0.5) / boardSize) * 100}%`}
+                  y2={`${((coord.row + 0.5) / boardSize) * 100}%`}
                 />
               );
             })}

@@ -50,7 +50,7 @@ export function canAddCell(board: Board, path: Coord[], next: Coord): boolean {
   if (path.length === 0) return true;
 
   const last = path[path.length - 1]!;
-  return neighbors(last.row, last.col).some(
+  return neighbors(last.row, last.col, board.length).some(
     (n) => n.row === next.row && n.col === next.col,
   );
 }

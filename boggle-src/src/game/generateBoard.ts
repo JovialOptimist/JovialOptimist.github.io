@@ -1,6 +1,6 @@
-import { SUPER_BIG_DICE, isBlankFace } from "../data/dice";
+import { getDiceSet, isBlankFace } from "../data/dice";
+import type { BoardSize } from "./settings";
 import type { Board, Cell } from "./types";
-import { BOARD_SIZE } from "./types";
 
 function shuffle<T>(items: T[]): T[] {
   const copy = [...items];
@@ -15,20 +15,17 @@ function pickFace(faces: string[]): string {
   return faces[Math.floor(Math.random() * faces.length)]!;
 }
 
-export function generateBoard(seed?: number): Board {
-  if (seed !== undefined) {
-    void seed;
-  }
-
-  const rolled = SUPER_BIG_DICE.map((faces) => pickFace(faces));
+export function generateBoard(boardSize: BoardSize): Board {
+  const diceSet = getDiceSet(boardSize);
+  const rolled = diceSet.map((faces) => pickFace(faces));
   const shuffled = shuffle(rolled);
 
   const board: Board = [];
   let index = 0;
 
-  for (let row = 0; row < BOARD_SIZE; row++) {
+  for (let row = 0; row < boardSize; row++) {
     const rowCells: Cell[] = [];
-    for (let col = 0; col < BOARD_SIZE; col++) {
+    for (let col = 0; col < boardSize; col++) {
       const face = shuffled[index]!;
       index++;
       rowCells.push({
@@ -45,20 +42,25 @@ export function generateBoard(seed?: number): Board {
 }
 
 export function getCell(board: Board, row: number, col: number): Cell | null {
-  if (row < 0 || col < 0 || row >= BOARD_SIZE || col >= BOARD_SIZE) {
+  const boardSize = board.length;
+  if (row < 0 || col < 0 || row >= boardSize || col >= boardSize) {
     return null;
   }
   return board[row]![col]!;
 }
 
-export function neighbors(row: number, col: number): { row: number; col: number }[] {
+export function neighbors(
+  row: number,
+  col: number,
+  boardSize: number,
+): { row: number; col: number }[] {
   const result: { row: number; col: number }[] = [];
   for (let dr = -1; dr <= 1; dr++) {
     for (let dc = -1; dc <= 1; dc++) {
       if (dr === 0 && dc === 0) continue;
       const nr = row + dr;
       const nc = col + dc;
-      if (nr >= 0 && nc >= 0 && nr < BOARD_SIZE && nc < BOARD_SIZE) {
+      if (nr >= 0 && nc >= 0 && nr < boardSize && nc < boardSize) {
         result.push({ row: nr, col: nc });
       }
     }

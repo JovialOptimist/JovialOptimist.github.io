@@ -1,11 +1,25 @@
+import type { BoardSize } from "./settings";
 import type { Board, FoundWord, GamePhase } from "./types";
-import { BOARD_SIZE } from "./types";
 
 const STORAGE_KEY = "boggle-game-save";
-const SAVE_VERSION = 1;
+const SAVE_VERSION = 2;
 
 export type SavedGame = {
   version: typeof SAVE_VERSION;
+  phase: Extract<GamePhase, "playing" | "results">;
+  boardSize: BoardSize;
+  timeLimitSeconds: number | null;
+  board: Board;
+  foundWords: FoundWord[];
+  foundWordsSet: string[];
+  totalScore: number;
+  secondsLeft: number;
+  savedAt: number;
+  isPaused: boolean;
+};
+
+type SavedGameV1 = {
+  version: 1;
   phase: Extract<GamePhase, "playing" | "results">;
   board: Board;
   foundWords: FoundWord[];
@@ -15,12 +29,16 @@ export type SavedGame = {
   savedAt: number;
 };
 
-function isValidBoard(board: unknown): board is Board {
-  if (!Array.isArray(board) || board.length !== BOARD_SIZE) return false;
+function isBoardSize(value: unknown): value is BoardSize {
+  return value === 4 || value === 5 || value === 6;
+}
+
+function isValidBoard(board: unknown, boardSize: number): board is Board {
+  if (!Array.isArray(board) || board.length !== boardSize) return false;
   return board.every(
     (row) =>
       Array.isArray(row) &&
-      row.length === BOARD_SIZE &&
+      row.length === boardSize &&
       row.every(
         (cell) =>
           cell &&
@@ -32,19 +50,51 @@ function isValidBoard(board: unknown): board is Board {
   );
 }
 
-function isValidSavedGame(data: unknown): data is SavedGame {
-  if (!data || typeof data !== "object") return false;
+function normalizeSavedGame(data: unknown): SavedGame | null {
+  if (!data || typeof data !== "object") return null;
+
+  if ((data as SavedGameV1).version === 1) {
+    const s = data as SavedGameV1;
+    const boardSize = s.board.length;
+    if (!isBoardSize(boardSize) || !isValidBoard(s.board, boardSize)) {
+      return null;
+    }
+    return {
+      version: SAVE_VERSION,
+      phase: s.phase,
+      boardSize,
+      timeLimitSeconds: 180,
+      board: s.board,
+      foundWords: s.foundWords,
+      foundWordsSet: s.foundWordsSet,
+      totalScore: s.totalScore,
+      secondsLeft: s.secondsLeft,
+      savedAt: s.savedAt,
+      isPaused: false,
+    };
+  }
+
   const s = data as SavedGame;
-  return (
-    s.version === SAVE_VERSION &&
-    (s.phase === "playing" || s.phase === "results") &&
-    isValidBoard(s.board) &&
-    Array.isArray(s.foundWords) &&
-    Array.isArray(s.foundWordsSet) &&
-    typeof s.totalScore === "number" &&
-    typeof s.secondsLeft === "number" &&
-    typeof s.savedAt === "number"
-  );
+  if (
+    s.version !== SAVE_VERSION ||
+    (s.phase !== "playing" && s.phase !== "results") ||
+    !isBoardSize(s.boardSize) ||
+    !isValidBoard(s.board, s.boardSize) ||
+    (s.timeLimitSeconds !== null &&
+      (typeof s.timeLimitSeconds !== "number" || s.timeLimitSeconds <= 0)) ||
+    !Array.isArray(s.foundWords) ||
+    !Array.isArray(s.foundWordsSet) ||
+    typeof s.totalScore !== "number" ||
+    typeof s.secondsLeft !== "number" ||
+    typeof s.savedAt !== "number"
+  ) {
+    return null;
+  }
+
+  return {
+    ...s,
+    isPaused: typeof s.isPaused === "boolean" ? s.isPaused : false,
+  };
 }
 
 export function hasSavedGame(): boolean {
@@ -60,11 +110,12 @@ export function loadSavedGame(): SavedGame | null {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return null;
     const parsed: unknown = JSON.parse(raw);
-    if (!isValidSavedGame(parsed)) {
+    const saved = normalizeSavedGame(parsed);
+    if (!saved) {
       clearSavedGame();
       return null;
     }
-    return parsed;
+    return saved;
   } catch {
     clearSavedGame();
     return null;

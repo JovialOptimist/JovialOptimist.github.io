@@ -20,7 +20,12 @@ export default function App() {
   return (
     <div className="app">
       {game.phase === "home" && (
-        <HomeScreen onStart={() => void game.startGame()} error={game.loadError} />
+        <HomeScreen
+          settings={game.settings}
+          onSettingsChange={game.setSettings}
+          onStart={() => void game.startGame()}
+          error={game.loadError}
+        />
       )}
 
       {game.phase === "playing" && game.board && (
@@ -29,6 +34,8 @@ export default function App() {
           displayScore={game.displayScore}
           foundWords={game.foundWords}
           secondsLeft={game.secondsLeft}
+          isFreeplay={game.isFreeplay}
+          isPaused={game.isPaused}
           isPlaying={game.isPlaying}
           scoreBump={game.scoreBump}
           onSubmitPath={game.submitPath}
@@ -36,6 +43,7 @@ export default function App() {
           onClearScoreBump={game.clearScoreBump}
           onLeave={game.goHome}
           onNewGame={() => void game.startGame()}
+          onTogglePause={game.togglePause}
         />
       )}
 

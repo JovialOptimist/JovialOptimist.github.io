@@ -1,9 +1,8 @@
 import type { Board, Cell } from "./types";
-import { BOARD_SIZE } from "./types";
 
 /** Rotate board 90° clockwise; updates each cell's row/col. */
 export function rotateBoardClockwise(board: Board): Board {
-  const n = BOARD_SIZE;
+  const n = board.length;
   const newBoard: Board = [];
 
   for (let row = 0; row < n; row++) {

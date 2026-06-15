@@ -110,6 +110,56 @@ body {
   gap: 12px;
 }
 
+.home-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: var(--color-bg-panel);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.home-setting {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.home-setting__label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-subtle);
+}
+
+.setting-toggle {
+  display: flex;
+  background: var(--color-bg-rail);
+  border-radius: 10px;
+  padding: 3px;
+  gap: 3px;
+}
+
+.setting-toggle button {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 36px;
+  border: none;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 6px 4px;
+}
+
+.setting-toggle button.active {
+  background: var(--color-bg-inset);
+  color: var(--color-text-primary);
+}
+
 .home-rules {
   background: var(--color-bg-panel);
   border-radius: 12px;
@@ -242,6 +292,26 @@ body {
   gap: 2px;
   padding: 0;
   min-width: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+
+.game-timer--tappable {
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 2px 8px;
+  margin: -2px -8px;
+  transition: opacity 0.12s ease;
+}
+
+.game-timer--tappable:active {
+  opacity: 0.65;
+}
+
+.game-timer--paused .game-timer__value {
+  opacity: 0.55;
 }
 
 .game-timer__label {
@@ -268,6 +338,46 @@ body {
   justify-content: center;
   min-height: 0;
   padding: 0;
+  position: relative;
+}
+
+.game-board-area--paused .board-panel {
+  pointer-events: none;
+  user-select: none;
+}
+
+.pause-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(26, 26, 46, 0.78);
+  border-radius: 14px;
+}
+
+.pause-overlay__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.pause-overlay__title {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--color-text-primary);
+}
+
+.pause-overlay__resume {
+  width: auto;
+  min-width: 160px;
+  margin: 0;
 }
 
 .modal-backdrop {
@@ -627,8 +737,8 @@ body {
 .board-grid {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(6, 1fr);
+  grid-template-columns: repeat(var(--board-size, 6), 1fr);
+  grid-template-rows: repeat(var(--board-size, 6), 1fr);
   gap: 6px;
   width: 100%;
   height: 100%;

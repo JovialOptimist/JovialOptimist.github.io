@@ -6,6 +6,7 @@ import { useBoardSelection } from "../hooks/useBoardSelection";
 import { BoardPanel } from "./BoardPanel";
 import { ConfirmModal } from "./ConfirmModal";
 import { GameTimer } from "./GameTimer";
+import { PauseOverlay } from "./PauseOverlay";
 import { ScoreFloat } from "./ScoreFloat";
 import type { JoinWord } from "./WordRail";
 
@@ -16,6 +17,8 @@ type Props = {
   displayScore: number;
   foundWords: FoundWord[];
   secondsLeft: number;
+  isFreeplay: boolean;
+  isPaused: boolean;
   isPlaying: boolean;
   scoreBump: { id: number; points: number; x: number; y: number } | null;
   onSubmitPath: (
@@ -26,6 +29,7 @@ type Props = {
   onClearScoreBump: () => void;
   onLeave: () => void;
   onNewGame: () => void;
+  onTogglePause: () => void;
 };
 
 function LeaveIcon() {
@@ -71,6 +75,8 @@ export function GameScreen({
   displayScore,
   foundWords,
   secondsLeft,
+  isFreeplay,
+  isPaused,
   isPlaying,
   scoreBump,
   onSubmitPath,
@@ -78,6 +84,7 @@ export function GameScreen({
   onClearScoreBump,
   onLeave,
   onNewGame,
+  onTogglePause,
 }: Props) {
   const boardRef = useRef<HTMLDivElement>(null);
   const [cellFeedback, setCellFeedback] = useState<CellFeedback>(null);
@@ -172,6 +179,16 @@ export function GameScreen({
 
   const isSelecting = selection.path.length > 0;
 
+  const handlePause = useCallback(() => {
+    selection.clearPath();
+    clearCellFeedback();
+    onTogglePause();
+  }, [clearCellFeedback, onTogglePause, selection]);
+
+  const handleResume = useCallback(() => {
+    onTogglePause();
+  }, [onTogglePause]);
+
   const handleConfirm = () => {
     if (confirmAction === "leave") {
       onLeave();
@@ -200,7 +217,12 @@ export function GameScreen({
           <LeaveIcon />
         </button>
 
-        <GameTimer secondsLeft={secondsLeft} />
+        <GameTimer
+          secondsLeft={secondsLeft}
+          freeplay={isFreeplay}
+          paused={isPaused}
+          onPause={handlePause}
+        />
 
         <button
           type="button"
@@ -212,7 +234,7 @@ export function GameScreen({
         </button>
       </header>
 
-      <div className="game-board-area">
+      <div className={`game-board-area ${isPaused ? "game-board-area--paused" : ""}`}>
         <BoardPanel
           board={board}
           boardRef={boardRef}
@@ -234,6 +256,7 @@ export function GameScreen({
           joinWord={joinWord}
           onJoinComplete={handleJoinComplete}
         />
+        <PauseOverlay open={isPaused} onResume={handleResume} />
       </div>
 
       <ScoreFloat bump={scoreBump} onComplete={onClearScoreBump} />

@@ -23,8 +23,6 @@ export type JoinWord = {
 
 export type GamePhase = "home" | "loading" | "playing" | "results";
 
-export const BOARD_SIZE = 6;
-export const ROUND_SECONDS = 180;
 export const MIN_WORD_LENGTH = 4;
 
 export type SubmitResult = "valid" | "invalid" | "tooShort" | "duplicate" | "ended";
