@@ -34,6 +34,8 @@ export default function App() {
           onSubmitPath={game.submitPath}
           onRotateBoard={game.rotateBoard}
           onClearScoreBump={game.clearScoreBump}
+          onLeave={game.goHome}
+          onNewGame={() => void game.startGame()}
         />
       )}
 
